@@ -241,6 +241,7 @@ input[type=file] { display:none; }
         <div class="fbadge fb-open" id="fb-open" onclick="setFilter('open')">🔴 Open</div>
         <div class="fbadge fb-bezig" id="fb-bezig" onclick="setFilter('bezig')">🟠 In behandeling</div>
         <div class="fbadge fb-klaar" id="fb-klaar" onclick="setFilter('klaar')">✅ Opgelost</div>
+        <div class="fbadge" id="fb-archief" onclick="setFilter('archief')" style="background:#f0f0f0;color:#888;border-color:#ddd;">📦 Archief</div>
       </div>
     </div>
     <div class="meld-list" id="meld-list">
@@ -411,13 +412,12 @@ async function sbUpdate(id, fields) {
   setSyncState('ok');
 }
 
-async function sbDelete(id) {
+async function sbArchive(id) {
   setSyncState('loading');
-  const r = await fetch(`${SB_URL}/rest/v1/reparaties?id=eq.${id}`, { method:'DELETE', headers: HEADERS });
+  const r = await fetch(`${SB_URL}/rest/v1/reparaties?id=eq.${id}`, { method:'PATCH', headers: HEADERS_POST, body: JSON.stringify({status:'archief'}) });
   if(!r.ok) { setSyncState('error'); throw new Error(await r.text()); }
   setSyncState('ok');
 }
-
 function setSyncState(state) {
   const dot = document.getElementById('sync-dot');
   const lbl = document.getElementById('sync-lbl');
@@ -437,7 +437,7 @@ function switchTab(n) {
 // ── FILTER ──
 function setFilter(f) {
   activeFilter = f;
-  ['all','open','bezig','klaar'].forEach(k => document.getElementById('fb-'+k).classList.toggle('sel', k===f));
+  ['all','open','bezig','klaar','archief'].forEach(k => { const el = document.getElementById('fb-'+k); if(el) el.classList.toggle('sel', k===f); });
   renderLijst();
 }
 
@@ -449,7 +449,8 @@ function renderLijst() {
   let lijst = meldingen.filter(m => {
     if(fLoc && m.locatie !== fLoc) return false;
     if(fCat && m.cat !== fCat) return false;
-    if(activeFilter !== 'all' && m.status !== activeFilter) return false;
+    if(m.status === 'archief' && activeFilter !== 'archief') return false;
+    if(activeFilter !== 'all' && activeFilter !== 'archief' && m.status !== activeFilter) return false;
     return true;
   });
   const prioOrd = {spoed:0,hoog:1,middel:2,laag:3};
@@ -510,7 +511,7 @@ function meldCard(m) {
         ${opms.length?`<div class="opm-history">${opms.slice().reverse().map(o=>`<div class="opm-item"><div class="opm-item-meta">${o.datum} · ${o.auteur||'Onbekend'}</div><div class="opm-item-txt">${o.tekst}</div></div>`).join('')}</div>`:''}
       </div>
       <div style="margin-top:16px;display:flex;justify-content:flex-end;">
-        <button class="btn btn-danger" style="font-size:12px;padding:8px 16px;" onclick="deleteMelding('${m.id}')">🗑 Verwijder melding</button>
+        <button class="btn btn-danger" style="font-size:12px;padding:8px 16px;" onclick="deleteMelding('${m.id}')">📦 Archiveer melding</button>
       </div>
     </div>
   </div>`;
@@ -549,13 +550,14 @@ async function addOpmerking(id) {
 }
 
 async function deleteMelding(id) {
-  if(!confirm('Weet je zeker dat je deze melding wilt verwijderen?')) return;
+  if(!confirm('Weet je zeker dat je deze melding wilt archiveren? De melding blijft bewaard in de database maar verdwijnt uit het overzicht.')) return;
   try {
-    await sbDelete(id);
-    meldingen = meldingen.filter(x=>x.id!==id);
+    await sbArchive(id);
+    const m = meldingen.find(x=>x.id===id);
+    if(m) m.status = 'archief';
     renderLijst();
-    toast('Melding verwijderd');
-  } catch(e) { toast('⚠ Fout bij verwijderen'); }
+    toast('Melding gearchiveerd');
+  } catch(e) { toast('⚠ Fout bij archiveren'); }
 }
 
 // ── NIEUWE MELDING ──
