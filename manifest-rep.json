@@ -1,0 +1,15 @@
+{
+  "name": "Leef Kind — Reparatiemeldingen",
+  "short_name": "LK Reparaties",
+  "description": "Reparatiemeldingen voor Leef Kind locaties",
+  "start_url": "./LeefKind_Reparaties.html",
+  "display": "standalone",
+  "background_color": "#f4efe6",
+  "theme_color": "#3ab5b5",
+  "orientation": "any",
+  "lang": "nl",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

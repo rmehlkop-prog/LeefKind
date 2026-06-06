@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leef Kind — Reparatiemeldingen</title>
+<link rel="manifest" href="manifest-rep.json">
+<meta name="theme-color" content="#3ab5b5">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Leef Kind Reparaties">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --teal:#3ab5b5; --green:#2d5a3d; --beige:#e8dfd0; --bg:#f4efe6;
+  --white:#fff; --ink:#1c2b22; --ink2:#5a7060; --border:#d0c8b8;
+  --R:#c0392b; --O:#d4713a; --Y:#c8980a; --G:#2d7a4a;
+  --shadow:0 2px 16px rgba(0,0,0,0.08); --rad:14px;
+}
+body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--ink); font-size:15px; line-height:1.5; min-height:100vh; }
+header { background:var(--teal); display:flex; align-items:center; padding:0 14px; gap:10px; height:56px; position:sticky; top:0; z-index:300; box-shadow:0 2px 12px rgba(0,0,0,0.18); }
+.logo { display:flex; flex-direction:column; line-height:1.0; flex-shrink:0; }
+.logo span { font-size:15px; font-weight:800; color:#fff; letter-spacing:-0.3px; }
+.logo-smile { display:block; width:18px; height:5px; border:2.5px solid #fff; border-top:none; border-radius:0 0 10px 10px; margin-left:auto; margin-top:1px; }
+.hdiv { display:none; }
+.htitle { flex:1; min-width:0; }
+.htitle h1 { color:#fff; font-size:12px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.htitle p { display:none; }
+@media(min-width:600px){
+  header { height:62px; padding:0 22px; gap:14px; }
+  .logo span { font-size:19px; }
+  .logo-smile { width:23px; height:6px; }
+  .hdiv { display:block; width:1px; height:28px; background:rgba(255,255,255,0.3); flex-shrink:0; }
+  .htitle h1 { font-size:14px; }
+  .htitle p { display:block; color:rgba(255,255,255,0.75); font-size:11px; }
+}
+.stripe { height:4px; background:var(--green); }
+.apptabs { display:flex; background:var(--green); position:sticky; top:56px; z-index:200; }
+@media(min-width:600px){ .apptabs { top:62px; } }
+.atab { flex:1; padding:14px 8px; text-align:center; font-size:13px; font-weight:800; color:rgba(255,255,255,0.65); cursor:pointer; transition:all .2s; border-bottom:3px solid transparent; user-select:none; }
+.atab:hover { color:#fff; }
+.atab.on { color:#fff; border-bottom-color:var(--teal); background:rgba(255,255,255,0.08); }
+.apppanel { display:none; }
+.apppanel.on { display:block; }
+.wrap { max-width:820px; margin:0 auto; padding:24px 16px 80px; }
+.tool-header { background:var(--white); border-radius:var(--rad); box-shadow:var(--shadow); padding:20px 24px; margin-bottom:20px; display:flex; align-items:center; gap:14px; }
+.tool-icon { font-size:28px; flex-shrink:0; }
+.tool-title { font-size:18px; font-weight:800; color:var(--green); }
+.tool-sub { font-size:13px; color:var(--ink2); margin-top:2px; }
+.card { background:var(--white); border-radius:var(--rad); box-shadow:var(--shadow); padding:28px 24px; margin-bottom:16px; }
+.sec-hd { display:flex; align-items:center; gap:14px; margin-bottom:22px; }
+.badge { width:46px; height:46px; border-radius:12px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:22px; }
+.b-teal{background:#d0f0f0;} .b-green{background:#d0e8d8;} .b-beige{background:var(--beige);}
+.sec-title { font-size:20px; font-weight:800; color:var(--green); }
+.sec-sub { font-size:13px; color:var(--ink2); margin-top:2px; }
+.flabel { display:block; font-size:10px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--teal); margin-bottom:5px; }
+.fgroup { margin-bottom:16px; }
+input[type=text],input[type=date],input[type=email],select,textarea { width:100%; padding:12px 14px; border:2px solid var(--border); border-radius:10px; font-family:'Nunito',sans-serif; font-size:14px; font-weight:600; color:var(--ink); background:var(--bg); outline:none; transition:border-color .2s,box-shadow .2s; }
+input:focus,select:focus,textarea:focus { border-color:var(--teal); box-shadow:0 0 0 3px rgba(58,181,181,.15); background:#fff; }
+select { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%233ab5b5' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; padding-right:38px; }
+textarea { resize:vertical; min-height:90px; }
+.form-grid { display:grid; grid-template-columns:1fr; gap:14px; }
+@media(min-width:520px){ .form-grid { grid-template-columns:1fr 1fr; } }
+.btn { padding:14px 20px; border-radius:99px; font-family:'Nunito',sans-serif; font-size:14px; font-weight:800; cursor:pointer; border:none; transition:all .18s; display:inline-flex; align-items:center; gap:8px; }
+.btn-p { background:var(--teal); color:#fff; }
+.btn-p:hover { background:#2e9e9e; transform:translateY(-1px); }
+.btn-s { background:var(--white); color:var(--ink); border:2px solid var(--border); }
+.btn-s:hover { border-color:var(--teal); color:var(--teal); }
+.btn-a { background:var(--green); color:#fff; }
+.btn-a:hover { background:#234d33; transform:translateY(-1px); }
+.btn-danger { background:#fde4e2; color:var(--R); border:2px solid #f5c6c2; }
+.btn-danger:hover { background:var(--R); color:#fff; }
+.btn-row { display:flex; gap:10px; flex-wrap:wrap; margin-top:20px; }
+.prio-btns { display:flex; gap:8px; flex-wrap:wrap; }
+.pbtn { padding:10px 18px; border-radius:99px; font-family:'Nunito',sans-serif; font-size:13px; font-weight:800; cursor:pointer; border:2px solid transparent; transition:all .15s; }
+.pbtn-laag { background:var(--beige); color:var(--ink2); border-color:var(--border); }
+.pbtn-laag.sel { background:#d4eada; color:var(--G); border-color:var(--G); }
+.pbtn-middel { background:var(--beige); color:var(--ink2); border-color:var(--border); }
+.pbtn-middel.sel { background:#fef7e0; color:var(--Y); border-color:#e6c020; }
+.pbtn-hoog { background:var(--beige); color:var(--ink2); border-color:var(--border); }
+.pbtn-hoog.sel { background:#fef0e0; color:var(--O); border-color:var(--O); }
+.pbtn-spoed { background:var(--beige); color:var(--ink2); border-color:var(--border); }
+.pbtn-spoed.sel { background:#fde4e2; color:var(--R); border-color:var(--R); }
+.fslot { width:100%; aspect-ratio:4/3; border:2px dashed var(--teal); border-radius:10px; background:#f0fafa; cursor:pointer; overflow:hidden; position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:var(--teal); font-size:12px; font-weight:700; text-align:center; transition:all .15s; }
+.fslot:hover { background:#d6f0f0; border-color:var(--green); }
+.fslot.has-foto { border-style:solid; }
+.fslot img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.fslot-icon { font-size:32px; }
+.foverlay { position:absolute; inset:0; background:rgba(0,0,0,0.45); display:flex; align-items:center; justify-content:center; gap:8px; opacity:0; transition:opacity .15s; }
+.fslot:hover .foverlay { opacity:1; }
+.foverlay button { background:#fff; border:none; border-radius:6px; padding:5px 10px; font-size:12px; font-weight:800; cursor:pointer; color:var(--ink); font-family:'Nunito',sans-serif; }
+input[type=file] { display:none; }
+.foto-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:8px; }
+.filter-bar { background:var(--white); border-radius:var(--rad); box-shadow:var(--shadow); padding:16px 20px; margin-bottom:16px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+.filter-bar select { flex:1; min-width:140px; }
+.fbadge { display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:99px; font-size:12px; font-weight:800; cursor:pointer; border:2px solid transparent; user-select:none; transition:all .15s; }
+.fb-all { background:var(--beige); color:var(--ink2); border-color:var(--border); }
+.fb-all.sel { background:var(--ink); color:#fff; border-color:var(--ink); }
+.fb-open { background:#fde4e2; color:var(--R); border-color:#f5c6c2; }
+.fb-open.sel { background:var(--R); color:#fff; }
+.fb-bezig { background:#fef0e0; color:var(--O); border-color:#f5d8c0; }
+.fb-bezig.sel { background:var(--O); color:#fff; }
+.fb-klaar { background:#d4eada; color:var(--G); border-color:#b0d8bc; }
+.fb-klaar.sel { background:var(--G); color:#fff; }
+.meld-list { display:flex; flex-direction:column; gap:12px; }
+.meld-card { background:var(--white); border-radius:var(--rad); box-shadow:var(--shadow); overflow:hidden; border-left:5px solid var(--border); transition:transform .15s, box-shadow .15s; }
+.meld-card:hover { transform:translateY(-2px); box-shadow:0 6px 24px rgba(0,0,0,0.12); }
+.meld-card.prio-spoed { border-left-color:var(--R); }
+.meld-card.prio-hoog { border-left-color:var(--O); }
+.meld-card.prio-middel { border-left-color:#e6c020; }
+.meld-card.prio-laag { border-left-color:var(--G); }
+.meld-card.status-klaar { opacity:.7; }
+.meld-top { padding:16px 20px; display:flex; align-items:flex-start; gap:12px; cursor:pointer; }
+.meld-meta { flex:1; min-width:0; }
+.meld-title { font-size:15px; font-weight:800; color:var(--ink); margin-bottom:4px; }
+.meld-sub { font-size:12px; color:var(--ink2); display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+.meld-tags { display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
+.tag { display:inline-flex; align-items:center; gap:4px; padding:3px 10px; border-radius:99px; font-size:11px; font-weight:800; }
+.tag-locatie { background:#dce8f8; color:#2355a0; }
+.tag-cat { background:var(--beige); color:var(--ink2); }
+.tag-spoed { background:#fde4e2; color:var(--R); }
+.tag-hoog { background:#fef0e0; color:var(--O); }
+.tag-middel { background:#fef7e0; color:var(--Y); }
+.tag-laag { background:#d4eada; color:var(--G); }
+.tag-open { background:#fde4e2; color:var(--R); }
+.tag-bezig { background:#fef0e0; color:var(--O); }
+.tag-klaar { background:#d4eada; color:var(--G); }
+.meld-expand { display:none; padding:0 20px 20px; border-top:1px solid var(--beige); }
+.meld-expand.open { display:block; }
+.meld-expand-grid { display:grid; grid-template-columns:1fr; gap:12px; margin-top:16px; }
+@media(min-width:520px){ .meld-expand-grid { grid-template-columns:1fr 1fr; } }
+.meld-foto-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:8px; }
+.meld-foto { width:100%; aspect-ratio:4/3; border-radius:8px; object-fit:cover; border:2px solid var(--border); cursor:pointer; }
+.info-block { background:var(--bg); border-radius:10px; padding:14px; }
+.info-label { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.07em; color:var(--teal); margin-bottom:4px; }
+.info-val { font-size:14px; font-weight:700; color:var(--ink); }
+.status-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+.stbtn { padding:8px 16px; border-radius:99px; font-family:'Nunito',sans-serif; font-size:12px; font-weight:800; cursor:pointer; border:2px solid transparent; transition:all .15s; }
+.stbtn-open { background:#fde4e2; color:var(--R); border-color:#f5c6c2; }
+.stbtn-open.sel { background:var(--R); color:#fff; }
+.stbtn-bezig { background:#fef0e0; color:var(--O); border-color:#f5d8c0; }
+.stbtn-bezig.sel { background:var(--O); color:#fff; }
+.stbtn-klaar { background:#d4eada; color:var(--G); border-color:#b0d8bc; }
+.stbtn-klaar.sel { background:var(--G); color:#fff; }
+.opm-row { margin-top:12px; }
+.opm-history { display:flex; flex-direction:column; gap:8px; margin-top:10px; max-height:180px; overflow-y:auto; }
+.opm-item { background:var(--bg); border-radius:8px; padding:10px 14px; }
+.opm-item-meta { font-size:11px; color:var(--ink2); margin-bottom:4px; }
+.opm-item-txt { font-size:13px; font-weight:600; color:var(--ink); }
+.stats-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:20px; }
+@media(min-width:520px){ .stats-grid { grid-template-columns:repeat(4,1fr); } }
+.stile { background:var(--white); border-radius:10px; box-shadow:var(--shadow); padding:14px 10px; text-align:center; border-top:4px solid var(--border); }
+.stile-lbl { font-size:10px; font-weight:800; color:var(--ink2); text-transform:uppercase; letter-spacing:.04em; margin-bottom:8px; }
+.stile-num { font-size:34px; font-weight:800; line-height:1; margin-bottom:4px; }
+.stile-sub { font-size:11px; font-weight:600; color:var(--ink2); }
+.t-red{color:var(--R);border-color:var(--R);} .t-orange{color:var(--O);border-color:var(--O);}
+.t-green{color:var(--G);border-color:var(--G);} .t-teal{color:var(--teal);border-color:var(--teal);}
+.lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:999; align-items:center; justify-content:center; }
+.lightbox.open { display:flex; }
+.lightbox img { max-width:90vw; max-height:90vh; border-radius:12px; }
+.lightbox-close { position:absolute; top:20px; right:20px; background:#fff; border:none; border-radius:50%; width:40px; height:40px; font-size:20px; cursor:pointer; font-weight:800; }
+.empty { text-align:center; padding:60px 24px; color:var(--ink2); }
+.empty-icon { font-size:52px; margin-bottom:16px; }
+.empty h3 { font-size:20px; font-weight:800; color:var(--green); margin-bottom:8px; }
+.exportpanel { background:var(--green); border-radius:var(--rad); padding:24px 28px; color:#fff; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px; margin-top:24px; }
+.exportpanel h3 { font-size:18px; font-weight:800; margin-bottom:4px; }
+.exportpanel p { font-size:13px; color:rgba(255,255,255,.7); }
+.export-btns { display:flex; gap:10px; flex-wrap:wrap; }
+.ebtn { padding:11px 20px; border-radius:99px; font-family:'Nunito',sans-serif; font-size:13px; font-weight:800; cursor:pointer; border:none; transition:all .15s; }
+.eb-csv{background:var(--teal);color:#fff;} .eb-csv:hover{background:#2e9e9e;}
+.eb-out{background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.35);} .eb-out:hover{background:rgba(255,255,255,.25);}
+.toast { position:fixed; bottom:24px; right:24px; background:var(--green); color:#fff; padding:12px 20px; border-radius:10px; font-size:14px; font-weight:700; box-shadow:0 4px 20px rgba(0,0,0,0.2); transform:translateY(80px); opacity:0; transition:all .3s; z-index:998; }
+.toast.show { transform:translateY(0); opacity:1; }
+.modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:500; align-items:center; justify-content:center; padding:20px; }
+.modal-overlay.open { display:flex; }
+.modal { background:var(--white); border-radius:var(--rad); box-shadow:0 8px 40px rgba(0,0,0,0.2); padding:28px 24px; width:100%; max-width:560px; max-height:90vh; overflow-y:auto; }
+.modal-hd { display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; }
+.modal-title { font-size:20px; font-weight:800; color:var(--green); }
+.modal-close { background:var(--beige); border:none; border-radius:50%; width:36px; height:36px; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; font-weight:800; color:var(--ink2); }
+.modal-close:hover { background:var(--border); }
+.sync-indicator { display:flex; align-items:center; gap:6px; font-size:11px; color:rgba(255,255,255,0.75); }
+.sync-dot { width:8px; height:8px; border-radius:50%; background:#4ade80; }
+.sync-dot.loading { background:#fbbf24; animation:pulse 1s infinite; }
+.sync-dot.error { background:#f87171; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+@keyframes up { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+.anim { animation:up .25s ease; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><span>Leef Kind</span><i class="logo-smile"></i></div>
+  <div class="hdiv"></div>
+  <div class="htitle">
+    <h1>Reparatiemeldingen</h1>
+    <p>Vastgoed &amp; Facilitair</p>
+  </div>
+  <div style="margin-left:auto;display:flex;gap:10px;align-items:center;">
+    <div class="sync-indicator"><div class="sync-dot" id="sync-dot"></div><span id="sync-lbl">verbonden</span></div>
+    <button class="ebtn eb-out" style="font-size:12px;padding:8px 14px;" onclick="openNieuw()">＋ Nieuwe melding</button>
+  </div>
+</header>
+<div class="stripe"></div>
+
+<div class="apptabs">
+  <div class="atab on" id="tab0" onclick="switchTab(0)">📋 Overzicht</div>
+  <div class="atab" id="tab1" onclick="switchTab(1)">📊 Statistieken</div>
+  <div class="atab" id="tab2" onclick="switchTab(2)">📤 Export</div>
+</div>
+
+<!-- TAB 0 -->
+<div class="apppanel on" id="panel0">
+  <div class="wrap">
+    <div class="tool-header">
+      <div class="tool-icon">🔧</div>
+      <div>
+        <div class="tool-title">Reparatiemeldingen</div>
+        <div class="tool-sub">Alle meldingen van alle Leef Kind locaties — live gesynchroniseerd</div>
+      </div>
+    </div>
+    <div class="filter-bar">
+      <select id="f-locatie" onchange="renderLijst()">
+        <option value="">Alle locaties</option>
+        <option>Swalmen (Robijnstraat)</option><option>Swalmen (Gevaren)</option>
+        <option>Herkenbosch</option><option>Posterholt</option>
+        <option>Sint Odiliënberg</option><option>Horn</option>
+        <option>Melick</option><option>Vlodrop</option>
+      </select>
+      <select id="f-cat" onchange="renderLijst()">
+        <option value="">Alle categorieën</option>
+        <option>🏗 Gebouw & Constructie</option><option>🔌 Elektra & Verlichting</option>
+        <option>🚿 Sanitair & Water</option><option>🌡 Verwarming & Ventilatie</option>
+        <option>🪟 Ramen & Deuren</option><option>🛋 Meubilair & Inventaris</option>
+        <option>🌳 Buitenruimte</option><option>🔒 Veiligheid & Beveiliging</option>
+        <option>📦 Overig</option>
+      </select>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <div class="fbadge fb-all sel" id="fb-all" onclick="setFilter('all')">Alles</div>
+        <div class="fbadge fb-open" id="fb-open" onclick="setFilter('open')">🔴 Open</div>
+        <div class="fbadge fb-bezig" id="fb-bezig" onclick="setFilter('bezig')">🟠 In behandeling</div>
+        <div class="fbadge fb-klaar" id="fb-klaar" onclick="setFilter('klaar')">✅ Opgelost</div>
+      </div>
+    </div>
+    <div class="meld-list" id="meld-list">
+      <div class="empty"><div class="empty-icon">⏳</div><h3>Meldingen laden...</h3></div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 1 -->
+<div class="apppanel" id="panel1">
+  <div class="wrap">
+    <div class="tool-header"><div class="tool-icon">📊</div><div><div class="tool-title">Statistieken</div><div class="tool-sub">Overzicht van alle reparatiemeldingen</div></div></div>
+    <div class="stats-grid" id="stats-tiles"></div>
+    <div class="card" id="stats-locatie"></div>
+    <div class="card" id="stats-cat"></div>
+  </div>
+</div>
+
+<!-- TAB 2 -->
+<div class="apppanel" id="panel2">
+  <div class="wrap">
+    <div class="tool-header"><div class="tool-icon">📤</div><div><div class="tool-title">Export</div><div class="tool-sub">Exporteer meldingen naar CSV of PDF-rapport</div></div></div>
+    <div class="exportpanel">
+      <div><h3>Exporteer meldingen</h3><p>Download een overzicht van alle reparatiemeldingen</p></div>
+      <div class="export-btns">
+        <button class="ebtn eb-csv" onclick="exportCSV()">⬇ CSV downloaden</button>
+        <button class="ebtn eb-out" onclick="exportPDF()">📄 PDF rapport</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL NIEUWE MELDING -->
+<div class="modal-overlay" id="modal-nieuw">
+  <div class="modal anim">
+    <div class="modal-hd">
+      <div class="modal-title">🔧 Nieuwe reparatiemelding</div>
+      <button class="modal-close" onclick="closeNieuw()">✕</button>
+    </div>
+    <div class="fgroup">
+      <label class="flabel">Locatie *</label>
+      <select id="n-locatie">
+        <option value="">— Kies locatie —</option>
+        <option>Swalmen (Robijnstraat)</option><option>Swalmen (Gevaren)</option>
+        <option>Herkenbosch</option><option>Posterholt</option>
+        <option>Sint Odiliënberg</option><option>Horn</option>
+        <option>Melick</option><option>Vlodrop</option>
+      </select>
+    </div>
+    <div class="form-grid">
+      <div class="fgroup">
+        <label class="flabel">Categorie *</label>
+        <select id="n-cat">
+          <option value="">— Kies categorie —</option>
+          <option>🏗 Gebouw & Constructie</option><option>🔌 Elektra & Verlichting</option>
+          <option>🚿 Sanitair & Water</option><option>🌡 Verwarming & Ventilatie</option>
+          <option>🪟 Ramen & Deuren</option><option>🛋 Meubilair & Inventaris</option>
+          <option>🌳 Buitenruimte</option><option>🔒 Veiligheid & Beveiliging</option>
+          <option>📦 Overig</option>
+        </select>
+      </div>
+      <div class="fgroup">
+        <label class="flabel">Datum *</label>
+        <input type="date" id="n-datum">
+      </div>
+    </div>
+    <div class="fgroup">
+      <label class="flabel">Omschrijving *</label>
+      <input type="text" id="n-titel" placeholder="Korte omschrijving van de reparatie...">
+    </div>
+    <div class="fgroup">
+      <label class="flabel">Toelichting</label>
+      <textarea id="n-toelichting" placeholder="Meer details over de situatie..."></textarea>
+    </div>
+    <div class="fgroup">
+      <label class="flabel">Prioriteit *</label>
+      <div class="prio-btns">
+        <button class="pbtn pbtn-laag" data-p="laag" onclick="selPrio(this)">🟢 Laag</button>
+        <button class="pbtn pbtn-middel" data-p="middel" onclick="selPrio(this)">🟡 Middel</button>
+        <button class="pbtn pbtn-hoog" data-p="hoog" onclick="selPrio(this)">🟠 Hoog</button>
+        <button class="pbtn pbtn-spoed" data-p="spoed" onclick="selPrio(this)">🔴 Spoed</button>
+      </div>
+    </div>
+    <div class="fgroup">
+      <label class="flabel">Gemeld door</label>
+      <input type="text" id="n-melder" placeholder="Naam medewerker...">
+    </div>
+    <div class="fgroup">
+      <label class="flabel">Foto's toevoegen</label>
+      <div class="foto-grid">
+        <div class="fslot" id="nf0" onclick="triggerFoto(0)">
+          <div class="fslot-icon">📷</div><span>Foto 1</span>
+          <div class="foverlay"><button onclick="event.stopPropagation();removeFoto(0)">✕ Verwijder</button></div>
+        </div>
+        <div class="fslot" id="nf1" onclick="triggerFoto(1)">
+          <div class="fslot-icon">📷</div><span>Foto 2</span>
+          <div class="foverlay"><button onclick="event.stopPropagation();removeFoto(1)">✕ Verwijder</button></div>
+        </div>
+      </div>
+      <input type="file" id="fi0" accept="image/*" onchange="loadFoto(0)">
+      <input type="file" id="fi1" accept="image/*" onchange="loadFoto(1)">
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-a" id="save-btn" onclick="saveMelding()">💾 Melding opslaan</button>
+      <button class="btn btn-s" onclick="closeNieuw()">Annuleren</button>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lb-img" src="" alt="Foto">
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── SUPABASE CONFIG ──
+const SB_URL = 'https://qffswdkhkmurufedoare.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmZnN3ZGtoa211cnVmZWRvYXJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA3NjAyOTksImV4cCI6MjA5NjMzNjI5OX0.37FHnOIO8CzNPYzfdPzVMCrg83lPXgzOc6d3FR8Iw0M';
+const HEADERS = { 'Content-Type': 'application/json', 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Prefer': 'return=representation' };
+
+// ── STATE ──
+let meldingen = [];
+let fotos = [null, null];
+let activePrio = '';
+let activeFilter = 'all';
+
+// ── SUPABASE API ──
+async function sbGet() {
+  setSyncState('loading');
+  try {
+    const r = await fetch(`${SB_URL}/rest/v1/reparaties?order=datum.desc`, { headers: HEADERS });
+    if(!r.ok) throw new Error(await r.text());
+    const data = await r.json();
+    meldingen = data.map(row => ({
+      ...row,
+      fotos: row.fotos ? JSON.parse(row.fotos) : [],
+      opmerkingen: row.opmerkingen ? JSON.parse(row.opmerkingen) : []
+    }));
+    setSyncState('ok');
+    return true;
+  } catch(e) {
+    console.error(e);
+    setSyncState('error');
+    toast('⚠ Kan geen verbinding maken met de database');
+    return false;
+  }
+}
+
+async function sbInsert(m) {
+  setSyncState('loading');
+  const row = { ...m, fotos: JSON.stringify(m.fotos||[]), opmerkingen: JSON.stringify(m.opmerkingen||[]) };
+  const r = await fetch(`${SB_URL}/rest/v1/reparaties`, { method:'POST', headers: HEADERS, body: JSON.stringify(row) });
+  if(!r.ok) { setSyncState('error'); throw new Error(await r.text()); }
+  setSyncState('ok');
+}
+
+async function sbUpdate(id, fields) {
+  setSyncState('loading');
+  const body = {};
+  if(fields.status !== undefined) body.status = fields.status;
+  if(fields.opmerkingen !== undefined) body.opmerkingen = JSON.stringify(fields.opmerkingen);
+  const r = await fetch(`${SB_URL}/rest/v1/reparaties?id=eq.${id}`, { method:'PATCH', headers: HEADERS, body: JSON.stringify(body) });
+  if(!r.ok) { setSyncState('error'); throw new Error(await r.text()); }
+  setSyncState('ok');
+}
+
+async function sbDelete(id) {
+  setSyncState('loading');
+  const r = await fetch(`${SB_URL}/rest/v1/reparaties?id=eq.${id}`, { method:'DELETE', headers: HEADERS });
+  if(!r.ok) { setSyncState('error'); throw new Error(await r.text()); }
+  setSyncState('ok');
+}
+
+function setSyncState(state) {
+  const dot = document.getElementById('sync-dot');
+  const lbl = document.getElementById('sync-lbl');
+  dot.className = 'sync-dot' + (state==='loading'?' loading':state==='error'?' error':'');
+  lbl.textContent = state==='loading'?'laden...':state==='error'?'offline':'verbonden';
+}
+
+// ── TABS ──
+function switchTab(n) {
+  [0,1,2].forEach(i => {
+    document.getElementById('tab'+i).classList.toggle('on', i===n);
+    document.getElementById('panel'+i).classList.toggle('on', i===n);
+  });
+  if(n===1) renderStats();
+}
+
+// ── FILTER ──
+function setFilter(f) {
+  activeFilter = f;
+  ['all','open','bezig','klaar'].forEach(k => document.getElementById('fb-'+k).classList.toggle('sel', k===f));
+  renderLijst();
+}
+
+// ── RENDER ──
+function renderLijst() {
+  const el = document.getElementById('meld-list');
+  const fLoc = document.getElementById('f-locatie').value;
+  const fCat = document.getElementById('f-cat').value;
+  let lijst = meldingen.filter(m => {
+    if(fLoc && m.locatie !== fLoc) return false;
+    if(fCat && m.cat !== fCat) return false;
+    if(activeFilter !== 'all' && m.status !== activeFilter) return false;
+    return true;
+  });
+  const prioOrd = {spoed:0,hoog:1,middel:2,laag:3};
+  lijst.sort((a,b) => {
+    if(a.status==='klaar' && b.status!=='klaar') return 1;
+    if(b.status==='klaar' && a.status!=='klaar') return -1;
+    const pd = (prioOrd[a.prio]||3)-(prioOrd[b.prio]||3);
+    if(pd!==0) return pd;
+    return new Date(b.datum)-new Date(a.datum);
+  });
+  if(!lijst.length) {
+    el.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><h3>Geen meldingen gevonden</h3><p>Pas de filters aan of maak een nieuwe melding aan.</p></div>`;
+    return;
+  }
+  el.innerHTML = lijst.map(m => meldCard(m)).join('');
+}
+
+function meldCard(m) {
+  const prioLabel = {laag:'🟢 Laag',middel:'🟡 Middel',hoog:'🟠 Hoog',spoed:'🔴 Spoed'}[m.prio]||m.prio;
+  const statusLabel = {open:'🔴 Open',bezig:'🟠 In behandeling',klaar:'✅ Opgelost'}[m.status]||m.status;
+  const fotoArr = m.fotos||[];
+  const opms = m.opmerkingen||[];
+  return `<div class="meld-card prio-${m.prio} status-${m.status}" id="mc-${m.id}">
+    <div class="meld-top" onclick="toggleCard('${m.id}')">
+      <div class="meld-meta">
+        <div class="meld-title">${m.titel}</div>
+        <div class="meld-sub"><span>${m.datum}</span>${m.melder?`<span>· ${m.melder}</span>`:''}</div>
+        <div class="meld-tags">
+          <span class="tag tag-locatie">📍 ${m.locatie}</span>
+          <span class="tag tag-cat">${m.cat}</span>
+          <span class="tag tag-${m.prio}">${prioLabel}</span>
+          <span class="tag tag-${m.status}">${statusLabel}</span>
+        </div>
+      </div>
+      <div style="font-size:20px;color:var(--ink2);padding-top:4px;" id="arr-${m.id}">▼</div>
+    </div>
+    <div class="meld-expand" id="exp-${m.id}">
+      ${m.toelichting?`<div class="info-block" style="margin-top:16px;"><div class="info-label">Toelichting</div><div class="info-val" style="font-weight:600;">${m.toelichting}</div></div>`:''}
+      ${fotoArr.length?`<div style="margin-top:14px;"><div class="flabel">Foto's</div><div class="meld-foto-grid">${fotoArr.map(f=>`<img class="meld-foto" src="${f}" onclick="openLightbox('${f}')">`).join('')}</div></div>`:''}
+      <div class="meld-expand-grid">
+        <div class="info-block"><div class="info-label">Status wijzigen</div>
+          <div class="status-row">
+            <button class="stbtn stbtn-open ${m.status==='open'?'sel':''}" onclick="setStatus('${m.id}','open')">🔴 Open</button>
+            <button class="stbtn stbtn-bezig ${m.status==='bezig'?'sel':''}" onclick="setStatus('${m.id}','bezig')">🟠 In behandeling</button>
+            <button class="stbtn stbtn-klaar ${m.status==='klaar'?'sel':''}" onclick="setStatus('${m.id}','klaar')">✅ Opgelost</button>
+          </div>
+        </div>
+        <div class="info-block"><div class="info-label">Aangemaakt</div><div class="info-val">${m.datum}</div>
+          ${m.melder?`<div class="info-label" style="margin-top:8px;">Gemeld door</div><div class="info-val">${m.melder}</div>`:''}
+        </div>
+      </div>
+      <div class="opm-row">
+        <div class="flabel">Opmerking toevoegen</div>
+        <div style="display:flex;gap:8px;margin-top:6px;">
+          <input type="text" id="opm-${m.id}" placeholder="Typ een opmerking..." style="flex:1;" onkeydown="if(event.key==='Enter')addOpmerking('${m.id}')">
+          <button class="btn btn-p" style="padding:10px 16px;" onclick="addOpmerking('${m.id}')">＋</button>
+        </div>
+        ${opms.length?`<div class="opm-history">${opms.slice().reverse().map(o=>`<div class="opm-item"><div class="opm-item-meta">${o.datum} · ${o.auteur||'Onbekend'}</div><div class="opm-item-txt">${o.tekst}</div></div>`).join('')}</div>`:''}
+      </div>
+      <div style="margin-top:16px;display:flex;justify-content:flex-end;">
+        <button class="btn btn-danger" style="font-size:12px;padding:8px 16px;" onclick="deleteMelding('${m.id}')">🗑 Verwijder melding</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function toggleCard(id) {
+  const exp = document.getElementById('exp-'+id);
+  const arr = document.getElementById('arr-'+id);
+  const open = exp.classList.toggle('open');
+  arr.textContent = open ? '▲' : '▼';
+}
+
+async function setStatus(id, status) {
+  try {
+    await sbUpdate(id, { status });
+    const m = meldingen.find(x=>x.id===id);
+    if(m) m.status = status;
+    renderLijst();
+    toast('Status bijgewerkt: ' + {open:'Open',bezig:'In behandeling',klaar:'Opgelost'}[status]);
+  } catch(e) { toast('⚠ Fout bij opslaan status'); }
+}
+
+async function addOpmerking(id) {
+  const inp = document.getElementById('opm-'+id);
+  const tekst = inp.value.trim();
+  if(!tekst) return;
+  const m = meldingen.find(x=>x.id===id);
+  if(!m) return;
+  if(!m.opmerkingen) m.opmerkingen = [];
+  m.opmerkingen.push({ tekst, datum: new Date().toLocaleDateString('nl-NL'), auteur: 'Manager FV&V' });
+  try {
+    await sbUpdate(id, { opmerkingen: m.opmerkingen });
+    renderLijst();
+    toast('Opmerking toegevoegd');
+  } catch(e) { toast('⚠ Fout bij opslaan opmerking'); }
+}
+
+async function deleteMelding(id) {
+  if(!confirm('Weet je zeker dat je deze melding wilt verwijderen?')) return;
+  try {
+    await sbDelete(id);
+    meldingen = meldingen.filter(x=>x.id!==id);
+    renderLijst();
+    toast('Melding verwijderd');
+  } catch(e) { toast('⚠ Fout bij verwijderen'); }
+}
+
+// ── NIEUWE MELDING ──
+function openNieuw() {
+  document.getElementById('modal-nieuw').classList.add('open');
+  document.getElementById('n-datum').valueAsDate = new Date();
+  fotos = [null, null]; activePrio = '';
+  document.querySelectorAll('.pbtn').forEach(b=>b.classList.remove('sel'));
+  ['n-locatie','n-cat','n-titel','n-toelichting','n-melder'].forEach(id => {
+    const el = document.getElementById(id);
+    el.value = '';
+  });
+  ['nf0','nf1'].forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.remove('has-foto');
+    const img = el.querySelector('img');
+    if(img) img.remove();
+  });
+}
+function closeNieuw() { document.getElementById('modal-nieuw').classList.remove('open'); }
+function selPrio(btn) {
+  activePrio = btn.dataset.p;
+  document.querySelectorAll('.pbtn').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+function triggerFoto(i) { document.getElementById('fi'+i).click(); }
+function loadFoto(i) {
+  const file = document.getElementById('fi'+i).files[0];
+  if(!file) return;
+  // Verklein foto voor database opslag
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const MAX = 800;
+      let w = img.width, h = img.height;
+      if(w > MAX) { h = Math.round(h*MAX/w); w = MAX; }
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      const data = canvas.toDataURL('image/jpeg', 0.75);
+      fotos[i] = data;
+      const slot = document.getElementById('nf'+i);
+      let im = slot.querySelector('img');
+      if(!im) { im = document.createElement('img'); slot.appendChild(im); }
+      im.src = data;
+      slot.classList.add('has-foto');
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+function removeFoto(i) {
+  fotos[i] = null;
+  const slot = document.getElementById('nf'+i);
+  slot.classList.remove('has-foto');
+  const img = slot.querySelector('img');
+  if(img) img.remove();
+}
+
+async function saveMelding() {
+  const loc = document.getElementById('n-locatie').value;
+  const cat = document.getElementById('n-cat').value;
+  const titel = document.getElementById('n-titel').value.trim();
+  const datum = document.getElementById('n-datum').value;
+  if(!loc||!cat||!titel||!activePrio) { toast('⚠ Vul locatie, categorie, omschrijving en prioriteit in'); return; }
+  const btn = document.getElementById('save-btn');
+  btn.textContent = '⏳ Opslaan...'; btn.disabled = true;
+  const m = {
+    id: Date.now().toString(36)+Math.random().toString(36).slice(2,6),
+    locatie:loc, cat, titel, datum,
+    toelichting: document.getElementById('n-toelichting').value.trim(),
+    melder: document.getElementById('n-melder').value.trim(),
+    prio: activePrio, status: 'open',
+    fotos: fotos.filter(Boolean), opmerkingen: []
+  };
+  try {
+    await sbInsert(m);
+    meldingen.unshift(m);
+    closeNieuw();
+    renderLijst();
+    toast('✅ Melding opgeslagen!');
+  } catch(e) { toast('⚠ Fout bij opslaan: '+e.message); }
+  btn.textContent = '💾 Melding opslaan'; btn.disabled = false;
+}
+
+// ── STATISTIEKEN ──
+function renderStats() {
+  const totaal = meldingen.length;
+  const open = meldingen.filter(m=>m.status==='open').length;
+  const bezig = meldingen.filter(m=>m.status==='bezig').length;
+  const klaar = meldingen.filter(m=>m.status==='klaar').length;
+  document.getElementById('stats-tiles').innerHTML = `
+    <div class="stile t-teal"><div class="stile-lbl">Totaal</div><div class="stile-num">${totaal}</div><div class="stile-sub">meldingen</div></div>
+    <div class="stile t-red"><div class="stile-lbl">Open</div><div class="stile-num">${open}</div><div class="stile-sub">te behandelen</div></div>
+    <div class="stile t-orange"><div class="stile-lbl">In behandeling</div><div class="stile-num">${bezig}</div><div class="stile-sub">lopend</div></div>
+    <div class="stile t-green"><div class="stile-lbl">Opgelost</div><div class="stile-num">${klaar}</div><div class="stile-sub">afgerond</div></div>`;
+  const locaties = ['Swalmen (Robijnstraat)','Swalmen (Gevaren)','Herkenbosch','Posterholt','Sint Odiliënberg','Horn','Melick','Vlodrop'];
+  const locStats = locaties.map(l=>({ naam:l, open:meldingen.filter(m=>m.locatie===l&&m.status==='open').length, totaal:meldingen.filter(m=>m.locatie===l).length })).filter(l=>l.totaal>0);
+  document.getElementById('stats-locatie').innerHTML = `
+    <div class="sec-hd"><div class="badge b-teal">📍</div><div><div class="sec-title">Per locatie</div><div class="sec-sub">Openstaande meldingen per locatie</div></div></div>
+    ${locStats.length?locStats.map(l=>`<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+      <div style="min-width:160px;font-size:13px;font-weight:700;">${l.naam}</div>
+      <div style="flex:1;height:10px;background:var(--beige);border-radius:99px;overflow:hidden;"><div style="height:100%;border-radius:99px;background:${l.open>0?'var(--R)':'var(--G)'};width:${totaal?Math.round(l.totaal/totaal*100):0}%;"></div></div>
+      <div style="font-size:13px;font-weight:800;min-width:60px;text-align:right;color:${l.open>0?'var(--R)':'var(--G)'};">${l.open} open / ${l.totaal}</div>
+    </div>`).join(''):'<p style="color:var(--ink2);font-size:14px;">Nog geen meldingen.</p>'}`;
+  const cats = ['🏗 Gebouw & Constructie','🔌 Elektra & Verlichting','🚿 Sanitair & Water','🌡 Verwarming & Ventilatie','🪟 Ramen & Deuren','🛋 Meubilair & Inventaris','🌳 Buitenruimte','🔒 Veiligheid & Beveiliging','📦 Overig'];
+  const catStats = cats.map(c=>({ naam:c, totaal:meldingen.filter(m=>m.cat===c).length })).filter(c=>c.totaal>0).sort((a,b)=>b.totaal-a.totaal);
+  document.getElementById('stats-cat').innerHTML = `
+    <div class="sec-hd"><div class="badge b-beige">🏷</div><div><div class="sec-title">Per categorie</div><div class="sec-sub">Meest voorkomende reparaties</div></div></div>
+    ${catStats.length?catStats.map(c=>`<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+      <div style="min-width:200px;font-size:13px;font-weight:700;">${c.naam}</div>
+      <div style="flex:1;height:10px;background:var(--beige);border-radius:99px;overflow:hidden;"><div style="height:100%;border-radius:99px;background:var(--teal);width:${totaal?Math.round(c.totaal/totaal*100):0}%;"></div></div>
+      <div style="font-size:13px;font-weight:800;min-width:30px;text-align:right;color:var(--teal);">${c.totaal}</div>
+    </div>`).join(''):'<p style="color:var(--ink2);font-size:14px;">Nog geen meldingen.</p>'}`;
+}
+
+// ── EXPORT ──
+function exportCSV() {
+  if(!meldingen.length) { toast('⚠ Geen meldingen om te exporteren'); return; }
+  const rows = [['ID','Datum','Locatie','Categorie','Omschrijving','Toelichting','Prioriteit','Status','Gemeld door']];
+  meldingen.forEach(m=>rows.push([m.id,m.datum,m.locatie,m.cat,m.titel,m.toelichting||'',m.prio,m.status,m.melder||'']));
+  const csv = rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));
+  a.download = 'LeefKind_Reparaties_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();
+  toast('CSV gedownload!');
+}
+
+function exportPDF() {
+  if(!meldingen.length) { toast('⚠ Geen meldingen om te exporteren'); return; }
+  const w = window.open('','_blank');
+  const datum = new Date().toLocaleDateString('nl-NL');
+  const open=meldingen.filter(m=>m.status==='open').length;
+  const bezig=meldingen.filter(m=>m.status==='bezig').length;
+  const klaar=meldingen.filter(m=>m.status==='klaar').length;
+  const rows=meldingen.map(m=>`<tr><td>${m.datum}</td><td>${m.locatie}</td><td>${m.cat}</td><td>${m.titel}</td>
+    <td><span style="padding:2px 8px;border-radius:99px;font-size:11px;font-weight:800;background:${m.prio==='spoed'?'#fde4e2':m.prio==='hoog'?'#fef0e0':m.prio==='middel'?'#fef7e0':'#d4eada'};color:${m.prio==='spoed'?'#c0392b':m.prio==='hoog'?'#d4713a':m.prio==='middel'?'#c8980a':'#2d7a4a'}">${m.prio}</span></td>
+    <td><span style="padding:2px 8px;border-radius:99px;font-size:11px;font-weight:800;background:${m.status==='open'?'#fde4e2':m.status==='bezig'?'#fef0e0':'#d4eada'};color:${m.status==='open'?'#c0392b':m.status==='bezig'?'#d4713a':'#2d7a4a'}">${m.status}</span></td>
+    <td>${m.melder||'—'}</td></tr>`).join('');
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Leef Kind Reparaties</title>
+  <style>body{font-family:Arial,sans-serif;padding:40px;color:#1c2b22;}h1{color:#2d5a3d;margin-bottom:4px;}
+  .sub{color:#5a7060;font-size:13px;margin-bottom:30px;}.stats{display:flex;gap:20px;margin-bottom:30px;}
+  .stat{background:#f4efe6;border-radius:8px;padding:12px 20px;text-align:center;}
+  .stat-n{font-size:28px;font-weight:800;}.stat-l{font-size:11px;color:#5a7060;}
+  table{width:100%;border-collapse:collapse;font-size:12px;}th{background:#2d5a3d;color:#fff;padding:8px 12px;text-align:left;}
+  td{padding:8px 12px;border-bottom:1px solid #e8dfd0;}tr:nth-child(even){background:#f9f7f4;}
+  @media print{button{display:none;}}</style></head><body>
+  <h1>🔧 Leef Kind — Reparatiemeldingen</h1>
+  <div class="sub">Rapportdatum: ${datum} · Vastgoed &amp; Facilitair</div>
+  <div class="stats">
+    <div class="stat"><div class="stat-n">${meldingen.length}</div><div class="stat-l">Totaal</div></div>
+    <div class="stat"><div class="stat-n" style="color:#c0392b">${open}</div><div class="stat-l">Open</div></div>
+    <div class="stat"><div class="stat-n" style="color:#d4713a">${bezig}</div><div class="stat-l">In behandeling</div></div>
+    <div class="stat"><div class="stat-n" style="color:#2d7a4a">${klaar}</div><div class="stat-l">Opgelost</div></div>
+  </div>
+  <button onclick="window.print()" style="margin-bottom:20px;padding:10px 20px;background:#2d5a3d;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:700;">🖨 Afdrukken</button>
+  <table><thead><tr><th>Datum</th><th>Locatie</th><th>Categorie</th><th>Omschrijving</th><th>Prioriteit</th><th>Status</th><th>Gemeld door</th></tr></thead>
+  <tbody>${rows}</tbody></table></body></html>`);
+  w.document.close();
+}
+
+// ── LIGHTBOX ──
+function openLightbox(src) { document.getElementById('lb-img').src=src; document.getElementById('lightbox').classList.add('open'); }
+function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+
+// ── TOAST ──
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2800);
+}
+
+// ── INIT ──
+(async () => {
+  await sbGet();
+  renderLijst();
+  // Ververs elke 30 seconden automatisch
+  setInterval(async () => {
+    await sbGet();
+    renderLijst();
+  }, 30000);
+})();
+
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>navigator.serviceWorker.register('sw-rep.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>
