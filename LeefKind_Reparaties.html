@@ -510,9 +510,7 @@ function meldCard(m) {
         </div>
         ${opms.length?`<div class="opm-history">${opms.slice().reverse().map(o=>`<div class="opm-item"><div class="opm-item-meta">${o.datum} · ${o.auteur||'Onbekend'}</div><div class="opm-item-txt">${o.tekst}</div></div>`).join('')}</div>`:''}
       </div>
-      <div style="margin-top:16px;display:flex;justify-content:flex-end;">
-        <button class="btn btn-danger" style="font-size:12px;padding:8px 16px;" onclick="deleteMelding('${m.id}')">📦 Archiveer melding</button>
-      </div>
+
     </div>
   </div>`;
 }
