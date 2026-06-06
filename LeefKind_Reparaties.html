@@ -362,7 +362,8 @@ input[type=file] { display:none; }
 // ── SUPABASE CONFIG ──
 const SB_URL = 'https://qffswdkhkmurufedoare.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmZnN3ZGtoa211cnVmZWRvYXJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA3NjAyOTksImV4cCI6MjA5NjMzNjI5OX0.37FHnOIO8CzNPYzfdPzVMCrg83lPXgzOc6d3FR8Iw0M';
-const HEADERS = { 'Content-Type': 'application/json', 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Prefer': 'return=representation' };
+const HEADERS = { 'Content-Type': 'application/json', 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY };
+const HEADERS_POST = { 'Content-Type': 'application/json', 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Prefer': 'return=representation' };
 
 // ── STATE ──
 let meldingen = [];
@@ -395,7 +396,7 @@ async function sbGet() {
 async function sbInsert(m) {
   setSyncState('loading');
   const row = { ...m, fotos: JSON.stringify(m.fotos||[]), opmerkingen: JSON.stringify(m.opmerkingen||[]) };
-  const r = await fetch(`${SB_URL}/rest/v1/reparaties`, { method:'POST', headers: HEADERS, body: JSON.stringify(row) });
+  const r = await fetch(`${SB_URL}/rest/v1/reparaties`, { method:'POST', headers: HEADERS_POST, body: JSON.stringify(row) });
   if(!r.ok) { setSyncState('error'); throw new Error(await r.text()); }
   setSyncState('ok');
 }
