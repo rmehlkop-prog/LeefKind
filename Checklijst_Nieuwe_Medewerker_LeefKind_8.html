@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checklijst Nieuwe Medewerker — Leef Kind</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; background: #F7F6F3; color: #1A1A1A; min-height: 100vh; padding: 1.5rem 1rem 3rem; }
+.wrap { max-width: 980px; margin: 0 auto; }
+
+/* Header */
+.header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; gap: 1rem; flex-wrap: wrap; }
+.logo-row { display: flex; align-items: center; gap: 12px; }
+.logo { width: 42px; height: 42px; background: #E8602C; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 16px; flex-shrink: 0; }
+h1 { font-size: 20px; font-weight: 600; }
+.period { font-size: 13px; color: #888; margin-top: 2px; }
+.header-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.header-badge { background: #FFF3EE; color: #C04A15; border: 1px solid #F5C4A8; border-radius: 20px; padding: 5px 14px; font-size: 12px; font-weight: 600; }
+.export-btn { background: white; border: 1px solid #DDDBD6; border-radius: 8px; padding: 6px 13px; font-size: 12px; color: #555; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: background 0.15s, border-color 0.15s; }
+.export-btn:hover { background: #F0EEE9; border-color: #C5C1BB; }
+.reset-btn { background: white; border: 1px solid #DDDBD6; border-radius: 8px; padding: 6px 13px; font-size: 12px; color: #888; cursor: pointer; transition: all 0.15s; }
+.reset-btn:hover { border-color: #E8602C; color: #E8602C; }
+
+/* Medewerker balk */
+.mw-balk { background: white; border: 1px solid #ECEAE5; border-radius: 10px; padding: 14px 18px; margin-bottom: 1.25rem; display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+.mw-veld label { display: block; font-size: 11px; color: #999; margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.04em; }
+.mw-veld input { border: 1px solid #DDDBD6; border-radius: 6px; padding: 5px 10px; font-size: 13px; color: #1A1A1A; background: #FAFAF8; outline: none; width: 180px; transition: border-color 0.15s; }
+.mw-veld input:focus { border-color: #E8602C; background: white; }
+.mw-veld input[type="date"] { width: 150px; }
+
+/* KPI cards */
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
+.kpi-card { background: white; border: 1px solid #ECEAE5; border-radius: 10px; padding: 14px 16px; transition: box-shadow 0.15s, transform 0.12s; }
+.kpi-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.07); transform: translateY(-1px); }
+.kpi-label { font-size: 12px; color: #888; margin-bottom: 6px; }
+.kpi-value { font-size: 26px; font-weight: 600; line-height: 1; color: #1A1A1A; }
+.kpi-sub { font-size: 12px; color: #999; margin-top: 5px; }
+.kpi-good .kpi-value { color: #1A6B3A; }
+.kpi-bar { height: 4px; background: #F0EEE9; border-radius: 99px; margin-top: 10px; overflow: hidden; }
+.kpi-bar-fill { height: 100%; border-radius: 99px; background: #E8602C; transition: width 0.6s ease; }
+
+/* Tabs */
+.tab-nav { display: flex; gap: 2px; border-bottom: 2px solid #ECEAE5; margin-bottom: 1.25rem; flex-wrap: wrap; }
+.tab-btn { padding: 8px 15px; border: none; background: none; font-size: 13px; color: #888; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color 0.15s; white-space: nowrap; }
+.tab-btn:hover { color: #444; }
+.tab-btn.active { color: #E8602C; border-bottom-color: #E8602C; font-weight: 500; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* Secties */
+.sectie-blok { background: white; border: 1px solid #ECEAE5; border-radius: 10px; overflow: hidden; margin-bottom: 12px; }
+.sectie-head { display: flex; align-items: center; justify-content: space-between; padding: 11px 16px; background: #FAFAF8; border-bottom: 2px solid #ECEAE5; cursor: pointer; user-select: none; }
+.sectie-head:hover { background: #F5F3EF; }
+.sectie-head-left { display: flex; align-items: center; gap: 10px; }
+.sectie-titel { font-size: 14px; font-weight: 600; color: #333; }
+.sectie-teller { font-size: 12px; color: #999; }
+.sectie-teller.klaar { color: #1A6B3A; font-weight: 600; }
+.sectie-toggle { font-size: 12px; color: #CCC; transition: transform 0.2s; }
+.sectie-toggle.open { transform: rotate(180deg); }
+
+/* Item rijen */
+.item-rij { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #F0EEE9; cursor: pointer; transition: background 0.12s; }
+.item-rij:last-child { border-bottom: none; }
+.item-rij:hover { background: #FFF8F5; }
+.item-rij.afgevinkt { background: #F6FBF8; }
+.item-rij.afgevinkt:hover { background: #EEFAF3; }
+
+/* Checkbox */
+.chk { width: 20px; height: 20px; border: 2px solid #DDDBD6; border-radius: 5px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.15s; background: white; font-size: 12px; flex-shrink: 0; margin-top: 1px; }
+.chk:hover { border-color: #E8602C; background: #FFF3EE; }
+.chk.checked { background: #27AE60; border-color: #27AE60; color: white; }
+
+/* Item tekst */
+.item-info { flex: 1; min-width: 0; }
+.item-titel { font-size: 13px; font-weight: 500; color: #1A1A1A; line-height: 1.4; }
+.item-rij.afgevinkt .item-titel { color: #999; text-decoration: line-through; }
+.item-sectie-label { font-size: 11px; color: #BBB; margin-top: 2px; }
+.item-link { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #E8602C; text-decoration: none; margin-top: 4px; background: #FFF3EE; border: 1px solid #F5C4A8; border-radius: 5px; padding: 2px 7px; transition: all 0.12s; }
+.item-link:hover { background: #FFE8D9; }
+.item-links { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
+.item-notitie { font-size: 11px; color: #AAA; margin-top: 3px; font-style: italic; }
+
+/* Info knop */
+.info-btn { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; border: 1px solid #ECEAE5; background: white; color: #BBB; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.12s; margin-top: 0; }
+.info-btn:hover { border-color: #E8602C; color: #E8602C; background: #FFF3EE; }
+
+/* Voortgang tab */
+.prog-wrap { background: white; border: 1px solid #ECEAE5; border-radius: 10px; padding: 20px; margin-bottom: 14px; }
+.prog-title { font-size: 14px; font-weight: 500; margin-bottom: 16px; color: #333; }
+.prog-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.prog-row:last-child { margin-bottom: 0; }
+.prog-label { font-size: 13px; color: #555; width: 190px; flex-shrink: 0; }
+.prog-bar-wrap { flex: 1; height: 8px; background: #F0EEE9; border-radius: 99px; overflow: hidden; }
+.prog-fill { height: 100%; border-radius: 99px; transition: width 0.8s ease; }
+.prog-pct { font-size: 13px; font-weight: 600; width: 42px; text-align: right; flex-shrink: 0; }
+
+/* Afsluiting blok */
+.afsluiting-blok { background: white; border: 1px solid #ECEAE5; border-radius: 10px; padding: 20px; margin-top: 12px; }
+.afsluiting-blok h3 { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #F0EEE9; }
+.afsluiting-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px; margin-bottom: 14px; }
+.af-veld label { display: block; font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 3px; }
+.af-veld input, .af-veld textarea { width: 100%; border: 1px solid #DDDBD6; border-radius: 6px; padding: 7px 10px; font-size: 13px; font-family: inherit; color: #1A1A1A; background: #FAFAF8; outline: none; transition: border-color 0.15s; }
+.af-veld input:focus, .af-veld textarea:focus { border-color: #E8602C; background: white; }
+.af-veld textarea { resize: vertical; min-height: 60px; }
+.af-veld.vol { grid-column: 1 / -1; }
+.handtekening-rij { display: flex; align-items: center; gap: 12px; padding-top: 14px; border-top: 1px solid #F0EEE9; }
+.handtekening-tekst { font-size: 13px; color: #333; flex: 1; line-height: 1.45; }
+
+/* Modal */
+.modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 100; align-items: center; justify-content: center; padding: 16px; }
+.modal-bg.open { display: flex; }
+.modal { background: white; border-radius: 14px; padding: 28px; max-width: 520px; width: 100%; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.18); animation: slideUp 0.2s ease; max-height: 90vh; overflow-y: auto; }
+@keyframes slideUp { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform: translateY(0); } }
+.modal-close { position: absolute; top: 16px; right: 18px; background: none; border: none; font-size: 20px; color: #AAA; cursor: pointer; }
+.modal-close:hover { color: #555; }
+.modal-eyebrow { font-size: 11px; color: #E8602C; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+.modal-title { font-size: 18px; font-weight: 600; margin-bottom: 14px; line-height: 1.3; padding-right: 24px; }
+.modal-body { font-size: 13px; color: #555; line-height: 1.7; margin-bottom: 14px; }
+.modal-body ul { padding-left: 16px; margin-top: 6px; }
+.modal-body li { margin-bottom: 3px; }
+.modal-links { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.modal-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: #E8602C; text-decoration: none; background: #FFF3EE; border: 1px solid #F5C4A8; border-radius: 6px; padding: 5px 10px; transition: all 0.12s; }
+.modal-link:hover { background: #FFE8D9; }
+.modal-note-label { font-size: 12px; color: #888; margin-bottom: 6px; }
+.modal-note-area { width: 100%; padding: 10px 12px; border: 1px solid #DDDBD6; border-radius: 8px; font-size: 13px; font-family: inherit; resize: vertical; min-height: 70px; outline: none; transition: border-color 0.15s; }
+.modal-note-area:focus { border-color: #E8602C; }
+.modal-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.modal-btn { padding: 9px 18px; border-radius: 8px; border: none; font-size: 13px; cursor: pointer; font-weight: 500; transition: all 0.15s; font-family: inherit; }
+.modal-btn-primary { background: #E8602C; color: white; }
+.modal-btn-primary:hover { background: #C84A1C; }
+.modal-btn-primary.done-state { background: #27AE60; }
+.modal-btn-primary.done-state:hover { background: #1E8E4C; }
+.modal-btn-secondary { background: #F0EEE9; color: #555; }
+.modal-btn-secondary:hover { background: #E5E2DD; }
+
+/* Wettelijk blok */
+.wettelijk { background: #F0F8FF; border: 1px solid #CEDEF0; border-radius: 8px; padding: 12px 14px; font-size: 12px; color: #555; line-height: 1.6; margin: 10px 16px 14px; }
+.wettelijk strong { color: #1A5276; }
+
+/* Geen resultaten */
+.geen { text-align: center; padding: 40px; color: #CCC; font-size: 14px; }
+
+
+/* OneDrive */
+.od-save { background: #E8F4FD; border-color: #B3D4F0; color: #1A5276; }
+.od-save:hover { background: #D0E8F8; border-color: #2E86C1; color: #1A5276; }
+.od-status { display:none; background:#EAF4FF; border:1px solid #B3D4F0; border-radius:8px; padding:9px 16px; margin-bottom:1rem; font-size:12px; color:#1A5276; align-items:center; gap:10px; }
+.od-status.zichtbaar { display:flex; }
+.od-status.fout { background:#FFF0F0; border-color:#F5C4C4; color:#922B21; }
+.od-status.ok { background:#EAFAF1; border-color:#A9DFBF; color:#1A6B3A; }
+
+footer { text-align: center; margin-top: 2.5rem; font-size: 11px; color: #CCC; }
+
+@media print {
+  .header-right, .mw-balk, .tab-nav, .info-btn, .modal-bg, .reset-btn, .export-btn { display: none !important; }
+  body { background: white; padding: 0; }
+  .sectie-blok, .afsluiting-blok { box-shadow: none; }
+}
+@media (max-width: 600px) {
+  .afsluiting-grid { grid-template-columns: 1fr; }
+  .mw-balk { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .mw-veld input { width: 100%; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo-row">
+    <div class="logo">LK</div>
+    <div>
+      <h1>Checklijst Nieuwe Medewerker</h1>
+      <div class="period">Leef Kind · v2026m06 · Intern gebruik onboarding</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <button class="reset-btn" onclick="resetAlles()">↺ Opnieuw starten</button>
+    <button class="export-btn" onclick="window.print()">🖨 Afdrukken</button>
+    <button class="export-btn od-save" id="od-save-btn" onclick="bestandOpslaan()">💾 Opslaan als bestand</button>
+    <button class="export-btn" id="od-load-btn" onclick="document.getElementById('od-file-input').click()">📂 Laden van bestand</button>
+    <input type="file" id="od-file-input" accept=".json" style="display:none" onchange="bestandLaden(event)">
+    <div class="header-badge">2026</div>
+  </div>
+</div>
+
+<!-- OneDrive statusbalk -->
+<div id="od-status" class="od-status">
+  <span id="od-status-tekst"></span>
+  <button onclick="document.getElementById('od-status').classList.remove('zichtbaar','ok','fout')" style="margin-left:auto;background:none;border:none;color:#888;cursor:pointer;font-size:14px;">✕</button>
+</div>
+
+<!-- MEDEWERKERGEGEVENS -->
+<div class="mw-balk">
+  <div class="mw-veld">
+    <label>Naam medewerker</label>
+    <input type="text" id="mw-naam" placeholder="Naam invullen…" oninput="slaOp()">
+  </div>
+  <div class="mw-veld">
+    <label>Locatie</label>
+    <input type="text" id="mw-locatie" placeholder="Locatie…" oninput="slaOp()">
+  </div>
+  <div class="mw-veld">
+    <label>Startdatum</label>
+    <input type="date" id="mw-datum" oninput="slaOp()">
+  </div>
+  <div class="mw-veld">
+    <label>Teamleider</label>
+    <input type="text" id="mw-teamleider" placeholder="Naam teamleider…" oninput="slaOp()">
+  </div>
+</div>
+
+<!-- KPI KAARTEN -->
+<div class="kpi-grid" id="kpi-grid"></div>
+
+<!-- TABS -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('checklist',this)">✓ Checklist</button>
+  <button class="tab-btn" onclick="switchTab('voortgang',this)">📊 Voortgang</button>
+</div>
+
+<!-- TAB: CHECKLIST -->
+<div id="tab-checklist" class="tab-panel active">
+  <div id="secties-container"></div>
+
+  <!-- Afsluiting -->
+  <div class="afsluiting-blok">
+    <h3>Afsluiting na 2 maanden</h3>
+    <div class="afsluiting-grid">
+      <div class="af-veld">
+        <label>Naam teamleider</label>
+        <input type="text" id="af-teamleider" placeholder="Naam…" oninput="slaOp()">
+      </div>
+      <div class="af-veld">
+        <label>Naam medewerker</label>
+        <input type="text" id="af-medewerker" placeholder="Naam…" oninput="slaOp()">
+      </div>
+      <div class="af-veld">
+        <label>Datum afsluiting</label>
+        <input type="date" id="af-datum" oninput="slaOp()">
+      </div>
+      <div class="af-veld vol">
+        <label>Opmerkingen</label>
+        <textarea id="af-opmerkingen" placeholder="Eventuele opmerkingen…" oninput="slaOp()"></textarea>
+      </div>
+    </div>
+    <div class="handtekening-rij">
+      <div class="chk" id="chk-handtekening" onclick="toggleHandtekening()"></div>
+      <div class="handtekening-tekst">Alle informatie uit dit document is mij duidelijk en heb ik mij eigen gemaakt</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: VOORTGANG -->
+<div id="tab-voortgang" class="tab-panel">
+  <div class="prog-wrap">
+    <div class="prog-title">Voortgang per sectie</div>
+    <div id="prog-secties"></div>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-title">Totaaloverzicht onboarding</div>
+    <div id="prog-totaal"></div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal-bg" onclick="sluitModalBg(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="sluitModal()">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<footer>Leef Kind · Checklijst nieuwe medewerker v2026m06 · Intern gebruik</footer>
+</div>
+
+<script>
+// ===================== DATA =====================
+const SECTIES = [
+  {
+    id: 's1',
+    titel: 'Wij werken met',
+    items: [
+      {
+        id: 1, titel: 'Cao-kinderopvang',
+        info: 'De arbeidsvoorwaarden bij Leef Kind vallen onder de Cao-kinderopvang. Hierin staan afspraken over salaris, werktijden, verlof en meer.',
+        links: [{ label: 'Cao-kinderopvang', url: 'https://www.kinderopvang-werkt.nl/arbeidsvoorwaarden/cao-kinderopvang' }]
+      },
+      {
+        id: 2, titel: 'JUS – Jaarurensystematiek',
+        info: 'Leef Kind werkt met de jaarurensystematiek (JUS). Je contracturen worden over het hele jaar verdeeld in plaats van per week vastgezet.',
+        links: [{ label: 'Informatie JUS', url: 'https://www.kinderopvang-werkt.nl/werkgevers/informatiebrochure-jaarurensystematiek-kinderopvang' }]
+      },
+      {
+        id: 3, titel: 'SharePoint – online intranet',
+        info: 'SharePoint is de online werkomgeving van Leef Kind. Hier vind je documenten, procedures, protocollen en beleidsstukken.',
+        links: [{ label: 'Microsoft SharePoint', url: 'https://www.microsoft.com/nl-nl/microsoft-365/sharepoint/collaboration' }]
+      },
+      {
+        id: 4, titel: 'Persoonlijk Leef Kind mailadres',
+        info: 'Je ontvangt een persoonlijk e-mailadres van Leef Kind (@leefkind.nl) via Microsoft 365. Dit gebruik je voor alle interne en externe communicatie.',
+        links: [{ label: 'Inloggen e-mail (Outlook)', url: 'https://outlook.office.com' }]
+      },
+      {
+        id: 5, titel: 'SDB HR – loonstrook en jaaropgave',
+        info: 'In SDB HR kun je je loonstroken en jaaropgave inzien. Ook zet je hier declaraties klaar die je maandelijks doorstuurt.',
+        links: [{ label: 'SDB Groep', url: 'https://sdbzorgt.nl/' }]
+      },
+      {
+        id: 6, titel: 'SDB-planning en Octopus app',
+        info: 'Via SDB-planning en de Octopus app kun je je werkdiensten, uren en vakantie inzien en monitoren. De desktopversie toont meer gegevens dan de app.',
+        sub: ['Werkdiensten, uren en vakantie inzien', 'Declaraties indienen', 'Desktopversie toont meer gegevens dan de Octopus app'],
+        links: [
+          { label: 'SDB Octopus (kinderopvang)', url: 'https://sdbzorgt.nl/oplossingen/sdb-octopus-voor-de-kinderopvang/' },
+          { label: 'Octopus app (App Store)', url: 'https://apps.apple.com/nl/app/octopus-app/id6472838413' },
+          { label: 'Octopus app (Google Play)', url: 'https://play.google.com/store/apps/details?id=com.sdbgroep.octopus' }
+        ]
+      },
+      {
+        id: 7, titel: 'Leef Kind Roosterverstoringsapp',
+        info: 'Via deze app worden ziekmeldingen en roosterverstoringen kenbaar gemaakt en samen opgelost. Elke medewerker wordt hieraan toegevoegd.',
+        sub: ['Ziekmelding insturen', 'Roosterverstoringen oplossen met collega\'s']
+      },
+      {
+        id: 8, titel: 'Ondernemingsregeling reiskosten',
+        info: 'Je ontvangt automatisch reiskosten woon-werk retour naar je eerste werkplek op een dag. Lees het document "Reiskosten ondernemingsregeling Leef Kind" op SharePoint voor meer informatie.',
+        links: [{ label: 'Inloggen SharePoint', url: 'https://outlook.office.com' }]
+      },
+      {
+        id: 9, titel: 'SDB-ouderportaal',
+        info: 'Via het ouderportaal communiceer je met ouders en noteer je informatie over de kinderen.',
+        links: [{ label: 'SDB Ouderportaal', url: 'https://sdbzorgt.nl/oplossingen/roosterplanning/' }]
+      },
+      {
+        id: 10, titel: 'Kijk – kind observatiesysteem',
+        info: 'Met Kijk registreer je de ontwikkeling van kinderen. Dit systeem helpt bij het volgen en versterken van kinderen.',
+        links: [{ label: 'Kijk observatiesysteem', url: 'https://www.kijkregistratie.nl' }]
+      }
+    ]
+  },
+  {
+    id: 's2',
+    titel: 'Start op locatie',
+    items: [
+      {
+        id: 11, titel: 'Welkomstbericht van de teamleider ontvangen',
+        info: 'De teamleider stuurt je een welkomstbericht met: welke groep je gaat werken, bij wie je terecht kunt met vragen, en een voorstelbrief voor ouders en collega\'s.',
+        sub: ['Welke groep je gaat werken', 'Contactpersoon voor vragen', 'Toegevoegd aan de Roosterverstoringsapp (met korte voorstelling)', 'Voorstelbrief aan ouders en collega\'s']
+      },
+      {
+        id: 12, titel: 'Rondleiding locatie op de eerste dag',
+        info: 'Op de eerste dag krijg je een rondleiding over de locatie.',
+        sub: ['Jas ophangen, kluisjes, toilet en pauzeruimte', 'Kindcentrumregels', 'Afval- en recycleverzamelpunt', 'Opslag boodschappen en schoonmaakmaterialen', 'Was- en droogruimte']
+      }
+    ]
+  },
+  {
+    id: 's3',
+    titel: '4 weken informatie',
+    items: [
+      {
+        id: 13, titel: 'Ingelogd in SDB HR en SDB-planning',
+        info: 'Je kunt zelfstandig werken in beide systemen.',
+        sub: ['Rooster inzien', 'Inschrijven op diensten', 'Reiskosten declareren (2 locaties op 1 dag, of bij scholing/overleg)', 'Verlof indienen in SDB-planning na overleg met het team'],
+        links: [
+          { label: 'SDB Octopus (kinderopvang)', url: 'https://sdbzorgt.nl/oplossingen/sdb-octopus-voor-de-kinderopvang/' },
+          { label: 'SDB HR', url: 'https://sdbzorgt.nl/' }
+        ]
+      },
+      {
+        id: 14, titel: 'Ouderportaal – je kunt ermee werken',
+        links: [{ label: 'SDB Ouderportaal', url: 'https://sdbzorgt.nl/oplossingen/roosterplanning/' }]
+      },
+      {
+        id: 15, titel: 'Op de hoogte van het basisrooster',
+        info: 'Het basisrooster wordt gemaakt op basis van ~85% van je contracturen, aangevuld met overleg, scholingen, NGU, verlof- en ziektevervanging.',
+        sub: ['Basisrooster: ~85% van contracturen', 'Werkdagen = contracturen ÷ 7,2', 'Niet-roosterdag(en): overige dag als je geen fulltimer bent']
+      },
+      {
+        id: 16, titel: 'Juiste informatie in SDB HR en SDB-planning',
+        sub: ['Eerder naar huis? Planning diezelfde dag aanpassen in SDB-planning', 'PM\'er in ontwikkeling: VVE training zelf noteren na toestemming locatiecoördinator', 'Verhuizing: adres aanpassen in HR én doorgeven bij personeelszaken en centrale planner']
+      },
+      {
+        id: 17, titel: 'Ergonomisch werken',
+        info: 'Bij Leef Kind werken we ergonomisch verantwoord om blessures te voorkomen.',
+        sub: ['Lopende kinderen klimmen zelf via het trapje op/af de verschoontafel', 'Lopende kinderen klimmen zelf in een onderbedje', 'Lopende kinderen klimmen zelf in/uit de bank bij een tafelmoment', 'Dweilen met achtjes-techniek en correcte materialen', 'Extra aandachtspunten ergonomisch werken op deze locatie: . . . . . . . . . . . . . . . . . . . . . . . . . .'],
+        links: [{ label: 'Ergonomie in de kinderopvang', url: 'https://www.arboportaal.nl/onderwerpen/ergonomie' }]
+      },
+      {
+        id: 18, titel: 'Rondleiding veiligheid gehad',
+        info: 'Je hebt een rondleiding gehad over alle veiligheidsaspecten op de locatie.',
+        sub: ['Locatie blusmiddelen en bereik brandslang', 'Brandmeldcentrale en handmelders (bij brand: altijd ook handmelder indrukken)', 'Vluchtwegen en -uitgangen (plattegrond)', 'Evacuatiebed, evacuatietas en inhoud', 'Overzicht calamiteitencoördinator', 'Gas- en waterafsluiter en stoppenkast', 'Gevaarlijke stoffen en ontstekingsbronnen (poetsmiddelen, oven e.d.)', 'Draag zorg voor een opgeruimde en veilige omgeving'],
+        links: [{ label: 'Brandveiligheid info (Brandweer NL)', url: 'https://www.brandweer.nl/onderwerpen/brandveiligheid-gebouwen' }]
+      },
+      {
+        id: 19, titel: 'Ziekmeldingsprocedure bekend',
+        info: 'De volledige instructie staat op SharePoint en in de Leef Kind Roosterverstoringsapp.',
+        sub: ['Dienst zetten op de Roosterverstoringsapp', 'Planeenheid "ziekmelding dag verantwoordelijke" raadplegen', '6:45 uur: ziek melden bij de dag verantwoordelijke', '9:00–10:00 uur: ziek melden bij Manager B&K Themby Vink (begeleiding)', 'Bij andere afwezigheid: zelf vervanging regelen als rooster al gepubliceerd is'],
+        links: [{ label: 'Instructie op SharePoint', url: 'https://outlook.office.com' }]
+      }
+    ]
+  },
+  {
+    id: 's4',
+    titel: 'Protocollen gelezen *',
+    wettelijk: true,
+    items: [
+      { id: 20, titel: 'Personeelshandboek Leef Kind', info: 'Het personeelshandboek wordt momenteel herschreven. De meest recente versie staat op SharePoint.', sub: ['Let op: wordt herschreven'], links: [{ label: 'SharePoint', url: 'https://outlook.office.com' }] },
+      { id: 21, titel: 'Gedragscode voor medewerkers Leef Kind', links: [{ label: 'SharePoint', url: 'https://outlook.office.com' }] },
+      { id: 22, titel: 'Privacy beleid Leef Kind', info: 'Het privacybeleid beschrijft hoe Leef Kind omgaat met persoonsgegevens, conform de AVG.', links: [{ label: 'Meer over AVG (AP)', url: 'https://www.autoriteitpersoonsgegevens.nl' }, { label: 'SharePoint', url: 'https://outlook.office.com' }] },
+      { id: 23, titel: 'Verzuim preventie protocol', links: [{ label: 'SharePoint', url: 'https://outlook.office.com' }] },
+      { id: 24, titel: 'Beleidsplan Veiligheid en Gezondheid Leef Kind', links: [{ label: 'SharePoint', url: 'https://outlook.office.com' }] },
+      { id: 25, titel: 'BHV werkplan', info: 'Het BHV-werkplan beschrijft de organisatie van de bedrijfshulpverlening bij Leef Kind.', links: [{ label: 'Wat is BHV? (Arboportaal)', url: 'https://www.arboportaal.nl/onderwerpen/bhv' }, { label: 'SharePoint', url: 'https://outlook.office.com' }] },
+      { id: 26, titel: 'Arbo werkplan', info: 'Het Arbo werkplan beschrijft hoe Leef Kind invulling geeft aan de verplichtingen uit de Arbeidsomstandighedenwet.', links: [{ label: 'Arbowet info', url: 'https://www.arboportaal.nl/wetgeving' }, { label: 'SharePoint', url: 'https://outlook.office.com' }] }
+    ]
+  },
+  {
+    id: 's5',
+    titel: 'Algemene informatie',
+    items: [
+      {
+        id: 27, titel: 'Indirect personeel – kennisgemaakt',
+        info: 'Overzicht van het indirecte personeel bij Leef Kind.',
+        personeel: [
+          { rol: 'Directie', naam: 'Sigrid Geurts' },
+          { rol: 'Financieel', naam: 'John Frencken' },
+          { rol: 'Manager M&O', naam: '—' },
+          { rol: 'Manager B&K', naam: 'Themby Vink' },
+          { rol: 'Manager FV&V', naam: 'Rick Mehlkop' },
+          { rol: 'Personeelszaken', naam: 'Ebelien' },
+          { rol: 'Kindplanning', naam: 'Wouter en Fleur' },
+          { rol: 'Centrale planner', naam: '—' },
+          { rol: 'Preventie medewerker', naam: '—' },
+          { rol: 'Praktijk opleider', naam: 'Jolanda Knarren' },
+          { rol: 'Ontwikkelteam', naam: 'Yvonne Aerts' },
+          { rol: 'Pedagogisch Coach', naam: 'Eline en Wendy Donders' },
+          { rol: 'BSO Coördinator', naam: '—' },
+          { rol: 'Officemedewerker', naam: 'Marlin' },
+          { rol: 'TL Swalmen Gevaren', naam: 'Lieke' },
+          { rol: 'TL Swalmen Robijnstraat', naam: 'Vanessa' },
+          { rol: 'TL Posterholt', naam: 'Niki' },
+          { rol: 'TL Herkenbosch', naam: 'Kristel' },
+          { rol: 'TL Melick', naam: 'Kristel' },
+          { rol: 'TL Sint Odiliënberg', naam: 'Sylwia' },
+          { rol: 'TL Vlodrop', naam: 'Sylwia' },
+          { rol: 'TL Horn', naam: 'Sylwia' }
+        ]
+      },
+      {
+        id: 28, titel: 'Ondernemingsraad',
+        info: 'De OR behartigt de belangen van medewerkers in samenspraak met Leef Kind. Het reglement en jaarverslagen staan op SharePoint.',
+        links: [{ label: 'OR@leefkind.nl', url: 'mailto:OR@leefkind.nl' }, { label: 'Wat doet een OR? (SER)', url: 'https://www.ser.nl/nl/thema/medezeggenschap' }]
+      },
+      {
+        id: 29, titel: 'Oudercommissie',
+        info: 'De oudercommissie behartigt de belangen van ouders. De samenstelling per locatie is terug te vinden op SharePoint.',
+        links: [{ label: 'Rol oudercommissie (Kinderopvang werkt)', url: 'https://www.kinderopvang-werkt.nl' }]
+      },
+      {
+        id: 30, titel: 'Werk-Vitaal (Arbodienst)',
+        info: 'Werk-Vitaal is de arbodienst van Leef Kind. Via Werk-Vitaal heb je toegang tot een casemanager, bedrijfsarts en vertrouwenspersonen.',
+        sub: ['Casemanager', 'Bedrijfsarts', 'Vertrouwenspersonen'],
+        links: [{ label: 'Werk-Vitaal', url: 'https://www.werk-vitaal.nl' }]
+      }
+    ]
+  }
+];
+
+// State
+const state = {};
+SECTIES.forEach(s => s.items.forEach(item => {
+  state[item.id] = { done: false, note: '' };
+}));
+let handtekening = false;
+const alleIds = SECTIES.flatMap(s => s.items.map(i => i.id));
+
+// ===================== RENDER SECTIES =====================
+function renderSecties() {
+  const container = document.getElementById('secties-container');
+  container.innerHTML = SECTIES.map(s => {
+    const itemsHtml = s.items.map(item => renderItemRij(item)).join('');
+    const wettelijkHtml = s.wettelijk ? `
+      <div class="wettelijk">
+        <strong>* Artikel 8 Arbeidsomstandighedenwet:</strong> De werkgever zorgt ervoor dat de werknemers doeltreffend worden ingelicht over de te verrichten werkzaamheden en de daaraan verbonden risico's, alsmede over de maatregelen die erop gericht zijn deze risico's te voorkomen of te beperken.
+      </div>` : '';
+    const klaar = s.items.filter(i => state[i.id].done).length;
+    return `
+      <div class="sectie-blok" id="blok-${s.id}">
+        <div class="sectie-head" onclick="toggleSectie('${s.id}')">
+          <div class="sectie-head-left">
+            <span class="sectie-titel">${s.titel}</span>
+            <span class="sectie-teller ${klaar===s.items.length?'klaar':''}" id="teller-${s.id}">${klaar} / ${s.items.length}</span>
+          </div>
+          <span class="sectie-toggle open" id="toggle-${s.id}">▼</span>
+        </div>
+        <div id="inhoud-${s.id}">
+          ${itemsHtml}
+          ${wettelijkHtml}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderItemRij(item) {
+  const done = state[item.id].done;
+  const heeftLink = item.links && item.links.length > 0;
+  const eersteLink = heeftLink ? `<a class="item-link" href="${item.links[0].url}" target="_blank" onclick="event.stopPropagation()">↗ ${item.links[0].label}</a>` : '';
+  return `
+    <div class="item-rij ${done?'afgevinkt':''}" id="rij-${item.id}" onclick="vinkItem(${item.id})">
+      <div class="chk ${done?'checked':''}" id="chk-${item.id}">✓</div>
+      <div class="item-info">
+        <div class="item-titel">${item.titel}</div>
+        ${heeftLink ? `<div class="item-links">${eersteLink}</div>` : ''}
+        ${state[item.id].note ? `<div class="item-notitie">📝 ${state[item.id].note.substring(0,60)}${state[item.id].note.length>60?'…':''}</div>` : ''}
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(${item.id})" title="Details & notitie">ℹ</button>
+    </div>`;
+}
+
+// ===================== TOGGLE SECTIE =====================
+function toggleSectie(sid) {
+  const inhoud = document.getElementById('inhoud-' + sid);
+  const toggle = document.getElementById('toggle-' + sid);
+  const open = inhoud.style.display !== 'none';
+  inhoud.style.display = open ? 'none' : '';
+  toggle.classList.toggle('open', !open);
+}
+
+// ===================== VINK ITEM =====================
+function vinkItem(id) {
+  state[id].done = !state[id].done;
+  updateItem(id);
+  updateKPI();
+  updateTellers();
+  slaOp();
+}
+
+function updateItem(id) {
+  const rij = document.getElementById('rij-' + id);
+  const chk = document.getElementById('chk-' + id);
+  if (!rij) return;
+  // Rebuild the row
+  const sectie = SECTIES.flatMap(s => s.items).find(i => i.id === id);
+  if (sectie) {
+    const done = state[id].done;
+    const heeftLink = sectie.links && sectie.links.length > 0;
+    const eersteLink = heeftLink ? `<a class="item-link" href="${sectie.links[0].url}" target="_blank" onclick="event.stopPropagation()">↗ ${sectie.links[0].label}</a>` : '';
+    rij.className = 'item-rij' + (done ? ' afgevinkt' : '');
+    rij.querySelector('.chk').className = 'chk' + (done ? ' checked' : '');
+    const info = rij.querySelector('.item-info');
+    info.innerHTML = `<div class="item-titel">${sectie.titel}</div>
+      ${heeftLink ? `<div class="item-links">${eersteLink}</div>` : ''}
+      ${state[id].note ? `<div class="item-notitie">📝 ${state[id].note.substring(0,60)}${state[id].note.length>60?'…':''}</div>` : ''}`;
+  }
+}
+
+// ===================== KPI =====================
+function updateKPI() {
+  const totaal = alleIds.length;
+  const klaar = alleIds.filter(id => state[id].done).length;
+  const pct = totaal > 0 ? Math.round(klaar / totaal * 100) : 0;
+  const open = totaal - klaar;
+
+  document.getElementById('kpi-grid').innerHTML = `
+    <div class="kpi-card ${klaar===totaal?'kpi-good':''}">
+      <div class="kpi-label">Afgerond</div>
+      <div class="kpi-value">${klaar}</div>
+      <div class="kpi-sub">van de ${totaal} punten</div>
+      <div class="kpi-bar"><div class="kpi-bar-fill" style="width:${pct}%"></div></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Openstaand</div>
+      <div class="kpi-value" style="color:${open>0?'#C04A15':'#1A6B3A'}">${open}</div>
+      <div class="kpi-sub">punten nog te doen</div>
+    </div>
+    <div class="kpi-card ${pct===100?'kpi-good':''}">
+      <div class="kpi-label">Voortgang</div>
+      <div class="kpi-value">${pct}%</div>
+      <div class="kpi-sub">${pct===100?'✓ Volledig afgerond':'bezig…'}</div>
+      <div class="kpi-bar"><div class="kpi-bar-fill" style="width:${pct}%;background:${pct===100?'#27AE60':'#E8602C'}"></div></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Secties</div>
+      <div class="kpi-value">${SECTIES.filter(s=>s.items.every(i=>state[i.id].done)).length}</div>
+      <div class="kpi-sub">van de ${SECTIES.length} secties klaar</div>
+    </div>`;
+}
+
+function updateTellers() {
+  SECTIES.forEach(s => {
+    const klaar = s.items.filter(i => state[i.id].done).length;
+    const teller = document.getElementById('teller-' + s.id);
+    if (teller) {
+      teller.textContent = `${klaar} / ${s.items.length}`;
+      teller.className = 'sectie-teller' + (klaar === s.items.length ? ' klaar' : '');
+    }
+  });
+}
+
+// ===================== HANDTEKENING =====================
+function toggleHandtekening() {
+  handtekening = !handtekening;
+  const chk = document.getElementById('chk-handtekening');
+  chk.className = 'chk' + (handtekening ? ' checked' : '');
+  slaOp();
+}
+
+// ===================== MODAL =====================
+function openModal(id) {
+  const item = SECTIES.flatMap(s => s.items).find(i => i.id === id);
+  if (!item) return;
+  const done = state[id].done;
+  const sectieNaam = SECTIES.find(s => s.items.find(i => i.id === id))?.titel || '';
+
+  const subHtml = item.sub ? `<ul>${item.sub.map(s=>`<li>${s}</li>`).join('')}</ul>` : '';
+  const personeelHtml = item.personeel ? `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px 16px;margin-top:8px;font-size:12px;">
+      ${item.personeel.map(p=>`
+        <div style="display:flex;gap:8px;">
+          <span style="color:#999;min-width:120px;font-size:11px;">${p.rol}</span>
+          <span style="font-weight:${p.naam==='—'?'400':'600'};color:${p.naam==='—'?'#CCC':'#1A1A1A'}">${p.naam}</span>
+        </div>`).join('')}
+    </div>` : '';
+  const linksHtml = item.links ? `
+    <div class="modal-links">
+      ${item.links.map(l=>`<a class="modal-link" href="${l.url}" target="_blank">↗ ${l.label}</a>`).join('')}
+    </div>` : '';
+
+  document.getElementById('modal-content').innerHTML = `
+    <div class="modal-eyebrow">${sectieNaam}</div>
+    <div class="modal-title">${item.titel}</div>
+    ${item.info || item.sub || item.personeel ? `<div class="modal-body">${item.info||''}${subHtml}${personeelHtml}</div>` : ''}
+    ${linksHtml}
+    <div class="modal-note-label">Notities / opmerkingen</div>
+    <textarea class="modal-note-area" id="modal-notitie" placeholder="Voeg een notitie toe…" oninput="updateNotitie(${id},this.value)">${state[id].note}</textarea>
+    <div class="modal-actions">
+      <button class="modal-btn modal-btn-primary ${done?'done-state':''}" id="modal-toggle-btn" onclick="vinkViaModal(${id})">
+        ${done ? '✓ Markeer als open' : '✓ Markeer als afgerond'}
+      </button>
+      <button class="modal-btn modal-btn-secondary" onclick="sluitModal()">Sluiten</button>
+    </div>`;
+  document.getElementById('modal-bg').classList.add('open');
+}
+
+function vinkViaModal(id) {
+  vinkItem(id);
+  const done = state[id].done;
+  const btn = document.getElementById('modal-toggle-btn');
+  if (btn) {
+    btn.textContent = done ? '✓ Markeer als open' : '✓ Markeer als afgerond';
+    btn.classList.toggle('done-state', done);
+  }
+}
+
+function updateNotitie(id, val) {
+  state[id].note = val;
+  updateItem(id);
+  slaOp();
+}
+
+function sluitModal() { document.getElementById('modal-bg').classList.remove('open'); }
+function sluitModalBg(e) { if (e.target.id === 'modal-bg') sluitModal(); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') sluitModal(); });
+
+// ===================== VOORTGANG TAB =====================
+function renderVoortgang() {
+  const kleuren = ['#E8602C','#2E86C1','#27AE60','#E6920A','#8E44AD'];
+  document.getElementById('prog-secties').innerHTML = SECTIES.map((s, i) => {
+    const klaar = s.items.filter(it => state[it.id].done).length;
+    const pct = Math.round(klaar / s.items.length * 100);
+    const kleur = kleuren[i % kleuren.length];
+    return `<div class="prog-row">
+      <div class="prog-label">${s.titel.replace(' *','')}</div>
+      <div class="prog-bar-wrap"><div class="prog-fill" style="width:${pct}%;background:${kleur}"></div></div>
+      <div class="prog-pct" style="color:${kleur}">${pct}%</div>
+    </div>`;
+  }).join('');
+
+  const totaal = alleIds.length;
+  const klaar = alleIds.filter(id => state[id].done).length;
+  const pct = Math.round(klaar / totaal * 100);
+  const kleur = pct === 100 ? '#27AE60' : pct >= 60 ? '#E6920A' : '#E8602C';
+  document.getElementById('prog-totaal').innerHTML = `
+    <div class="prog-row">
+      <div class="prog-label">Totaal onboarding</div>
+      <div class="prog-bar-wrap"><div class="prog-fill" style="width:${pct}%;background:${kleur}"></div></div>
+      <div class="prog-pct" style="color:${kleur}">${pct}%</div>
+    </div>
+    <div style="font-size:12px;color:#999;margin-top:12px;">${klaar} van de ${totaal} punten afgerond${pct===100?' — ✓ Onboarding volledig afgerond!':''}</div>`;
+}
+
+// ===================== TAB SWITCH =====================
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  if (id === 'voortgang') renderVoortgang();
+}
+
+// ===================== OPSLAAN / LADEN =====================
+function slaOp() {
+  try {
+    localStorage.setItem('lk_checklist_mw', JSON.stringify({
+      state,
+      handtekening,
+      mw: {
+        naam: document.getElementById('mw-naam').value,
+        locatie: document.getElementById('mw-locatie').value,
+        datum: document.getElementById('mw-datum').value,
+        teamleider: document.getElementById('mw-teamleider').value
+      },
+      af: {
+        teamleider: document.getElementById('af-teamleider').value,
+        medewerker: document.getElementById('af-medewerker').value,
+        datum: document.getElementById('af-datum').value,
+        opmerkingen: document.getElementById('af-opmerkingen').value
+      }
+    }));
+  } catch(e) {}
+}
+
+function laadOp() {
+  try {
+    const raw = localStorage.getItem('lk_checklist_mw');
+    if (!raw) return;
+    const opgeslagen = JSON.parse(raw);
+    if (opgeslagen.state) Object.assign(state, opgeslagen.state);
+    if (opgeslagen.handtekening) handtekening = opgeslagen.handtekening;
+    if (opgeslagen.mw) {
+      if (opgeslagen.mw.naam) document.getElementById('mw-naam').value = opgeslagen.mw.naam;
+      if (opgeslagen.mw.locatie) document.getElementById('mw-locatie').value = opgeslagen.mw.locatie;
+      if (opgeslagen.mw.datum) document.getElementById('mw-datum').value = opgeslagen.mw.datum;
+      if (opgeslagen.mw.teamleider) document.getElementById('mw-teamleider').value = opgeslagen.mw.teamleider;
+    }
+    if (opgeslagen.af) {
+      if (opgeslagen.af.teamleider) document.getElementById('af-teamleider').value = opgeslagen.af.teamleider;
+      if (opgeslagen.af.medewerker) document.getElementById('af-medewerker').value = opgeslagen.af.medewerker;
+      if (opgeslagen.af.datum) document.getElementById('af-datum').value = opgeslagen.af.datum;
+      if (opgeslagen.af.opmerkingen) document.getElementById('af-opmerkingen').value = opgeslagen.af.opmerkingen;
+    }
+  } catch(e) {}
+}
+
+function resetAlles() {
+  if (!confirm('Weet je zeker dat je de checklist opnieuw wilt starten? Alle vinkjes en notities worden gewist.')) return;
+  alleIds.forEach(id => { state[id] = { done: false, note: '' }; });
+  handtekening = false;
+  document.getElementById('chk-handtekening').className = 'chk';
+  ['mw-naam','mw-locatie','mw-datum','mw-teamleider','af-teamleider','af-medewerker','af-datum','af-opmerkingen']
+    .forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  try { localStorage.removeItem('lk_checklist_mw'); } catch(e) {}
+  renderSecties();
+  updateKPI();
+  updateTellers();
+}
+
+
+// ===================== BESTAND OPSLAAN / LADEN (OneDrive via verkenner) =====================
+
+function odStatus(tekst, type = '') {
+  const el = document.getElementById('od-status');
+  const t = document.getElementById('od-status-tekst');
+  t.textContent = tekst;
+  el.classList.remove('ok','fout');
+  el.classList.add('zichtbaar');
+  if (type) el.classList.add(type);
+}
+
+function verzamelData() {
+  return JSON.stringify({
+    versie: '2026m06',
+    state,
+    handtekening,
+    mw: {
+      naam: document.getElementById('mw-naam').value,
+      locatie: document.getElementById('mw-locatie').value,
+      datum: document.getElementById('mw-datum').value,
+      teamleider: document.getElementById('mw-teamleider').value
+    },
+    af: {
+      teamleider: document.getElementById('af-teamleider').value,
+      medewerker: document.getElementById('af-medewerker').value,
+      datum: document.getElementById('af-datum').value,
+      opmerkingen: document.getElementById('af-opmerkingen').value
+    },
+    opgeslagenOp: new Date().toISOString()
+  }, null, 2);
+}
+
+function bestandOpslaan() {
+  try {
+    const naam = document.getElementById('mw-naam').value.trim().replace(/\s+/g, '_') || 'onbekend';
+    const datum = new Date().toISOString().slice(0, 10);
+    const bestandsnaam = `onboarding_${naam}_${datum}.json`;
+
+    const blob = new Blob([verzamelData()], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = bestandsnaam;
+    a.click();
+    URL.revokeObjectURL(a.href);
+
+    odStatus(`✓ Bestand "${bestandsnaam}" gedownload — sla het op in OneDrive voor later gebruik`, 'ok');
+  } catch(e) {
+    odStatus(`✗ Opslaan mislukt: ${e.message}`, 'fout');
+  }
+}
+
+function bestandLaden(event) {
+  const bestand = event.target.files[0];
+  if (!bestand) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const opgeslagen = JSON.parse(e.target.result);
+
+      if (opgeslagen.state) Object.assign(state, opgeslagen.state);
+      if (typeof opgeslagen.handtekening !== 'undefined') handtekening = opgeslagen.handtekening;
+      if (opgeslagen.mw) {
+        if (opgeslagen.mw.naam) document.getElementById('mw-naam').value = opgeslagen.mw.naam;
+        if (opgeslagen.mw.locatie) document.getElementById('mw-locatie').value = opgeslagen.mw.locatie;
+        if (opgeslagen.mw.datum) document.getElementById('mw-datum').value = opgeslagen.mw.datum;
+        if (opgeslagen.mw.teamleider) document.getElementById('mw-teamleider').value = opgeslagen.mw.teamleider;
+      }
+      if (opgeslagen.af) {
+        if (opgeslagen.af.teamleider) document.getElementById('af-teamleider').value = opgeslagen.af.teamleider;
+        if (opgeslagen.af.medewerker) document.getElementById('af-medewerker').value = opgeslagen.af.medewerker;
+        if (opgeslagen.af.datum) document.getElementById('af-datum').value = opgeslagen.af.datum;
+        if (opgeslagen.af.opmerkingen) document.getElementById('af-opmerkingen').value = opgeslagen.af.opmerkingen;
+      }
+
+      renderSecties();
+      updateKPI();
+      updateTellers();
+      if (handtekening) document.getElementById('chk-handtekening').className = 'chk checked';
+      slaOp();
+
+      const opgeslagenOp = opgeslagen.opgeslagenOp
+        ? new Date(opgeslagen.opgeslagenOp).toLocaleString('nl-NL')
+        : 'onbekend';
+      odStatus(`✓ "${bestand.name}" geladen — laatste opslag: ${opgeslagenOp}`, 'ok');
+    } catch(err) {
+      odStatus(`✗ Bestand ongeldig of beschadigd: ${err.message}`, 'fout');
+    }
+  };
+  reader.readAsText(bestand);
+  // Reset input zodat hetzelfde bestand opnieuw gekozen kan worden
+  event.target.value = '';
+}
+
+// ===================== INIT =====================
+laadOp();
+renderSecties();
+updateKPI();
+updateTellers();
+if (handtekening) document.getElementById('chk-handtekening').className = 'chk checked';
+</script>
+</body>
+</html>
