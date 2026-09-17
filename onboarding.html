@@ -3,154 +3,303 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Checklijst Nieuwe Medewerker — Leef Kind</title>
+<title>Inwerkchecklist Leef Kind</title>
 <style>
+
+:root {
+  --bg: #F7F6F3;
+  --surface: #FFFFFF;
+  --text: #1A1A1A;
+  --text-muted: #888888;
+  --text-faint: #999999;
+  --text-faint2: #AAAAAA;
+  --text-light: #BBBBBB;
+  --text-lighter: #CCCCCC;
+  --text-secondary: #555555;
+  --text-heading: #333333;
+  --border: #DDDBD6;
+  --border-light: #ECEAE5;
+  --border-hover: #C5C1BB;
+  --surface-alt: #FAFAF8;
+  --surface-hover: #F0EEE9;
+  --surface-hover2: #F5F3EF;
+  --secondary-bg-hover: #E5E2DD;
+  --accent: #E8602C;
+  --accent-hover: #C84A1C;
+  --accent-bg: #FFF3EE;
+  --accent-bg-hover: #FFE8D9;
+  --accent-border: #F5C4A8;
+  --accent-text: #C04A15;
+  --success: #27AE60;
+  --success-hover: #1E8E4C;
+  --success-text: #1A6B3A;
+  --success-bg: #F6FBF8;
+  --success-bg-hover: #EEFAF3;
+  --info-bg: #F0F8FF;
+  --info-border: #CEDEF0;
+  --info-text: #1A5276;
+  --od-bg: #E8F4FD;
+  --od-bg2: #EAF4FF;
+  --od-border: #B3D4F0;
+  --status-ok-bg: #EAFAF1;
+  --status-ok-border: #A9DFBF;
+  --status-err-bg: #FFF0F0;
+  --status-err-border: #F5C4C4;
+  --status-err-text: #922B21;
+  --shadow-sm: rgba(0,0,0,0.07);
+  --shadow-md: rgba(0,0,0,0.18);
+  --shadow-bg: rgba(0,0,0,0.35);
+  --accent-tint: #FFF8F5;
+  --od-hover-bg: #D0E8F8;
+  --od-hover-border: #2E86C1;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #17140F;
+    --surface: #211D17;
+    --text: #F2EEE7;
+    --text-muted: #A8A29A;
+    --text-faint: #8F897F;
+    --text-faint2: #7D766C;
+    --text-light: #6B655C;
+    --text-lighter: #58524A;
+    --text-secondary: #C7C1B7;
+    --text-heading: #EDE8E0;
+    --border: #3A342C;
+    --border-light: #2C2720;
+    --border-hover: #554D40;
+    --surface-alt: #1C1811;
+    --surface-hover: #2A251E;
+    --surface-hover2: #322C23;
+    --secondary-bg-hover: #3A342C;
+    --accent: #FF8552;
+    --accent-hover: #FFA274;
+    --accent-bg: #3A2318;
+    --accent-bg-hover: #472A1C;
+    --accent-border: #6B3F27;
+    --accent-text: #FFA274;
+    --success: #3FC57C;
+    --success-hover: #57D890;
+    --success-text: #7FE0A8;
+    --success-bg: #16241C;
+    --success-bg-hover: #1B2E23;
+    --info-bg: #16232E;
+    --info-border: #2C4258;
+    --info-text: #8FC3EA;
+    --od-bg: #16232E;
+    --od-bg2: #16232E;
+    --od-border: #2C4258;
+    --status-ok-bg: #14261D;
+    --status-ok-border: #2C5A3E;
+    --status-err-bg: #2B1615;
+    --status-err-border: #5A2C2A;
+    --status-err-text: #F0A29E;
+    --shadow-sm: rgba(0,0,0,0.35);
+    --shadow-md: rgba(0,0,0,0.5);
+    --shadow-bg: rgba(0,0,0,0.55);
+    --accent-tint: #2A2018;
+    --od-hover-bg: #1D3040;
+    --od-hover-border: #3E6E96;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #17140F;
+  --surface: #211D17;
+  --text: #F2EEE7;
+  --text-muted: #A8A29A;
+  --text-faint: #8F897F;
+  --text-faint2: #7D766C;
+  --text-light: #6B655C;
+  --text-lighter: #58524A;
+  --text-secondary: #C7C1B7;
+  --text-heading: #EDE8E0;
+  --border: #3A342C;
+  --border-light: #2C2720;
+  --border-hover: #554D40;
+  --surface-alt: #1C1811;
+  --surface-hover: #2A251E;
+  --surface-hover2: #322C23;
+  --secondary-bg-hover: #3A342C;
+  --accent: #FF8552;
+  --accent-hover: #FFA274;
+  --accent-bg: #3A2318;
+  --accent-bg-hover: #472A1C;
+  --accent-border: #6B3F27;
+  --accent-text: #FFA274;
+  --success: #3FC57C;
+  --success-hover: #57D890;
+  --success-text: #7FE0A8;
+  --success-bg: #16241C;
+  --success-bg-hover: #1B2E23;
+  --info-bg: #16232E;
+  --info-border: #2C4258;
+  --info-text: #8FC3EA;
+  --od-bg: #16232E;
+  --od-bg2: #16232E;
+  --od-border: #2C4258;
+  --status-ok-bg: #14261D;
+  --status-ok-border: #2C5A3E;
+  --status-err-bg: #2B1615;
+  --status-err-border: #5A2C2A;
+  --status-err-text: #F0A29E;
+  --shadow-sm: rgba(0,0,0,0.35);
+  --shadow-md: rgba(0,0,0,0.5);
+  --shadow-bg: rgba(0,0,0,0.55);
+  --accent-tint: #2A2018;
+  --od-hover-bg: #1D3040;
+  --od-hover-border: #3E6E96;
+  color-scheme: dark;
+}
+body { background: var(--bg); }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; background: #F7F6F3; color: #1A1A1A; min-height: 100vh; padding: 1.5rem 1rem 3rem; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 1.5rem 1rem 3rem; }
 .wrap { max-width: 980px; margin: 0 auto; }
 
 /* Header */
 .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; gap: 1rem; flex-wrap: wrap; }
 .logo-row { display: flex; align-items: center; gap: 12px; }
-.logo { width: 42px; height: 42px; background: #E8602C; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 16px; flex-shrink: 0; }
+.logo { width: 42px; height: 42px; background: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 16px; flex-shrink: 0; }
 h1 { font-size: 20px; font-weight: 600; }
-.period { font-size: 13px; color: #888; margin-top: 2px; }
+.period { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
 .header-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.header-badge { background: #FFF3EE; color: #C04A15; border: 1px solid #F5C4A8; border-radius: 20px; padding: 5px 14px; font-size: 12px; font-weight: 600; }
-.export-btn { background: white; border: 1px solid #DDDBD6; border-radius: 8px; padding: 6px 13px; font-size: 12px; color: #555; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: background 0.15s, border-color 0.15s; }
-.export-btn:hover { background: #F0EEE9; border-color: #C5C1BB; }
-.reset-btn { background: white; border: 1px solid #DDDBD6; border-radius: 8px; padding: 6px 13px; font-size: 12px; color: #888; cursor: pointer; transition: all 0.15s; }
-.reset-btn:hover { border-color: #E8602C; color: #E8602C; }
+.header-badge { background: var(--accent-bg); color: var(--accent-text); border: 1px solid var(--accent-border); border-radius: 20px; padding: 5px 14px; font-size: 12px; font-weight: 600; }
+.export-btn { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 6px 13px; font-size: 12px; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; gap: 5px; transition: background 0.15s, border-color 0.15s; }
+.export-btn:hover { background: var(--surface-hover); border-color: var(--border-hover); }
+.reset-btn { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 6px 13px; font-size: 12px; color: var(--text-muted); cursor: pointer; transition: all 0.15s; }
+.reset-btn:hover { border-color: var(--accent); color: var(--accent); }
 
 /* Medewerker balk */
-.mw-balk { background: white; border: 1px solid #ECEAE5; border-radius: 10px; padding: 14px 18px; margin-bottom: 1.25rem; display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
-.mw-veld label { display: block; font-size: 11px; color: #999; margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.04em; }
-.mw-veld input { border: 1px solid #DDDBD6; border-radius: 6px; padding: 5px 10px; font-size: 13px; color: #1A1A1A; background: #FAFAF8; outline: none; width: 180px; transition: border-color 0.15s; }
-.mw-veld input:focus { border-color: #E8602C; background: white; }
+.mw-balk { background: white; border: 1px solid var(--border-light); border-radius: 10px; padding: 14px 18px; margin-bottom: 1.25rem; display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+.mw-veld label { display: block; font-size: 11px; color: var(--text-faint); margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.04em; }
+.mw-veld input { border: 1px solid var(--border); border-radius: 6px; padding: 5px 10px; font-size: 13px; color: var(--text); background: var(--surface-alt); outline: none; width: 180px; transition: border-color 0.15s; }
+.mw-veld input:focus { border-color: var(--accent); background: white; }
 .mw-veld input[type="date"] { width: 150px; }
 
 /* KPI cards */
 .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
-.kpi-card { background: white; border: 1px solid #ECEAE5; border-radius: 10px; padding: 14px 16px; transition: box-shadow 0.15s, transform 0.12s; }
-.kpi-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.07); transform: translateY(-1px); }
-.kpi-label { font-size: 12px; color: #888; margin-bottom: 6px; }
-.kpi-value { font-size: 26px; font-weight: 600; line-height: 1; color: #1A1A1A; }
-.kpi-sub { font-size: 12px; color: #999; margin-top: 5px; }
-.kpi-good .kpi-value { color: #1A6B3A; }
-.kpi-bar { height: 4px; background: #F0EEE9; border-radius: 99px; margin-top: 10px; overflow: hidden; }
-.kpi-bar-fill { height: 100%; border-radius: 99px; background: #E8602C; transition: width 0.6s ease; }
+.kpi-card { background: white; border: 1px solid var(--border-light); border-radius: 10px; padding: 14px 16px; transition: box-shadow 0.15s, transform 0.12s; }
+.kpi-card:hover { box-shadow: 0 4px 14px var(--shadow-sm); transform: translateY(-1px); }
+.kpi-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+.kpi-value { font-size: 26px; font-weight: 600; line-height: 1; color: var(--text); }
+.kpi-sub { font-size: 12px; color: var(--text-faint); margin-top: 5px; }
+.kpi-good .kpi-value { color: var(--success-text); }
+.kpi-bar { height: 4px; background: var(--surface-hover); border-radius: 99px; margin-top: 10px; overflow: hidden; }
+.kpi-bar-fill { height: 100%; border-radius: 99px; background: var(--accent); transition: width 0.6s ease; }
 
 /* Tabs */
-.tab-nav { display: flex; gap: 2px; border-bottom: 2px solid #ECEAE5; margin-bottom: 1.25rem; flex-wrap: wrap; }
-.tab-btn { padding: 8px 15px; border: none; background: none; font-size: 13px; color: #888; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color 0.15s; white-space: nowrap; }
-.tab-btn:hover { color: #444; }
-.tab-btn.active { color: #E8602C; border-bottom-color: #E8602C; font-weight: 500; }
+.tab-nav { display: flex; gap: 2px; border-bottom: 2px solid var(--border-light); margin-bottom: 1.25rem; flex-wrap: wrap; }
+.tab-btn { padding: 8px 15px; border: none; background: none; font-size: 13px; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color 0.15s; white-space: nowrap; }
+.tab-btn:hover { color: var(--text-heading); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
 
 /* Secties */
-.sectie-blok { background: white; border: 1px solid #ECEAE5; border-radius: 10px; overflow: hidden; margin-bottom: 12px; }
-.sectie-head { display: flex; align-items: center; justify-content: space-between; padding: 11px 16px; background: #FAFAF8; border-bottom: 2px solid #ECEAE5; cursor: pointer; user-select: none; }
-.sectie-head:hover { background: #F5F3EF; }
+.sectie-blok { background: white; border: 1px solid var(--border-light); border-radius: 10px; overflow: hidden; margin-bottom: 12px; }
+.sectie-head { display: flex; align-items: center; justify-content: space-between; padding: 11px 16px; background: var(--surface-alt); border-bottom: 2px solid var(--border-light); cursor: pointer; user-select: none; }
+.sectie-head:hover { background: var(--surface-hover2); }
 .sectie-head-left { display: flex; align-items: center; gap: 10px; }
-.sectie-titel { font-size: 14px; font-weight: 600; color: #333; }
-.sectie-teller { font-size: 12px; color: #999; }
-.sectie-teller.klaar { color: #1A6B3A; font-weight: 600; }
-.sectie-toggle { font-size: 12px; color: #CCC; transition: transform 0.2s; }
+.sectie-titel { font-size: 14px; font-weight: 600; color: var(--text-heading); }
+.sectie-teller { font-size: 12px; color: var(--text-faint); }
+.sectie-teller.klaar { color: var(--success-text); font-weight: 600; }
+.sectie-toggle { font-size: 12px; color: var(--text-lighter); transition: transform 0.2s; }
 .sectie-toggle.open { transform: rotate(180deg); }
 
 /* Item rijen */
-.item-rij { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #F0EEE9; cursor: pointer; transition: background 0.12s; }
+.item-rij { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--surface-hover); cursor: pointer; transition: background 0.12s; }
 .item-rij:last-child { border-bottom: none; }
-.item-rij:hover { background: #FFF8F5; }
-.item-rij.afgevinkt { background: #F6FBF8; }
-.item-rij.afgevinkt:hover { background: #EEFAF3; }
+.item-rij:hover { background: var(--accent-tint); }
+.item-rij.afgevinkt { background: var(--success-bg); }
+.item-rij.afgevinkt:hover { background: var(--success-bg-hover); }
 
 /* Checkbox */
-.chk { width: 20px; height: 20px; border: 2px solid #DDDBD6; border-radius: 5px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.15s; background: white; font-size: 12px; flex-shrink: 0; margin-top: 1px; }
-.chk:hover { border-color: #E8602C; background: #FFF3EE; }
-.chk.checked { background: #27AE60; border-color: #27AE60; color: white; }
+.chk { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 5px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.15s; background: white; font-size: 12px; flex-shrink: 0; margin-top: 1px; }
+.chk:hover { border-color: var(--accent); background: var(--accent-bg); }
+.chk.checked { background: var(--success); border-color: var(--success); color: white; }
 
 /* Item tekst */
 .item-info { flex: 1; min-width: 0; }
-.item-titel { font-size: 13px; font-weight: 500; color: #1A1A1A; line-height: 1.4; }
-.item-rij.afgevinkt .item-titel { color: #999; text-decoration: line-through; }
-.item-sectie-label { font-size: 11px; color: #BBB; margin-top: 2px; }
-.item-link { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #E8602C; text-decoration: none; margin-top: 4px; background: #FFF3EE; border: 1px solid #F5C4A8; border-radius: 5px; padding: 2px 7px; transition: all 0.12s; }
-.item-link:hover { background: #FFE8D9; }
+.item-titel { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.4; }
+.item-rij.afgevinkt .item-titel { color: var(--text-faint); text-decoration: line-through; }
+.item-sectie-label { font-size: 11px; color: var(--text-light); margin-top: 2px; }
+.item-link { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: var(--accent); text-decoration: none; margin-top: 4px; background: var(--accent-bg); border: 1px solid var(--accent-border); border-radius: 5px; padding: 2px 7px; transition: all 0.12s; }
+.item-link:hover { background: var(--accent-bg-hover); }
 .item-links { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; }
-.item-notitie { font-size: 11px; color: #AAA; margin-top: 3px; font-style: italic; }
+.item-notitie { font-size: 11px; color: var(--text-faint2); margin-top: 3px; font-style: italic; }
 
 /* Info knop */
-.info-btn { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; border: 1px solid #ECEAE5; background: white; color: #BBB; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.12s; margin-top: 0; }
-.info-btn:hover { border-color: #E8602C; color: #E8602C; background: #FFF3EE; }
+.info-btn { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--border-light); background: white; color: var(--text-light); font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.12s; margin-top: 0; }
+.info-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
 
 /* Voortgang tab */
-.prog-wrap { background: white; border: 1px solid #ECEAE5; border-radius: 10px; padding: 20px; margin-bottom: 14px; }
-.prog-title { font-size: 14px; font-weight: 500; margin-bottom: 16px; color: #333; }
+.prog-wrap { background: white; border: 1px solid var(--border-light); border-radius: 10px; padding: 20px; margin-bottom: 14px; }
+.prog-title { font-size: 14px; font-weight: 500; margin-bottom: 16px; color: var(--text-heading); }
 .prog-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
 .prog-row:last-child { margin-bottom: 0; }
-.prog-label { font-size: 13px; color: #555; width: 190px; flex-shrink: 0; }
-.prog-bar-wrap { flex: 1; height: 8px; background: #F0EEE9; border-radius: 99px; overflow: hidden; }
+.prog-label { font-size: 13px; color: var(--text-secondary); width: 190px; flex-shrink: 0; }
+.prog-bar-wrap { flex: 1; height: 8px; background: var(--surface-hover); border-radius: 99px; overflow: hidden; }
 .prog-fill { height: 100%; border-radius: 99px; transition: width 0.8s ease; }
 .prog-pct { font-size: 13px; font-weight: 600; width: 42px; text-align: right; flex-shrink: 0; }
 
 /* Afsluiting blok */
-.afsluiting-blok { background: white; border: 1px solid #ECEAE5; border-radius: 10px; padding: 20px; margin-top: 12px; }
-.afsluiting-blok h3 { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #F0EEE9; }
+.afsluiting-blok { background: white; border: 1px solid var(--border-light); border-radius: 10px; padding: 20px; margin-top: 12px; }
+.afsluiting-blok h3 { font-size: 14px; font-weight: 600; color: var(--text-heading); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--surface-hover); }
 .afsluiting-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px; margin-bottom: 14px; }
-.af-veld label { display: block; font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 3px; }
-.af-veld input, .af-veld textarea { width: 100%; border: 1px solid #DDDBD6; border-radius: 6px; padding: 7px 10px; font-size: 13px; font-family: inherit; color: #1A1A1A; background: #FAFAF8; outline: none; transition: border-color 0.15s; }
-.af-veld input:focus, .af-veld textarea:focus { border-color: #E8602C; background: white; }
+.af-veld label { display: block; font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 3px; }
+.af-veld input, .af-veld textarea { width: 100%; border: 1px solid var(--border); border-radius: 6px; padding: 7px 10px; font-size: 13px; font-family: inherit; color: var(--text); background: var(--surface-alt); outline: none; transition: border-color 0.15s; }
+.af-veld input:focus, .af-veld textarea:focus { border-color: var(--accent); background: white; }
 .af-veld textarea { resize: vertical; min-height: 60px; }
 .af-veld.vol { grid-column: 1 / -1; }
-.handtekening-rij { display: flex; align-items: center; gap: 12px; padding-top: 14px; border-top: 1px solid #F0EEE9; }
-.handtekening-tekst { font-size: 13px; color: #333; flex: 1; line-height: 1.45; }
+.handtekening-rij { display: flex; align-items: center; gap: 12px; padding-top: 14px; border-top: 1px solid var(--surface-hover); }
+.handtekening-tekst { font-size: 13px; color: var(--text-heading); flex: 1; line-height: 1.45; }
 
 /* Modal */
-.modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 100; align-items: center; justify-content: center; padding: 16px; }
+.modal-bg { display: none; position: fixed; inset: 0; background: var(--shadow-bg); z-index: 100; align-items: center; justify-content: center; padding: 16px; }
 .modal-bg.open { display: flex; }
-.modal { background: white; border-radius: 14px; padding: 28px; max-width: 520px; width: 100%; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.18); animation: slideUp 0.2s ease; max-height: 90vh; overflow-y: auto; }
+.modal { background: white; border-radius: 14px; padding: 28px; max-width: 520px; width: 100%; position: relative; box-shadow: 0 20px 60px var(--shadow-md); animation: slideUp 0.2s ease; max-height: 90vh; overflow-y: auto; }
 @keyframes slideUp { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform: translateY(0); } }
-.modal-close { position: absolute; top: 16px; right: 18px; background: none; border: none; font-size: 20px; color: #AAA; cursor: pointer; }
-.modal-close:hover { color: #555; }
-.modal-eyebrow { font-size: 11px; color: #E8602C; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+.modal-close { position: absolute; top: 16px; right: 18px; background: none; border: none; font-size: 20px; color: var(--text-faint2); cursor: pointer; }
+.modal-close:hover { color: var(--text-secondary); }
+.modal-eyebrow { font-size: 11px; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
 .modal-title { font-size: 18px; font-weight: 600; margin-bottom: 14px; line-height: 1.3; padding-right: 24px; }
-.modal-body { font-size: 13px; color: #555; line-height: 1.7; margin-bottom: 14px; }
+.modal-body { font-size: 13px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 14px; }
 .modal-body ul { padding-left: 16px; margin-top: 6px; }
 .modal-body li { margin-bottom: 3px; }
 .modal-links { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
-.modal-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: #E8602C; text-decoration: none; background: #FFF3EE; border: 1px solid #F5C4A8; border-radius: 6px; padding: 5px 10px; transition: all 0.12s; }
-.modal-link:hover { background: #FFE8D9; }
-.modal-note-label { font-size: 12px; color: #888; margin-bottom: 6px; }
-.modal-note-area { width: 100%; padding: 10px 12px; border: 1px solid #DDDBD6; border-radius: 8px; font-size: 13px; font-family: inherit; resize: vertical; min-height: 70px; outline: none; transition: border-color 0.15s; }
-.modal-note-area:focus { border-color: #E8602C; }
+.modal-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--accent); text-decoration: none; background: var(--accent-bg); border: 1px solid var(--accent-border); border-radius: 6px; padding: 5px 10px; transition: all 0.12s; }
+.modal-link:hover { background: var(--accent-bg-hover); }
+.modal-note-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+.modal-note-area { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; font-family: inherit; resize: vertical; min-height: 70px; outline: none; transition: border-color 0.15s; }
+.modal-note-area:focus { border-color: var(--accent); }
 .modal-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
 .modal-btn { padding: 9px 18px; border-radius: 8px; border: none; font-size: 13px; cursor: pointer; font-weight: 500; transition: all 0.15s; font-family: inherit; }
-.modal-btn-primary { background: #E8602C; color: white; }
-.modal-btn-primary:hover { background: #C84A1C; }
-.modal-btn-primary.done-state { background: #27AE60; }
-.modal-btn-primary.done-state:hover { background: #1E8E4C; }
-.modal-btn-secondary { background: #F0EEE9; color: #555; }
-.modal-btn-secondary:hover { background: #E5E2DD; }
+.modal-btn-primary { background: var(--accent); color: white; }
+.modal-btn-primary:hover { background: var(--accent-hover); }
+.modal-btn-primary.done-state { background: var(--success); }
+.modal-btn-primary.done-state:hover { background: var(--success-hover); }
+.modal-btn-secondary { background: var(--surface-hover); color: var(--text-secondary); }
+.modal-btn-secondary:hover { background: var(--secondary-bg-hover); }
 
 /* Wettelijk blok */
-.wettelijk { background: #F0F8FF; border: 1px solid #CEDEF0; border-radius: 8px; padding: 12px 14px; font-size: 12px; color: #555; line-height: 1.6; margin: 10px 16px 14px; }
-.wettelijk strong { color: #1A5276; }
+.wettelijk { background: var(--info-bg); border: 1px solid var(--info-border); border-radius: 8px; padding: 12px 14px; font-size: 12px; color: var(--text-secondary); line-height: 1.6; margin: 10px 16px 14px; }
+.wettelijk strong { color: var(--info-text); }
 
 /* Geen resultaten */
-.geen { text-align: center; padding: 40px; color: #CCC; font-size: 14px; }
+.geen { text-align: center; padding: 40px; color: var(--text-lighter); font-size: 14px; }
 
 
 /* OneDrive */
-.od-save { background: #E8F4FD; border-color: #B3D4F0; color: #1A5276; }
-.od-save:hover { background: #D0E8F8; border-color: #2E86C1; color: #1A5276; }
-.od-status { display:none; background:#EAF4FF; border:1px solid #B3D4F0; border-radius:8px; padding:9px 16px; margin-bottom:1rem; font-size:12px; color:#1A5276; align-items:center; gap:10px; }
+.od-save { background: var(--od-bg); border-color: var(--od-border); color: var(--info-text); }
+.od-save:hover { background: var(--od-hover-bg); border-color: var(--od-hover-border); color: var(--info-text); }
+.od-status { display:none; background:var(--od-bg2); border:1px solid var(--od-border); border-radius:8px; padding:9px 16px; margin-bottom:1rem; font-size:12px; color:var(--info-text); align-items:center; gap:10px; }
 .od-status.zichtbaar { display:flex; }
-.od-status.fout { background:#FFF0F0; border-color:#F5C4C4; color:#922B21; }
-.od-status.ok { background:#EAFAF1; border-color:#A9DFBF; color:#1A6B3A; }
+.od-status.fout { background:var(--status-err-bg); border-color:var(--status-err-border); color:var(--status-err-text); }
+.od-status.ok { background:var(--status-ok-bg); border-color:var(--status-ok-border); color:var(--success-text); }
 
-footer { text-align: center; margin-top: 2.5rem; font-size: 11px; color: #CCC; }
+footer { text-align: center; margin-top: 2.5rem; font-size: 11px; color: var(--text-lighter); }
 
 @media print {
   .header-right, .mw-balk, .tab-nav, .info-btn, .modal-bg, .reset-btn, .export-btn { display: none !important; }
@@ -162,6 +311,19 @@ footer { text-align: center; margin-top: 2.5rem; font-size: 11px; color: #CCC; }
   .mw-balk { flex-direction: column; align-items: flex-start; gap: 10px; }
   .mw-veld input { width: 100%; }
 }
+
+/* Velden binnen een item (bv. datum, wie regelt) */
+.item-velden { display: flex; gap: 10px; margin-top: 7px; flex-wrap: wrap; }
+.iv-veld label { display: block; font-size: 10px; color: var(--text-faint2); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 2px; }
+.iv-veld input { border: 1px solid var(--border); border-radius: 6px; padding: 4px 8px; font-size: 12px; width: 150px; background: var(--surface-alt); color: var(--text); outline: none; font-family: inherit; transition: border-color 0.15s; }
+.iv-veld input:focus { border-color: var(--accent); background: var(--surface); }
+
+/* Intro-callout tabblad Begeleiding TL */
+.rol-callout { background: var(--accent-bg); border: 1px solid var(--accent-border); border-radius: 10px; padding: 14px 16px; font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 14px; }
+.rol-callout strong { color: var(--accent-text); }
+
+.wettelijk strong { color: var(--info-text); }
+
 </style>
 </head>
 <body>
@@ -173,14 +335,14 @@ footer { text-align: center; margin-top: 2.5rem; font-size: 11px; color: #CCC; }
     <div class="logo">LK</div>
     <div>
       <h1>Checklijst Nieuwe Medewerker</h1>
-      <div class="period">Leef Kind · v2026m06 · Intern gebruik onboarding</div>
+      <div class="period">Leef Kind · v2026m09 · Checklist + inwerkbegeleiding teamleider</div>
     </div>
   </div>
   <div class="header-right">
     <button class="reset-btn" onclick="resetAlles()">↺ Opnieuw starten</button>
     <button class="export-btn" onclick="window.print()">🖨 Afdrukken</button>
     <button class="export-btn od-save" id="od-save-btn" onclick="bestandOpslaan()">💾 Opslaan als bestand</button>
-    <button class="export-btn" id="od-load-btn" onclick="document.getElementById('od-file-input').click()">📂 Laden van bestand</button>
+    <button class="export-btn" id="od-load-btn" onclick="document.getElementById(&#39;od-file-input&#39;).click()">📂 Laden van bestand</button>
     <input type="file" id="od-file-input" accept=".json" style="display:none" onchange="bestandLaden(event)">
     <div class="header-badge">2026</div>
   </div>
@@ -189,7 +351,7 @@ footer { text-align: center; margin-top: 2.5rem; font-size: 11px; color: #CCC; }
 <!-- OneDrive statusbalk -->
 <div id="od-status" class="od-status">
   <span id="od-status-tekst"></span>
-  <button onclick="document.getElementById('od-status').classList.remove('zichtbaar','ok','fout')" style="margin-left:auto;background:none;border:none;color:#888;cursor:pointer;font-size:14px;">✕</button>
+  <button onclick="document.getElementById(&#39;od-status&#39;).classList.remove(&#39;zichtbaar&#39;,&#39;ok&#39;,&#39;fout&#39;)" style="margin-left:auto;background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:14px;">✕</button>
 </div>
 
 <!-- MEDEWERKERGEGEVENS -->
@@ -213,17 +375,385 @@ footer { text-align: center; margin-top: 2.5rem; font-size: 11px; color: #CCC; }
 </div>
 
 <!-- KPI KAARTEN -->
-<div class="kpi-grid" id="kpi-grid"></div>
+<div class="kpi-grid" id="kpi-grid">
+    <div class="kpi-card ">
+      <div class="kpi-label">Afgerond</div>
+      <div class="kpi-value">0</div>
+      <div class="kpi-sub">van de 30 punten</div>
+      <div class="kpi-bar"><div class="kpi-bar-fill" style="width:0%"></div></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Openstaand</div>
+      <div class="kpi-value" style="color:var(--accent-text)">30</div>
+      <div class="kpi-sub">punten nog te doen</div>
+    </div>
+    <div class="kpi-card ">
+      <div class="kpi-label">Voortgang</div>
+      <div class="kpi-value">0%</div>
+      <div class="kpi-sub">bezig…</div>
+      <div class="kpi-bar"><div class="kpi-bar-fill" style="width:0%;background:var(--accent)"></div></div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Secties</div>
+      <div class="kpi-value">0</div>
+      <div class="kpi-sub">van de 5 secties klaar</div>
+    </div></div>
 
 <!-- TABS -->
 <div class="tab-nav">
-  <button class="tab-btn active" onclick="switchTab('checklist',this)">✓ Checklist</button>
-  <button class="tab-btn" onclick="switchTab('voortgang',this)">📊 Voortgang</button>
+  <button class="tab-btn active" onclick="switchTab(&#39;checklist&#39;,this)">✓ Checklist</button>
+  <button class="tab-btn" onclick="switchTab(&#39;team&#39;,this)">👤 Begeleiding TL</button>
+  <button class="tab-btn" onclick="switchTab(&#39;voortgang&#39;,this)">📊 Voortgang</button>
 </div>
 
 <!-- TAB: CHECKLIST -->
 <div id="tab-checklist" class="tab-panel active">
-  <div id="secties-container"></div>
+  <div id="secties-container">
+      <div class="sectie-blok" id="blok-s1">
+        <div class="sectie-head" onclick="toggleSectie(&#39;s1&#39;)">
+          <div class="sectie-head-left">
+            <span class="sectie-titel">Wij werken met</span>
+            <span class="sectie-teller" id="teller-s1">0 / 10</span>
+          </div>
+          <span class="sectie-toggle open" id="toggle-s1">▼</span>
+        </div>
+        <div id="inhoud-s1">
+          
+    <div class="item-rij " id="rij-1" onclick="vinkItem(1)">
+      <div class="chk " id="chk-1">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Cao-kinderopvang</div>
+        <div class="item-links"><a class="item-link" href="https://apps.apple.com/nl/app/cao-kinderopvang/id6446905832" target="_blank" onclick="event.stopPropagation()">↗ CAO app (App Store)</a><a class="item-link" href="https://play.google.com/store/apps/details?id=nl.kinderopvangwerkt.cao" target="_blank" onclick="event.stopPropagation()">↗ CAO app (Google Play)</a></div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(1)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-2" onclick="vinkItem(2)">
+      <div class="chk " id="chk-2">✓</div>
+      <div class="item-info">
+        <div class="item-titel">JUS – Jaarurensystematiek</div>
+        <div class="item-links"><a class="item-link" href="https://www.kinderopvang-werkt.nl/werkgevers/informatiebrochure-jaarurensystematiek-kinderopvang" target="_blank" onclick="event.stopPropagation()">↗ Informatie JUS</a></div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(2)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-3" onclick="vinkItem(3)">
+      <div class="chk " id="chk-3">✓</div>
+      <div class="item-info">
+        <div class="item-titel">SharePoint – online intranet</div>
+        <div class="item-links"><a class="item-link" href="https://leefkindkinderopvang.sharepoint.com/" target="_blank" onclick="event.stopPropagation()">↗ Leef Kind SharePoint</a></div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(3)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-4" onclick="vinkItem(4)">
+      <div class="chk " id="chk-4">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Persoonlijk Leef Kind mailadres</div>
+        <div class="item-links"><a class="item-link" href="https://outlook.office.com/" target="_blank" onclick="event.stopPropagation()">↗ Inloggen e-mail (Outlook)</a></div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(4)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-5" onclick="vinkItem(5)">
+      <div class="chk " id="chk-5">✓</div>
+      <div class="item-info">
+        <div class="item-titel">SDB HR – loonstrook en jaaropgave</div>
+        <div class="item-links"><a class="item-link" href="https://leefkind.sdbhr.nl/" target="_blank" onclick="event.stopPropagation()">↗ SDB HR Leef Kind</a></div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(5)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-6" onclick="vinkItem(6)">
+      <div class="chk " id="chk-6">✓</div>
+      <div class="item-info">
+        <div class="item-titel">SDB-planning en Octopus app</div>
+        <div class="item-links"><a class="item-link" href="https://leefkind.sdbidentity.nl/" target="_blank" onclick="event.stopPropagation()">↗ SDB-planning (webbrowser)</a></div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(6)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-7" onclick="vinkItem(7)">
+      <div class="chk " id="chk-7">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Leef Kind Roosterverstoringsapp</div>
+        
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(7)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-8" onclick="vinkItem(8)">
+      <div class="chk " id="chk-8">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Ondernemingsregeling reiskosten</div>
+        <div class="item-links"><a class="item-link" href="https://leefkindkinderopvang.sharepoint.com/" target="_blank" onclick="event.stopPropagation()">↗ Leef Kind SharePoint</a></div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(8)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-9" onclick="vinkItem(9)">
+      <div class="chk " id="chk-9">✓</div>
+      <div class="item-info">
+        <div class="item-titel">SDB-ouderportaal</div>
+        <div class="item-links"><a class="item-link" href="https://groep-leefkind.kindplanner.nl/#/login" target="_blank" onclick="event.stopPropagation()">↗ Ouderportaal Leef Kind</a></div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(9)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-10" onclick="vinkItem(10)">
+      <div class="chk " id="chk-10">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Kijk – kind observatiesysteem</div>
+        <div class="item-links"><a class="item-link" href="https://www.kijkregistratie.nl/" target="_blank" onclick="event.stopPropagation()">↗ Kijk observatiesysteem</a></div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(10)" title="Details &amp; notitie">ℹ</button>
+    </div>
+          
+        </div>
+      </div>
+      <div class="sectie-blok" id="blok-s2">
+        <div class="sectie-head" onclick="toggleSectie(&#39;s2&#39;)">
+          <div class="sectie-head-left">
+            <span class="sectie-titel">Start op locatie</span>
+            <span class="sectie-teller" id="teller-s2">0 / 3</span>
+          </div>
+          <span class="sectie-toggle open" id="toggle-s2">▼</span>
+        </div>
+        <div id="inhoud-s2">
+          
+    <div class="item-rij " id="rij-11" onclick="vinkItem(11)">
+      <div class="chk " id="chk-11">✓</div>
+      <div class="item-info">
+        <div class="item-titel">1/3 De teamleider verwelkomt jou</div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(11)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-31" onclick="vinkItem(31)">
+      <div class="chk " id="chk-31">✓</div>
+      <div class="item-info">
+        <div class="item-titel">2/3 Voorstellen aan ouders en collega's</div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(31)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-32" onclick="vinkItem(32)">
+      <div class="chk " id="chk-32">✓</div>
+      <div class="item-info">
+        <div class="item-titel">3/3 Rondleiding locatie op de eerste dag</div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(32)" title="Details &amp; notitie">ℹ</button>
+    </div>
+          
+        </div>
+      </div>
+      <div class="sectie-blok" id="blok-s3">
+        <div class="sectie-head" onclick="toggleSectie(&#39;s3&#39;)">
+          <div class="sectie-head-left">
+            <span class="sectie-titel">4 weken informatie</span>
+            <span class="sectie-teller" id="teller-s3">0 / 7</span>
+          </div>
+          <span class="sectie-toggle open" id="toggle-s3">▼</span>
+        </div>
+        <div id="inhoud-s3">
+          
+    <div class="item-rij " id="rij-13" onclick="vinkItem(13)">
+      <div class="chk " id="chk-13">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Ingelogd in SDB HR en SDB-planning</div>
+        <div class="item-links"><a class="item-link" href="https://sdbzorgt.nl/oplossingen/sdb-octopus-voor-de-kinderopvang/" target="_blank" onclick="event.stopPropagation()">↗ SDB Octopus (kinderopvang)</a></div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(13)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-14" onclick="vinkItem(14)">
+      <div class="chk " id="chk-14">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Ouderportaal – je kunt ermee werken</div>
+        <div class="item-links"><a class="item-link" href="https://sdbzorgt.nl/oplossingen/roosterplanning/" target="_blank" onclick="event.stopPropagation()">↗ SDB Ouderportaal</a></div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(14)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-15" onclick="vinkItem(15)">
+      <div class="chk " id="chk-15">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Op de hoogte van het basisrooster</div>
+        
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(15)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-16" onclick="vinkItem(16)">
+      <div class="chk " id="chk-16">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Juiste informatie in SDB HR en SDB-planning</div>
+        
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(16)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-17" onclick="vinkItem(17)">
+      <div class="chk " id="chk-17">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Ergonomisch werken</div>
+        <div class="item-links"><a class="item-link" href="https://www.arboportaal.nl/onderwerpen/ergonomie" target="_blank" onclick="event.stopPropagation()">↗ Ergonomie in de kinderopvang</a></div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(17)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-18" onclick="vinkItem(18)">
+      <div class="chk " id="chk-18">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Rondleiding veiligheid gehad</div>
+        <div class="item-links"><a class="item-link" href="https://www.brandweer.nl/onderwerpen/brandveiligheid-gebouwen" target="_blank" onclick="event.stopPropagation()">↗ Brandveiligheid info (Brandweer NL)</a></div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(18)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-19" onclick="vinkItem(19)">
+      <div class="chk " id="chk-19">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Ziekmeldingsprocedure bekend</div>
+        <div class="item-links"><a class="item-link" href="https://outlook.office.com/" target="_blank" onclick="event.stopPropagation()">↗ Instructie op SharePoint</a></div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(19)" title="Details &amp; notitie">ℹ</button>
+    </div>
+          
+        </div>
+      </div>
+      <div class="sectie-blok" id="blok-s4">
+        <div class="sectie-head" onclick="toggleSectie(&#39;s4&#39;)">
+          <div class="sectie-head-left">
+            <span class="sectie-titel">Protocollen gelezen (SharePoint) *</span>
+            <span class="sectie-teller" id="teller-s4">0 / 7</span>
+          </div>
+          <span class="sectie-toggle open" id="toggle-s4">▼</span>
+        </div>
+        <div id="inhoud-s4">
+          
+    <div class="item-rij " id="rij-20" onclick="vinkItem(20)">
+      <div class="chk " id="chk-20">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Personeelshandboek Leef Kind</div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(20)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-21" onclick="vinkItem(21)">
+      <div class="chk " id="chk-21">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Gedragscode voor medewerkers Leef Kind</div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(21)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-22" onclick="vinkItem(22)">
+      <div class="chk " id="chk-22">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Privacy beleid Leef Kind</div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(22)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-23" onclick="vinkItem(23)">
+      <div class="chk " id="chk-23">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Verzuim preventie protocol</div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(23)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-24" onclick="vinkItem(24)">
+      <div class="chk " id="chk-24">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Beleidsplan Veiligheid en Gezondheid Leef Kind</div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(24)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-25" onclick="vinkItem(25)">
+      <div class="chk " id="chk-25">✓</div>
+      <div class="item-info">
+        <div class="item-titel">BHV werkplan</div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(25)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-26" onclick="vinkItem(26)">
+      <div class="chk " id="chk-26">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Arbo werkplan</div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(26)" title="Details &amp; notitie">ℹ</button>
+    </div>
+          
+      <div class="wettelijk">
+        <strong>* Artikel 8 Arbeidsomstandighedenwet:</strong> De werkgever zorgt ervoor dat de werknemers doeltreffend worden ingelicht over de te verrichten werkzaamheden en de daaraan verbonden risico's, alsmede over de maatregelen die erop gericht zijn deze risico's te voorkomen of te beperken.
+      </div>
+        </div>
+      </div>
+      <div class="sectie-blok" id="blok-s5">
+        <div class="sectie-head" onclick="toggleSectie(&#39;s5&#39;)">
+          <div class="sectie-head-left">
+            <span class="sectie-titel">Algemene informatie</span>
+            <span class="sectie-teller" id="teller-s5">0 / 5</span>
+          </div>
+          <span class="sectie-toggle open" id="toggle-s5">▼</span>
+        </div>
+        <div id="inhoud-s5">
+          
+    <div class="item-rij " id="rij-27" onclick="vinkItem(27)">
+      <div class="chk " id="chk-27">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Indirect personeel – kennisgemaakt</div>
+        
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(27)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-28" onclick="vinkItem(28)">
+      <div class="chk " id="chk-28">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Ondernemingsraad</div>
+        <div class="item-links"><a class="item-link" href="mailto:OR@leefkind.nl" target="_blank" onclick="event.stopPropagation()">↗ OR@leefkind.nl</a></div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(28)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-29" onclick="vinkItem(29)">
+      <div class="chk " id="chk-29">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Oudercommissie</div>
+        <div class="item-links"><a class="item-link" href="https://www.kinderopvang-werkt.nl/" target="_blank" onclick="event.stopPropagation()">↗ Rol oudercommissie (Kinderopvang werkt)</a></div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(29)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-30" onclick="vinkItem(30)">
+      <div class="chk " id="chk-30">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Werk-Vitaal – bedrijfsarts</div>
+        <div class="item-links"><a class="item-link" href="https://www.werk-vitaal.nl/" target="_blank" onclick="event.stopPropagation()">↗ Werk-Vitaal</a></div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(30)" title="Details &amp; notitie">ℹ</button>
+    </div>
+    <div class="item-rij " id="rij-33" onclick="vinkItem(33)">
+      <div class="chk " id="chk-33">✓</div>
+      <div class="item-info">
+        <div class="item-titel">Vertrouwenspersoon</div>
+        
+      </div>
+      <button class="info-btn" onclick="event.stopPropagation();openModal(33)" title="Details &amp; notitie">ℹ</button>
+    </div>
+          
+        </div>
+      </div></div>
 
   <!-- Afsluiting -->
   <div class="afsluiting-blok">
@@ -253,6 +783,40 @@ footer { text-align: center; margin-top: 2.5rem; font-size: 11px; color: #CCC; }
   </div>
 </div>
 
+<!-- TAB: BEGELEIDING TEAMLEIDER -->
+<div id="tab-team" class="tab-panel">
+  <div class="rol-callout">
+    <strong>Rol van de teamleider:</strong> De teamleider is eigenaar van de dagelijkse begeleiding en houdt de voortgang bij. Werkt de nieuwe medewerker op verschillende locaties of groepen, dan is er mogelijk geen vast inwerkmaatje — per dienst maken de aanwezige collega's diegene wegwijs in de groep en de dagelijkse werkwijze. Plan de evaluatiemomenten daarom vooraf in, laat de begeleiding niet alleen afhangen van de diensten waarop de nieuwe medewerker toevallig aanwezig is, en zorg dat vragen en aandachtspunten uit verschillende locaties en groepen bij elkaar komen.
+  </div>
+
+  <div id="secties-container-team1"></div>
+
+  <!-- Tussenevaluatie -->
+  <div class="afsluiting-blok">
+    <h3>Tussenevaluatie — einde week 2</h3>
+    <div class="afsluiting-grid">
+      <div class="af-veld vol">
+        <label>Wat gaat goed?</label>
+        <textarea id="te-goed" placeholder="…" oninput="slaOp()"></textarea>
+      </div>
+      <div class="af-veld vol">
+        <label>Wat is nog onduidelijk?</label>
+        <textarea id="te-onduidelijk" placeholder="…" oninput="slaOp()"></textarea>
+      </div>
+      <div class="af-veld vol">
+        <label>Waar is nog begeleiding bij nodig?</label>
+        <textarea id="te-begeleiding" placeholder="…" oninput="slaOp()"></textarea>
+      </div>
+      <div class="af-veld vol">
+        <label>Welke afspraken maken we voor week 3 en verder?</label>
+        <textarea id="te-afspraken" placeholder="…" oninput="slaOp()"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div id="secties-container-team2"></div>
+</div>
+
 <!-- TAB: VOORTGANG -->
 <div id="tab-voortgang" class="tab-panel">
   <div class="prog-wrap">
@@ -273,7 +837,7 @@ footer { text-align: center; margin-top: 2.5rem; font-size: 11px; color: #CCC; }
   </div>
 </div>
 
-<footer>Leef Kind · Checklijst nieuwe medewerker v2026m06 · Intern gebruik</footer>
+<footer>Leef Kind · Checklijst &amp; inwerkbegeleiding nieuwe medewerker · v2026m09 · Intern gebruik</footer>
 </div>
 
 <script>
@@ -285,57 +849,57 @@ const SECTIES = [
     items: [
       {
         id: 1, titel: 'Cao-kinderopvang',
-        info: 'De arbeidsvoorwaarden bij Leef Kind vallen onder de Cao-kinderopvang. Hierin staan afspraken over salaris, werktijden, verlof en meer.',
-        links: [{ label: 'Cao-kinderopvang', url: 'https://www.kinderopvang-werkt.nl/arbeidsvoorwaarden/cao-kinderopvang' }]
+        info: 'Bij Leef Kind gelden de afspraken uit de Cao Kinderopvang. Daarin staat alles over je salaris, werktijden, vakantiedagen, verlof en andere arbeidsvoorwaarden. Het is handig om te weten wat er in staat, zodat je weet waar je recht op hebt. Je kunt de cao altijd raadplegen via de Kinderopvang CAO app op je telefoon.',
+        links: [{ label: 'Kinderopvang CAO app (App Store)', url: 'https://apps.apple.com/nl/app/cao-kinderopvang/id6446905832' }, { label: 'Kinderopvang CAO app (Google Play)', url: 'https://play.google.com/store/apps/details?id=nl.kinderopvangwerkt.cao' }]
       },
       {
         id: 2, titel: 'JUS – Jaarurensystematiek',
-        info: 'Leef Kind werkt met de jaarurensystematiek (JUS). Je contracturen worden over het hele jaar verdeeld in plaats van per week vastgezet.',
-        links: [{ label: 'Informatie JUS', url: 'https://www.kinderopvang-werkt.nl/werkgevers/informatiebrochure-jaarurensystematiek-kinderopvang' }]
+        info: 'Leef Kind werkt met de jaarurensystematiek, ook wel JUS genoemd. Dit betekent dat je niet elke week hetzelfde aantal uren werkt, maar dat je contracturen over het hele jaar worden verdeeld. De ene week werk je misschien meer, de andere week minder. Aan het einde van het jaar moeten de uren wel kloppen met wat er in je contract staat.',
+        links: []
       },
       {
         id: 3, titel: 'SharePoint – online intranet',
-        info: 'SharePoint is de online werkomgeving van Leef Kind. Hier vind je documenten, procedures, protocollen en beleidsstukken.',
-        links: [{ label: 'Microsoft SharePoint', url: 'https://www.microsoft.com/nl-nl/microsoft-365/sharepoint/collaboration' }]
+        info: 'SharePoint is de digitale werkomgeving van Leef Kind. Je vindt er alle belangrijke documenten, zoals protocollen, procedures en beleidsstukken. Maar SharePoint is meer dan alleen een documentenbibliotheek: hier vind je ook het laatste nieuws van Leef Kind, mededelingen en andere informatie die voor jou als medewerker belangrijk is. Je logt in met je Leef Kind e-mailadres.',
+        links: [{ label: 'Leef Kind SharePoint', url: 'https://leefkindkinderopvang.sharepoint.com/' }]
       },
       {
         id: 4, titel: 'Persoonlijk Leef Kind mailadres',
-        info: 'Je ontvangt een persoonlijk e-mailadres van Leef Kind (@leefkind.nl) via Microsoft 365. Dit gebruik je voor alle interne en externe communicatie.',
+        info: 'Als medewerker van Leef Kind krijg je een eigen werkmailadres dat eindigt op @leefkind.nl. Dit mailadres gebruik je voor alle communicatie op het werk, zowel intern met collega\'s als extern met ouders of andere partijen. Je logt in via Outlook, dat onderdeel is van Microsoft 365.',
         links: [{ label: 'Inloggen e-mail (Outlook)', url: 'https://outlook.office.com' }]
       },
       {
         id: 5, titel: 'SDB HR – loonstrook en jaaropgave',
-        info: 'In SDB HR kun je je loonstroken en jaaropgave inzien. Ook zet je hier declaraties klaar die je maandelijks doorstuurt.',
-        links: [{ label: 'SDB Groep', url: 'https://sdbzorgt.nl/' }]
+        info: 'SDB HR is het systeem waar je jouw persoonlijke gegevens kunt inzien en aanpassen, zoals je adres of bankrekeningnummer. Daarnaast kun je hier je loonstroken en jaaropgave terugvinden. Ook gebruik je SDB HR om reiskosten te declareren, bijvoorbeeld als je op één dag naar twee locaties rijdt of een scholing bijwoont.',
+        links: [{ label: 'SDB HR Leef Kind', url: 'https://leefkind.sdbhr.nl/' }]
       },
       {
         id: 6, titel: 'SDB-planning en Octopus app',
-        info: 'Via SDB-planning en de Octopus app kun je je werkdiensten, uren en vakantie inzien en monitoren. De desktopversie toont meer gegevens dan de app.',
-        sub: ['Werkdiensten, uren en vakantie inzien', 'Declaraties indienen', 'Desktopversie toont meer gegevens dan de Octopus app'],
+        info: 'Via SDB-planning kun je je werkrooster inzien, vakantie aanvragen en reiskosten declareren. Dit kan via de Octopus app op je telefoon, maar ook via de webbrowser op een computer of tablet. Let op: de desktopversie laat meer informatie zien dan de app, zoals meer details over je uren en diensten. Het is handig om beide te kennen.',
+        sub: ['Werkdiensten, uren en vakantie inzien', 'Declaraties indienen', 'Desktopversie (via webbrowser) toont meer gegevens dan de Octopus app'],
         links: [
-          { label: 'SDB Octopus (kinderopvang)', url: 'https://sdbzorgt.nl/oplossingen/sdb-octopus-voor-de-kinderopvang/' },
+          { label: 'SDB-planning (webbrowser)', url: 'https://leefkind.sdbidentity.nl/' },
           { label: 'Octopus app (App Store)', url: 'https://apps.apple.com/nl/app/octopus-app/id6472838413' },
           { label: 'Octopus app (Google Play)', url: 'https://play.google.com/store/apps/details?id=com.sdbgroep.octopus' }
         ]
       },
       {
         id: 7, titel: 'Leef Kind Roosterverstoringsapp',
-        info: 'Via deze app worden ziekmeldingen en roosterverstoringen kenbaar gemaakt en samen opgelost. Elke medewerker wordt hieraan toegevoegd.',
+        info: 'De Roosterverstoringsapp gebruik je als er iets verandert in het rooster, bijvoorbeeld bij ziekte of een andere onverwachte situatie. Via de app kun je een ziekmelding doorgeven en samen met collega\'s zoeken naar een oplossing. Alle medewerkers van Leef Kind worden toegevoegd aan deze app, zodat verstoringen snel en samen opgelost kunnen worden.',
         sub: ['Ziekmelding insturen', 'Roosterverstoringen oplossen met collega\'s']
       },
       {
         id: 8, titel: 'Ondernemingsregeling reiskosten',
-        info: 'Je ontvangt automatisch reiskosten woon-werk retour naar je eerste werkplek op een dag. Lees het document "Reiskosten ondernemingsregeling Leef Kind" op SharePoint voor meer informatie.',
-        links: [{ label: 'Inloggen SharePoint', url: 'https://outlook.office.com' }]
+        info: 'Elke werkdag krijg je automatisch een vergoeding voor de reiskosten van je woning naar je eerste werkplek op de groep en terug. Dit gaat automatisch, je hoeft hier niets voor in te dienen. Wil je weten hoe de vergoeding precies berekend wordt? Lees dan het document "Reiskosten ondernemingsregeling Leef Kind" op SharePoint.',
+        links: [{ label: 'Leef Kind SharePoint', url: 'https://leefkindkinderopvang.sharepoint.com/' }]
       },
       {
         id: 9, titel: 'SDB-ouderportaal',
-        info: 'Via het ouderportaal communiceer je met ouders en noteer je informatie over de kinderen.',
-        links: [{ label: 'SDB Ouderportaal', url: 'https://sdbzorgt.nl/oplossingen/roosterplanning/' }]
+        info: 'Via het ouderportaal houd je contact met de ouders van de kinderen op jouw groep. Je kunt hier berichten sturen, informatie over een kind vastleggen en ouders op de hoogte houden van wat er op de groep gebeurt. Het is een belangrijk communicatiemiddel in het dagelijks werk.',
+        links: [{ label: 'Ouderportaal Leef Kind', url: 'https://groep-leefkind.kindplanner.nl/#/login' }]
       },
       {
         id: 10, titel: 'Kijk – kind observatiesysteem',
-        info: 'Met Kijk registreer je de ontwikkeling van kinderen. Dit systeem helpt bij het volgen en versterken van kinderen.',
+        info: 'Met het observatiesysteem Kijk volg je de ontwikkeling van de kinderen op jouw groep. Je legt vast wat je ziet en signaleert hoe een kind zich ontwikkelt op verschillende gebieden. Dit helpt je om ieder kind goed in beeld te houden en waar nodig extra aandacht te geven of een gesprek met ouders aan te gaan.',
         links: [{ label: 'Kijk observatiesysteem', url: 'https://www.kijkregistratie.nl' }]
       }
     ]
@@ -345,13 +909,16 @@ const SECTIES = [
     titel: 'Start op locatie',
     items: [
       {
-        id: 11, titel: 'Welkomstbericht van de teamleider ontvangen',
-        info: 'De teamleider stuurt je een welkomstbericht met: welke groep je gaat werken, bij wie je terecht kunt met vragen, en een voorstelbrief voor ouders en collega\'s.',
-        sub: ['Welke groep je gaat werken', 'Contactpersoon voor vragen', 'Toegevoegd aan de Roosterverstoringsapp (met korte voorstelling)', 'Voorstelbrief aan ouders en collega\'s']
+        id: 11, titel: '1/3 De teamleider verwelkomt jou',
+        info: 'Voordat je begint, stuurt de teamleider je een welkomstbericht. Daarin staat op welke dag je voor het eerst komt werken, op welke groep of groepen je gaat werken en bij wie je terecht kunt als je vragen hebt. Zo weet je precies waar je aan toe bent voordat je eerste werkdag begint.'
       },
       {
-        id: 12, titel: 'Rondleiding locatie op de eerste dag',
-        info: 'Op de eerste dag krijg je een rondleiding over de locatie.',
+        id: 31, titel: '2/3 Voorstellen aan ouders en collega\'s',
+        info: 'Om je goed te introduceren bij iedereen, schrijft personeelszaken een voorstelbrief voor jou. Die brief wordt gedeeld met je collega\'s én met de ouders van de kinderen op jouw groep. Daarnaast stel je jezelf ook persoonlijk voor als je voor het eerst op de locatie bent. Zo leer je iedereen op een natuurlijke manier kennen.'
+      },
+      {
+        id: 32, titel: '3/3 Rondleiding locatie op de eerste dag',
+        info: 'Op je eerste werkdag krijg je een rondleiding over de locatie. Je leert waar alles staat en hoe de locatie is ingericht. Zo voel je je snel thuis en weet je de weg.',
         sub: ['Jas ophangen, kluisjes, toilet en pauzeruimte', 'Kindcentrumregels', 'Afval- en recycleverzamelpunt', 'Opslag boodschappen en schoonmaakmaterialen', 'Was- en droogruimte']
       }
     ]
@@ -362,58 +929,55 @@ const SECTIES = [
     items: [
       {
         id: 13, titel: 'Ingelogd in SDB HR en SDB-planning',
-        info: 'Je kunt zelfstandig werken in beide systemen.',
-        sub: ['Rooster inzien', 'Inschrijven op diensten', 'Reiskosten declareren (2 locaties op 1 dag, of bij scholing/overleg)', 'Verlof indienen in SDB-planning na overleg met het team'],
-        links: [
-          { label: 'SDB Octopus (kinderopvang)', url: 'https://sdbzorgt.nl/oplossingen/sdb-octopus-voor-de-kinderopvang/' },
-          { label: 'SDB HR', url: 'https://sdbzorgt.nl/' }
-        ]
+        info: 'Na een paar weken moet je zelfstandig kunnen werken in SDB HR en SDB-planning. In SDB HR beheer je je persoonlijke gegevens en declaraties. In SDB-planning zie je je rooster, kun je verlof aanvragen en diensten bekijken of inschrijven. Heb je hulp nodig bij het inloggen of werken met de systemen? Vraag het aan je teamleider of collega.',
+        sub: ['Rooster inzien', 'Inschrijven op diensten', 'Reiskosten declareren (2 locaties op 1 dag, of bij scholing/overleg)', 'Verlof indienen in SDB-planning na overleg met het team']
       },
       {
         id: 14, titel: 'Ouderportaal – je kunt ermee werken',
-        links: [{ label: 'SDB Ouderportaal', url: 'https://sdbzorgt.nl/oplossingen/roosterplanning/' }]
+        info: 'Je weet hoe je het ouderportaal gebruikt en kunt hier zelfstandig mee werken. Je kunt berichten sturen aan ouders, informatie over kinderen vastleggen en de communicatie bijhouden. Als je er nog niet helemaal uitkomt, vraag dan een collega om het je te laten zien.'
       },
       {
-        id: 15, titel: 'Op de hoogte van het basisrooster',
-        info: 'Het basisrooster wordt gemaakt op basis van ~85% van je contracturen, aangevuld met overleg, scholingen, NGU, verlof- en ziektevervanging.',
+        id: 15, titel: 'Op de hoogte van de planningsafspraken',
+        info: 'Je weet hoe het rooster bij Leef Kind werkt. Het basisrooster wordt gemaakt op basis van ongeveer 85% van je contracturen. De overige uren worden ingezet voor zaken als overleg, scholingen, niet-geroosterde uren (NGU), verlof en ziektevervanging. Het aantal roosterdagen wordt berekend door je contracturen te delen door 7,2. Ben je parttime? Dan zijn de overige dagen niet-roosterdagen.',
         sub: ['Basisrooster: ~85% van contracturen', 'Werkdagen = contracturen ÷ 7,2', 'Niet-roosterdag(en): overige dag als je geen fulltimer bent']
       },
       {
         id: 16, titel: 'Juiste informatie in SDB HR en SDB-planning',
+        info: 'Het is jouw verantwoordelijkheid om te zorgen dat je gegevens in SDB HR altijd kloppen. Denk aan je adres, bankrekeningnummer en andere persoonlijke informatie. Ben je verhuisd? Pas je adres dan aan in HR én geef het door aan personeelszaken en de centrale planner. Ga je eerder naar huis dan gepland? Pas dit dan dezelfde dag nog aan in SDB-planning.',
         sub: ['Eerder naar huis? Planning diezelfde dag aanpassen in SDB-planning', 'PM\'er in ontwikkeling: VVE training zelf noteren na toestemming locatiecoördinator', 'Verhuizing: adres aanpassen in HR én doorgeven bij personeelszaken en centrale planner']
       },
       {
         id: 17, titel: 'Ergonomisch werken',
-        info: 'Bij Leef Kind werken we ergonomisch verantwoord om blessures te voorkomen.',
-        sub: ['Lopende kinderen klimmen zelf via het trapje op/af de verschoontafel', 'Lopende kinderen klimmen zelf in een onderbedje', 'Lopende kinderen klimmen zelf in/uit de bank bij een tafelmoment', 'Dweilen met achtjes-techniek en correcte materialen', 'Extra aandachtspunten ergonomisch werken op deze locatie: . . . . . . . . . . . . . . . . . . . . . . . . . .'],
+        info: 'Bij Leef Kind letten we goed op hoe we ons lichaam gebruiken tijdens het werk. We werken zo veel mogelijk op een manier die blessures voorkomt. Een belangrijk onderdeel daarvan is dat we kinderen stimuleren om zoveel mogelijk zelf te doen. Zo tillen wij minder en bewegen de kinderen meer. We dweilen met de achtjes-techniek en gebruiken daarvoor de juiste materialen.',
+        sub: ['Lopende kinderen klimmen zelf via het trapje op/af de verschoontafel', 'Lopende kinderen klimmen zelf in een onderbedje', 'Lopende kinderen klimmen zelf op de bank bij de eettafel', 'Dweilen met achtjes-techniek en geschikte materialen', 'Extra aandachtspunten ergonomisch werken op deze locatie: . . . . . . . . . . . . . . . . . . . . . . . . . .'],
         links: [{ label: 'Ergonomie in de kinderopvang', url: 'https://www.arboportaal.nl/onderwerpen/ergonomie' }]
       },
       {
         id: 18, titel: 'Rondleiding veiligheid gehad',
-        info: 'Je hebt een rondleiding gehad over alle veiligheidsaspecten op de locatie.',
+        info: 'Je hebt een rondleiding gehad over de veiligheid op de locatie. Het is belangrijk dat je weet waar alle veiligheidsmiddelen zijn en hoe je moet handelen bij een calamiteit. Denk aan de locatie van de blusmiddelen, de vluchtwegen, de brandmeldcentrale en de evacuatietas. Zorg er altijd voor dat je omgeving opgeruimd en veilig is.',
         sub: ['Locatie blusmiddelen en bereik brandslang', 'Brandmeldcentrale en handmelders (bij brand: altijd ook handmelder indrukken)', 'Vluchtwegen en -uitgangen (plattegrond)', 'Evacuatiebed, evacuatietas en inhoud', 'Overzicht calamiteitencoördinator', 'Gas- en waterafsluiter en stoppenkast', 'Gevaarlijke stoffen en ontstekingsbronnen (poetsmiddelen, oven e.d.)', 'Draag zorg voor een opgeruimde en veilige omgeving'],
         links: [{ label: 'Brandveiligheid info (Brandweer NL)', url: 'https://www.brandweer.nl/onderwerpen/brandveiligheid-gebouwen' }]
       },
       {
         id: 19, titel: 'Ziekmeldingsprocedure bekend',
-        info: 'De volledige instructie staat op SharePoint en in de Leef Kind Roosterverstoringsapp.',
-        sub: ['Dienst zetten op de Roosterverstoringsapp', 'Planeenheid "ziekmelding dag verantwoordelijke" raadplegen', '6:45 uur: ziek melden bij de dag verantwoordelijke', '9:00–10:00 uur: ziek melden bij Manager B&K Themby Vink (begeleiding)', 'Bij andere afwezigheid: zelf vervanging regelen als rooster al gepubliceerd is'],
-        links: [{ label: 'Instructie op SharePoint', url: 'https://outlook.office.com' }]
+        info: 'Als je ziek bent, is het belangrijk dat je dit zo snel mogelijk doorgeeft volgens de juiste procedure. Je meldt je om 6:45 uur ziek bij de dagverantwoordelijke via de Roosterverstoringsapp. Zet je dienst ook in de app, zodat collega\'s weten dat er iemand nodig is. Ben je om een andere reden afwezig en is het rooster al gepubliceerd? Dan regel je zelf vervanging. De volledige instructie vind je op SharePoint en in de Roosterverstoringsapp.',
+        sub: ['Dienst zetten op de Roosterverstoringsapp', 'Planeenheid "ziekmelding dag verantwoordelijke" raadplegen', '6:45 uur: ziek melden bij de dag verantwoordelijke', 'Bij andere afwezigheid: zelf vervanging regelen als rooster al gepubliceerd is'],
+        links: [{ label: 'Instructie op SharePoint', url: 'https://leefkindkinderopvang.sharepoint.com/' }]
       }
     ]
   },
   {
     id: 's4',
-    titel: 'Protocollen gelezen *',
+    titel: 'Protocollen gelezen (SharePoint) *',
     wettelijk: true,
     items: [
-      { id: 20, titel: 'Personeelshandboek Leef Kind', info: 'Het personeelshandboek wordt momenteel herschreven. De meest recente versie staat op SharePoint.', sub: ['Let op: wordt herschreven'], links: [{ label: 'SharePoint', url: 'https://outlook.office.com' }] },
-      { id: 21, titel: 'Gedragscode voor medewerkers Leef Kind', links: [{ label: 'SharePoint', url: 'https://outlook.office.com' }] },
-      { id: 22, titel: 'Privacy beleid Leef Kind', info: 'Het privacybeleid beschrijft hoe Leef Kind omgaat met persoonsgegevens, conform de AVG.', links: [{ label: 'Meer over AVG (AP)', url: 'https://www.autoriteitpersoonsgegevens.nl' }, { label: 'SharePoint', url: 'https://outlook.office.com' }] },
-      { id: 23, titel: 'Verzuim preventie protocol', links: [{ label: 'SharePoint', url: 'https://outlook.office.com' }] },
-      { id: 24, titel: 'Beleidsplan Veiligheid en Gezondheid Leef Kind', links: [{ label: 'SharePoint', url: 'https://outlook.office.com' }] },
-      { id: 25, titel: 'BHV werkplan', info: 'Het BHV-werkplan beschrijft de organisatie van de bedrijfshulpverlening bij Leef Kind.', links: [{ label: 'Wat is BHV? (Arboportaal)', url: 'https://www.arboportaal.nl/onderwerpen/bhv' }, { label: 'SharePoint', url: 'https://outlook.office.com' }] },
-      { id: 26, titel: 'Arbo werkplan', info: 'Het Arbo werkplan beschrijft hoe Leef Kind invulling geeft aan de verplichtingen uit de Arbeidsomstandighedenwet.', links: [{ label: 'Arbowet info', url: 'https://www.arboportaal.nl/wetgeving' }, { label: 'SharePoint', url: 'https://outlook.office.com' }] }
+      { id: 20, titel: 'Personeelshandboek Leef Kind', info: 'In het personeelshandboek vind je alle belangrijke informatie over hoe het werken bij Leef Kind is geregeld. Denk aan afspraken over verlof, gedrag, scholing en meer. Let op: het handboek wordt op dit moment herschreven. De meest actuele versie vind je altijd op SharePoint.', sub: ['Let op: wordt herschreven'] },
+      { id: 21, titel: 'Gedragscode voor medewerkers Leef Kind', info: 'De gedragscode beschrijft hoe we bij Leef Kind met elkaar omgaan en hoe we ons gedragen naar kinderen, ouders en collega\'s. Het gaat over respect, veiligheid en professionaliteit. Door de gedragscode te lezen weet je wat Leef Kind van jou verwacht en wat jij van anderen mag verwachten.' },
+      { id: 22, titel: 'Privacy beleid Leef Kind', info: 'Bij Leef Kind gaan we zorgvuldig om met persoonsgegevens van kinderen, ouders en medewerkers. In het privacybeleid staat hoe we dat doen en welke regels daarvoor gelden volgens de AVG (de Nederlandse privacywet). Het is belangrijk dat je weet hoe je met vertrouwelijke informatie omgaat.' },
+      { id: 23, titel: 'Verzuim preventie protocol', info: 'In dit protocol staat hoe Leef Kind omgaat met ziekte en verzuim. Het beschrijft wat er van jou wordt verwacht als je ziek bent, maar ook wat Leef Kind doet om jou te ondersteunen bij herstel. Door dit protocol te kennen weet je wat de stappen zijn als je langere tijd niet kunt werken.' },
+      { id: 24, titel: 'Beleidsplan Veiligheid en Gezondheid Leef Kind', info: 'Dit plan beschrijft hoe Leef Kind zorgt voor een veilige en gezonde werkomgeving. Het gaat over risico\'s op de werkvloer, hoe we die aanpakken en wat we doen om medewerkers en kinderen te beschermen. Het is de basis voor alle veiligheidsafspraken binnen Leef Kind.' },
+      { id: 25, titel: 'BHV werkplan', info: 'BHV staat voor Bedrijfshulpverlening. In het BHV-werkplan staat wie verantwoordelijk is voor hulpverlening bij een noodsituatie op de locatie, zoals brand of een ongeluk. Het beschrijft ook hoe de hulpverlening is georganiseerd en wat de taken zijn van de BHV\'ers bij Leef Kind.' },
+      { id: 26, titel: 'Arbo werkplan', info: 'Het Arbo werkplan legt uit hoe Leef Kind invulling geeft aan de regels uit de Arbeidsomstandighedenwet. Daarin staan afspraken over veilig en gezond werken, het voorkomen van blessures en wat we doen om de werkplek zo goed mogelijk in te richten voor medewerkers.' }
     ]
   },
   {
@@ -422,7 +986,7 @@ const SECTIES = [
     items: [
       {
         id: 27, titel: 'Indirect personeel – kennisgemaakt',
-        info: 'Overzicht van het indirecte personeel bij Leef Kind.',
+        info: 'Naast de medewerkers op de groepen werken er ook mensen op kantoor en in ondersteunende functies. Dit noemen we het indirecte personeel. Het is handig om te weten wie zij zijn en wat zij doen, zodat je weet bij wie je terecht kunt voor bepaalde vragen.',
         personeel: [
           { rol: 'Directie', naam: 'Sigrid Geurts' },
           { rol: 'Financieel', naam: 'John Frencken' },
@@ -450,20 +1014,69 @@ const SECTIES = [
       },
       {
         id: 28, titel: 'Ondernemingsraad',
-        info: 'De OR behartigt de belangen van medewerkers in samenspraak met Leef Kind. Het reglement en jaarverslagen staan op SharePoint.',
+        info: 'De Ondernemingsraad (OR) is een groep medewerkers die de belangen van alle collega\'s behartigt. De OR overlegt regelmatig met de directie over zaken die medewerkers aangaan, zoals arbeidsomstandigheden, beleid en organisatiewijzigingen. Heb je een idee of een punt dat je wilt aankaarten? Dan kun je dat via de OR doen. Het reglement en de jaarverslagen vind je op SharePoint.',
         links: [{ label: 'OR@leefkind.nl', url: 'mailto:OR@leefkind.nl' }, { label: 'Wat doet een OR? (SER)', url: 'https://www.ser.nl/nl/thema/medezeggenschap' }]
       },
       {
         id: 29, titel: 'Oudercommissie',
-        info: 'De oudercommissie behartigt de belangen van ouders. De samenstelling per locatie is terug te vinden op SharePoint.',
-        links: [{ label: 'Rol oudercommissie (Kinderopvang werkt)', url: 'https://www.kinderopvang-werkt.nl' }]
+        info: 'Elke locatie van Leef Kind heeft een oudercommissie. Deze commissie vertegenwoordigt de ouders en heeft inspraak op het beleid van de locatie, bijvoorbeeld over openingstijden, voeding en de pedagogische aanpak. Als medewerker is het goed om te weten dat de oudercommissie bestaat en welke rol zij speelt. De samenstelling per locatie vind je op SharePoint.'
       },
       {
-        id: 30, titel: 'Werk-Vitaal (Arbodienst)',
-        info: 'Werk-Vitaal is de arbodienst van Leef Kind. Via Werk-Vitaal heb je toegang tot een casemanager, bedrijfsarts en vertrouwenspersonen.',
-        sub: ['Casemanager', 'Bedrijfsarts', 'Vertrouwenspersonen'],
+        id: 30, titel: 'Werk-Vitaal – bedrijfsarts',
+        info: 'Werk-Vitaal is de arbodienst waarmee Leef Kind samenwerkt. Als je langere tijd ziek bent of vragen hebt over je gezondheid in relatie tot je werk, kun je via Werk-Vitaal terecht bij een bedrijfsarts. De bedrijfsarts geeft advies over je herstel en terugkeer naar werk, maar bepaalt niet zelf of je ziek bent — dat doe je zelf.',
         links: [{ label: 'Werk-Vitaal', url: 'https://www.werk-vitaal.nl' }]
+      },
+      {
+        id: 33, titel: 'Vertrouwenspersoon',
+        info: 'Bij Leef Kind kun je altijd terecht bij een vertrouwenspersoon als je ergens mee zit op het werk. Denk aan een vervelende situatie met een collega, ongewenst gedrag, of iets wat je niet zo makkelijk bespreekt met je leidinggevende. De vertrouwenspersoon luistert, denkt met je mee en helpt je verder. Leef Kind heeft bewust gekozen voor een externe vertrouwenspersoon, zodat je in alle vertrouwelijkheid en onafhankelijk je verhaal kwijt kunt.'
       }
+    ]
+  }
+  ,
+  {
+    id: 's6',
+    titel: 'TL – Week 1: welkom, kennismaken en basis',
+    container: 'team1',
+    items: [
+      { id: 101, titel: 'Welkom & kennismaken', info: 'Persoonlijk welkom aan de nieuwe medewerker: het team, de kinderen, de ouders en de locatie(s) worden voorgesteld.' },
+      { id: 102, titel: 'Begeleiding op locatie', info: 'Per dienst is duidelijk bij wie de nieuwe medewerker terechtkan met praktische vragen.' },
+      { id: 103, titel: 'Veiligheid', info: 'Vluchtroutes, verzamelplaats, BHV en veiligheidsafspraken zijn uitgelegd.' },
+      { id: 104, titel: 'Systemen', info: 'Leef Kind-mail, SDB HR en SDB-planning werken, en de basis is uitgelegd.' },
+      { id: 105, titel: 'Leef Kind', info: 'Personeelshandboek, gedragscode en privacybeleid zijn besproken.' },
+      { id: 106, titel: 'Dagelijkse praktijk', info: 'Meelopen, observeren, vragen stellen en de werkwijze leren kennen.' },
+      { id: 107, titel: 'Ouderportaal / Kijk', info: 'Basisuitleg over het ouderportaal en het Kijk-observatiesysteem is gegeven.' },
+      { id: 108, titel: 'Ziekte / roosterverstoringen', info: 'De procedure en de Roosterverstoringsapp zijn uitgelegd.' },
+      { id: 109, titel: 'Einde week 1', info: 'Kort check-in gesprek gevoerd door de teamleider; aandachtspunten genoteerd.' }
+    ]
+  },
+  {
+    id: 's7',
+    titel: 'TL – Week 2: verdiepen en kennismaken met kantoor',
+    container: 'team1',
+    items: [
+      { id: 111, titel: 'Praktijk', info: 'De medewerker werkt steeds zelfstandiger; aanwezige collega\'s ondersteunen waar nodig.' },
+      { id: 112, titel: 'Pedagogisch werken', info: 'Observaties, handelen en vragen uit de praktijk worden besproken.' },
+      { id: 113, titel: 'Veilig & gezond', info: 'Ergonomisch werken, Arbo, verzuimpreventie en relevante afspraken zijn besproken.' },
+      { id: 114, titel: 'Kantoor – Kindplanning', info: 'Kennismaken met Leef Kind Kindplanning: wat doet Kindplanning en hoe werken locatie en planning samen?',
+        velden: [{ key: 'datum', label: 'Datum/tijd', placeholder: 'bv. 3 okt, 10:00' }, { key: 'wie', label: 'Wie regelt', default: 'HR' }] },
+      { id: 115, titel: 'Kantoor – Planning', info: 'Kennismaken met Planning: hoe komt het rooster tot stand, welke informatie heeft Planning nodig en hoe verloopt het contact?',
+        velden: [{ key: 'datum', label: 'Datum/tijd', placeholder: 'bv. 3 okt, 10:00' }, { key: 'wie', label: 'Wie regelt', default: 'HR' }] },
+      { id: 116, titel: 'Kantoor – M&O', info: 'Kennismaken met Ricardo (M&O): rol van M&O, ondersteuning en ruimte voor vragen.',
+        velden: [{ key: 'datum', label: 'Datum/tijd', placeholder: 'bv. 3 okt, 10:00' }, { key: 'wie', label: 'Wie regelt', default: 'HR' }] },
+      { id: 117, titel: 'Organisatie', info: 'Kennismaken met het indirect personeel op kantoor.' },
+      { id: 118, titel: 'Checklist', info: 'Openstaande onderdelen van de Checklist Nieuwe Medewerker nalopen door de teamleider.' },
+      { id: 119, titel: 'Einde week 2', info: 'Tussenevaluatie met de medewerker: voortgang, vragen, begeleiding en vervolgafspraken (zie hieronder).' }
+    ]
+  },
+  {
+    id: 's8',
+    titel: 'TL – Evaluatiemomenten (vervolg)',
+    container: 'team2',
+    opmerking: 'De medewerker heeft een proeftijd van 2 maanden. HR bewaakt dit moment en plant het proeftijdgesprek tijdig in met de teamleider.',
+    items: [
+      { id: 131, titel: 'Rond week 4 – 1e evaluatiegesprek', info: 'Eerste evaluatiegesprek: functioneren, samenwerking en ontwikkeling. Verantwoordelijkheid: teamleider.' },
+      { id: 132, titel: 'Voor einde proeftijd – proeftijdgesprek', info: 'HR plant het proeftijdgesprek tijdig in met de teamleider. De teamleider bereidt het gesprek voor en bespreekt het functioneren, de samenwerking, de inzetbaarheid, de ontwikkeling en het vervolg.' },
+      { id: 133, titel: 'Na 2 maanden – afronding inwerken', info: 'De volledige Checklist Nieuwe Medewerker wordt besproken en afgesloten (zie tabblad ✓ Checklist), en er worden vervolgafspraken gemaakt. Verantwoordelijkheid: teamleider en HR.' }
     ]
   }
 ];
@@ -471,36 +1084,57 @@ const SECTIES = [
 // State
 const state = {};
 SECTIES.forEach(s => s.items.forEach(item => {
-  state[item.id] = { done: false, note: '' };
+  state[item.id] = { done: false, note: '', velden: {} };
+  if (item.velden) item.velden.forEach(f => { state[item.id].velden[f.key] = f.default || ''; });
 }));
 let handtekening = false;
 const alleIds = SECTIES.flatMap(s => s.items.map(i => i.id));
 
 // ===================== RENDER SECTIES =====================
-function renderSecties() {
-  const container = document.getElementById('secties-container');
-  container.innerHTML = SECTIES.map(s => {
-    const itemsHtml = s.items.map(item => renderItemRij(item)).join('');
-    const wettelijkHtml = s.wettelijk ? `
+function sectieHtml(s) {
+  const itemsHtml = s.items.map(item => renderItemRij(item)).join('');
+  const noteHtml = s.wettelijk ? `
       <div class="wettelijk">
         <strong>* Artikel 8 Arbeidsomstandighedenwet:</strong> De werkgever zorgt ervoor dat de werknemers doeltreffend worden ingelicht over de te verrichten werkzaamheden en de daaraan verbonden risico's, alsmede over de maatregelen die erop gericht zijn deze risico's te voorkomen of te beperken.
-      </div>` : '';
-    const klaar = s.items.filter(i => state[i.id].done).length;
-    return `
-      <div class="sectie-blok" id="blok-${s.id}">
-        <div class="sectie-head" onclick="toggleSectie('${s.id}')">
-          <div class="sectie-head-left">
-            <span class="sectie-titel">${s.titel}</span>
-            <span class="sectie-teller ${klaar===s.items.length?'klaar':''}" id="teller-${s.id}">${klaar} / ${s.items.length}</span>
-          </div>
-          <span class="sectie-toggle open" id="toggle-${s.id}">▼</span>
+      </div>` : (s.opmerking ? `
+      <div class="wettelijk">
+        <strong>Let op:</strong> ${s.opmerking}
+      </div>` : '');
+  const klaar = s.items.filter(i => state[i.id].done).length;
+  return `
+    <div class="sectie-blok" id="blok-${s.id}">
+      <div class="sectie-head" onclick="toggleSectie('${s.id}')">
+        <div class="sectie-head-left">
+          <span class="sectie-titel">${s.titel}</span>
+          <span class="sectie-teller ${klaar===s.items.length?'klaar':''}" id="teller-${s.id}">${klaar} / ${s.items.length}</span>
         </div>
-        <div id="inhoud-${s.id}">
-          ${itemsHtml}
-          ${wettelijkHtml}
-        </div>
-      </div>`;
-  }).join('');
+        <span class="sectie-toggle open" id="toggle-${s.id}">▼</span>
+      </div>
+      <div id="inhoud-${s.id}">
+        ${itemsHtml}
+        ${noteHtml}
+      </div>
+    </div>`;
+}
+
+function renderSecties() {
+  const containers = { checklist: 'secties-container', team1: 'secties-container-team1', team2: 'secties-container-team2' };
+  Object.entries(containers).forEach(([key, elId]) => {
+    const el = document.getElementById(elId);
+    if (!el) return;
+    const subset = SECTIES.filter(s => (s.container || 'checklist') === key);
+    el.innerHTML = subset.map(sectieHtml).join('');
+  });
+}
+
+function veldenHtmlVoor(item) {
+  if (!item.velden) return '';
+  const v = (state[item.id] && state[item.id].velden) || {};
+  return `<div class="item-velden" onclick="event.stopPropagation()">${item.velden.map(f => `
+      <div class="iv-veld">
+        <label>${f.label}</label>
+        <input type="text" value="${(v[f.key]||'').replace(/"/g,'&quot;')}" placeholder="${f.placeholder||''}" oninput="updateVeld(${item.id},'${f.key}',this.value)">
+      </div>`).join('')}</div>`;
 }
 
 function renderItemRij(item) {
@@ -513,6 +1147,7 @@ function renderItemRij(item) {
       <div class="item-info">
         <div class="item-titel">${item.titel}</div>
         ${heeftLink ? `<div class="item-links">${eersteLink}</div>` : ''}
+        ${veldenHtmlVoor(item)}
         ${state[item.id].note ? `<div class="item-notitie">📝 ${state[item.id].note.substring(0,60)}${state[item.id].note.length>60?'…':''}</div>` : ''}
       </div>
       <button class="info-btn" onclick="event.stopPropagation();openModal(${item.id})" title="Details & notitie">ℹ</button>
@@ -539,19 +1174,19 @@ function vinkItem(id) {
 
 function updateItem(id) {
   const rij = document.getElementById('rij-' + id);
-  const chk = document.getElementById('chk-' + id);
   if (!rij) return;
   // Rebuild the row
-  const sectie = SECTIES.flatMap(s => s.items).find(i => i.id === id);
-  if (sectie) {
+  const item = SECTIES.flatMap(s => s.items).find(i => i.id === id);
+  if (item) {
     const done = state[id].done;
-    const heeftLink = sectie.links && sectie.links.length > 0;
-    const eersteLink = heeftLink ? `<a class="item-link" href="${sectie.links[0].url}" target="_blank" onclick="event.stopPropagation()">↗ ${sectie.links[0].label}</a>` : '';
+    const heeftLink = item.links && item.links.length > 0;
+    const eersteLink = heeftLink ? `<a class="item-link" href="${item.links[0].url}" target="_blank" onclick="event.stopPropagation()">↗ ${item.links[0].label}</a>` : '';
     rij.className = 'item-rij' + (done ? ' afgevinkt' : '');
     rij.querySelector('.chk').className = 'chk' + (done ? ' checked' : '');
     const info = rij.querySelector('.item-info');
-    info.innerHTML = `<div class="item-titel">${sectie.titel}</div>
+    info.innerHTML = `<div class="item-titel">${item.titel}</div>
       ${heeftLink ? `<div class="item-links">${eersteLink}</div>` : ''}
+      ${veldenHtmlVoor(item)}
       ${state[id].note ? `<div class="item-notitie">📝 ${state[id].note.substring(0,60)}${state[id].note.length>60?'…':''}</div>` : ''}`;
   }
 }
@@ -572,14 +1207,14 @@ function updateKPI() {
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Openstaand</div>
-      <div class="kpi-value" style="color:${open>0?'#C04A15':'#1A6B3A'}">${open}</div>
+      <div class="kpi-value" style="color:${open>0?'var(--accent-text)':'var(--success-text)'}">${open}</div>
       <div class="kpi-sub">punten nog te doen</div>
     </div>
     <div class="kpi-card ${pct===100?'kpi-good':''}">
       <div class="kpi-label">Voortgang</div>
       <div class="kpi-value">${pct}%</div>
       <div class="kpi-sub">${pct===100?'✓ Volledig afgerond':'bezig…'}</div>
-      <div class="kpi-bar"><div class="kpi-bar-fill" style="width:${pct}%;background:${pct===100?'#27AE60':'#E8602C'}"></div></div>
+      <div class="kpi-bar"><div class="kpi-bar-fill" style="width:${pct}%;background:${pct===100?'var(--success)':'var(--accent)'}"></div></div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Secties</div>
@@ -619,8 +1254,8 @@ function openModal(id) {
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px 16px;margin-top:8px;font-size:12px;">
       ${item.personeel.map(p=>`
         <div style="display:flex;gap:8px;">
-          <span style="color:#999;min-width:120px;font-size:11px;">${p.rol}</span>
-          <span style="font-weight:${p.naam==='—'?'400':'600'};color:${p.naam==='—'?'#CCC':'#1A1A1A'}">${p.naam}</span>
+          <span style="color:var(--text-faint);min-width:120px;font-size:11px;">${p.rol}</span>
+          <span style="font-weight:${p.naam==='—'?'400':'600'};color:${p.naam==='—'?'var(--text-lighter)':'var(--text)'}">${p.naam}</span>
         </div>`).join('')}
     </div>` : '';
   const linksHtml = item.links ? `
@@ -660,13 +1295,19 @@ function updateNotitie(id, val) {
   slaOp();
 }
 
+function updateVeld(id, key, val) {
+  if (!state[id].velden) state[id].velden = {};
+  state[id].velden[key] = val;
+  slaOp();
+}
+
 function sluitModal() { document.getElementById('modal-bg').classList.remove('open'); }
 function sluitModalBg(e) { if (e.target.id === 'modal-bg') sluitModal(); }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') sluitModal(); });
 
 // ===================== VOORTGANG TAB =====================
 function renderVoortgang() {
-  const kleuren = ['#E8602C','#2E86C1','#27AE60','#E6920A','#8E44AD'];
+  const kleuren = ['var(--accent)','#2E86C1','var(--success)','#E6920A','#8E44AD'];
   document.getElementById('prog-secties').innerHTML = SECTIES.map((s, i) => {
     const klaar = s.items.filter(it => state[it.id].done).length;
     const pct = Math.round(klaar / s.items.length * 100);
@@ -681,14 +1322,14 @@ function renderVoortgang() {
   const totaal = alleIds.length;
   const klaar = alleIds.filter(id => state[id].done).length;
   const pct = Math.round(klaar / totaal * 100);
-  const kleur = pct === 100 ? '#27AE60' : pct >= 60 ? '#E6920A' : '#E8602C';
+  const kleur = pct === 100 ? 'var(--success)' : pct >= 60 ? '#E6920A' : 'var(--accent)';
   document.getElementById('prog-totaal').innerHTML = `
     <div class="prog-row">
       <div class="prog-label">Totaal onboarding</div>
       <div class="prog-bar-wrap"><div class="prog-fill" style="width:${pct}%;background:${kleur}"></div></div>
       <div class="prog-pct" style="color:${kleur}">${pct}%</div>
     </div>
-    <div style="font-size:12px;color:#999;margin-top:12px;">${klaar} van de ${totaal} punten afgerond${pct===100?' — ✓ Onboarding volledig afgerond!':''}</div>`;
+    <div style="font-size:12px;color:var(--text-faint);margin-top:12px;">${klaar} van de ${totaal} punten afgerond${pct===100?' — ✓ Onboarding volledig afgerond!':''}</div>`;
 }
 
 // ===================== TAB SWITCH =====================
@@ -717,6 +1358,12 @@ function slaOp() {
         medewerker: document.getElementById('af-medewerker').value,
         datum: document.getElementById('af-datum').value,
         opmerkingen: document.getElementById('af-opmerkingen').value
+      },
+      te: {
+        goed: document.getElementById('te-goed').value,
+        onduidelijk: document.getElementById('te-onduidelijk').value,
+        begeleiding: document.getElementById('te-begeleiding').value,
+        afspraken: document.getElementById('te-afspraken').value
       }
     }));
   } catch(e) {}
@@ -741,6 +1388,12 @@ function laadOp() {
       if (opgeslagen.af.datum) document.getElementById('af-datum').value = opgeslagen.af.datum;
       if (opgeslagen.af.opmerkingen) document.getElementById('af-opmerkingen').value = opgeslagen.af.opmerkingen;
     }
+    if (opgeslagen.te) {
+      if (opgeslagen.te.goed) document.getElementById('te-goed').value = opgeslagen.te.goed;
+      if (opgeslagen.te.onduidelijk) document.getElementById('te-onduidelijk').value = opgeslagen.te.onduidelijk;
+      if (opgeslagen.te.begeleiding) document.getElementById('te-begeleiding').value = opgeslagen.te.begeleiding;
+      if (opgeslagen.te.afspraken) document.getElementById('te-afspraken').value = opgeslagen.te.afspraken;
+    }
   } catch(e) {}
 }
 
@@ -749,7 +1402,8 @@ function resetAlles() {
   alleIds.forEach(id => { state[id] = { done: false, note: '' }; });
   handtekening = false;
   document.getElementById('chk-handtekening').className = 'chk';
-  ['mw-naam','mw-locatie','mw-datum','mw-teamleider','af-teamleider','af-medewerker','af-datum','af-opmerkingen']
+  ['mw-naam','mw-locatie','mw-datum','mw-teamleider','af-teamleider','af-medewerker','af-datum','af-opmerkingen',
+   'te-goed','te-onduidelijk','te-begeleiding','te-afspraken']
     .forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
   try { localStorage.removeItem('lk_checklist_mw'); } catch(e) {}
   renderSecties();
@@ -771,7 +1425,7 @@ function odStatus(tekst, type = '') {
 
 function verzamelData() {
   return JSON.stringify({
-    versie: '2026m06',
+    versie: '2026m09',
     state,
     handtekening,
     mw: {
@@ -785,6 +1439,12 @@ function verzamelData() {
       medewerker: document.getElementById('af-medewerker').value,
       datum: document.getElementById('af-datum').value,
       opmerkingen: document.getElementById('af-opmerkingen').value
+    },
+    te: {
+      goed: document.getElementById('te-goed').value,
+      onduidelijk: document.getElementById('te-onduidelijk').value,
+      begeleiding: document.getElementById('te-begeleiding').value,
+      afspraken: document.getElementById('te-afspraken').value
     },
     opgeslagenOp: new Date().toISOString()
   }, null, 2);
@@ -830,6 +1490,12 @@ function bestandLaden(event) {
         if (opgeslagen.af.medewerker) document.getElementById('af-medewerker').value = opgeslagen.af.medewerker;
         if (opgeslagen.af.datum) document.getElementById('af-datum').value = opgeslagen.af.datum;
         if (opgeslagen.af.opmerkingen) document.getElementById('af-opmerkingen').value = opgeslagen.af.opmerkingen;
+      }
+      if (opgeslagen.te) {
+        if (opgeslagen.te.goed) document.getElementById('te-goed').value = opgeslagen.te.goed;
+        if (opgeslagen.te.onduidelijk) document.getElementById('te-onduidelijk').value = opgeslagen.te.onduidelijk;
+        if (opgeslagen.te.begeleiding) document.getElementById('te-begeleiding').value = opgeslagen.te.begeleiding;
+        if (opgeslagen.te.afspraken) document.getElementById('te-afspraken').value = opgeslagen.te.afspraken;
       }
 
       renderSecties();
