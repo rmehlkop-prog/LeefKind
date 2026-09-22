@@ -256,6 +256,33 @@ h1 { font-size: 20px; font-weight: 600; }
 .handtekening-rij { display: flex; align-items: center; gap: 12px; padding-top: 14px; border-top: 1px solid var(--surface-hover); }
 .handtekening-tekst { font-size: 13px; color: var(--text-heading); flex: 1; line-height: 1.45; }
 
+/* Mutatieformulier tab */
+.af-veld select { width: 100%; border: 1px solid var(--border); border-radius: 6px; padding: 7px 10px; font-size: 13px; font-family: inherit; color: var(--text); background: var(--surface-alt); outline: none; transition: border-color 0.15s; }
+.af-veld select:focus { border-color: var(--accent); background: white; }
+.mf-sub { font-size: 11px; color: var(--text-faint); margin: -8px 0 12px; line-height: 1.5; }
+.mf-chk-groep { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.mf-chk-item { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px; color: var(--text); }
+.mf-table { width: 100%; border-collapse: collapse; margin-top: 4px; }
+.mf-table th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-faint); font-weight: 600; padding: 0 8px 8px; }
+.mf-table td { padding: 5px 8px 5px 0; vertical-align: middle; }
+.mf-table tr:not(:last-child) td { border-bottom: 1px solid var(--border-light); padding-bottom: 10px; }
+.mf-table tr:not(:last-child) th { padding-bottom: 8px; }
+.mf-table td:first-child { font-size: 13px; color: var(--text); white-space: nowrap; }
+.mf-table input { width: 100%; border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px; font-size: 13px; font-family: inherit; color: var(--text); background: var(--surface-alt); outline: none; transition: border-color 0.15s; }
+.mf-table input:focus { border-color: var(--accent); background: white; }
+.mf-dagen-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 14px; }
+.mf-dag-veld label { display: block; font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 3px; }
+.mf-dag-select { width: 100%; border: 1px solid var(--border); border-radius: 6px; padding: 7px 8px; font-size: 12px; font-family: inherit; color: var(--text); background: var(--surface-alt); outline: none; transition: all 0.15s; }
+.mf-dag-select.groen { border-color: var(--success); background: var(--success-bg); color: var(--success-text); }
+.mf-dag-select.oranje { border-color: var(--accent-border); background: var(--accent-bg); color: var(--accent-text); }
+.mf-dag-select.rood { border-color: var(--status-err-border); background: var(--status-err-bg); color: var(--status-err-text); }
+.mf-opvang-grid { display: flex; flex-wrap: wrap; gap: 10px 22px; }
+.mf-opvang-item { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px; color: var(--text); }
+.mf-lijst { display: flex; flex-direction: column; }
+.mf-lijst .mf-chk-item { align-items: flex-start; padding: 9px 0; border-bottom: 1px solid var(--surface-hover); line-height: 1.5; }
+.mf-lijst .mf-chk-item:last-child { border-bottom: none; }
+.mf-lijst .mf-chk-item .chk { margin-top: 1px; }
+
 /* Modal */
 .modal-bg { display: none; position: fixed; inset: 0; background: var(--shadow-bg); z-index: 100; align-items: center; justify-content: center; padding: 16px; }
 .modal-bg.open { display: flex; }
@@ -327,6 +354,8 @@ footer { text-align: center; margin-top: 2.5rem; font-size: 11px; color: var(--t
 </style>
 </head>
 <body>
+
+
 <div class="wrap">
 
 <!-- HEADER -->
@@ -403,6 +432,7 @@ footer { text-align: center; margin-top: 2.5rem; font-size: 11px; color: var(--t
 <div class="tab-nav">
   <button class="tab-btn active" onclick="switchTab(&#39;checklist&#39;,this)">✓ Checklist</button>
   <button class="tab-btn" onclick="switchTab(&#39;team&#39;,this)">👤 Begeleiding TL</button>
+  <button class="tab-btn" onclick="switchTab(&#39;mf&#39;,this)">📋 Mutatieformulier</button>
   <button class="tab-btn" onclick="switchTab(&#39;voortgang&#39;,this)">📊 Voortgang</button>
 </div>
 
@@ -815,6 +845,161 @@ footer { text-align: center; margin-top: 2.5rem; font-size: 11px; color: var(--t
   </div>
 
   <div id="secties-container-team2"></div>
+</div>
+
+<!-- TAB: MUTATIEFORMULIER -->
+<div id="tab-mf" class="tab-panel">
+  <div class="rol-callout">
+    <strong>Voor de teamleider:</strong> dit formulier bevat de gegevens die HR nodig heeft bij in- of uit diensttreding. Naam, locatie, startdatum en teamleider staan al bovenaan de tool — hieronder vul je de aanvullende gegevens in. Verstuur het formulier zoals gebruikelijk naar HR.
+  </div>
+
+  <div class="afsluiting-blok">
+    <h3>Persoonsgegevens (aanvullend)</h3>
+    <div class="afsluiting-grid">
+      <div class="af-veld vol">
+        <label>Adres</label>
+        <input type="text" id="mf-adres" placeholder="Straat, huisnummer, postcode, woonplaats…" oninput="slaOp()">
+      </div>
+      <div class="af-veld">
+        <label>Telefoonnummer</label>
+        <input type="tel" id="mf-telefoon" placeholder="06…" oninput="slaOp()">
+      </div>
+      <div class="af-veld">
+        <label>E-mailadres</label>
+        <input type="email" id="mf-mail" placeholder="naam@voorbeeld.nl" oninput="slaOp()">
+      </div>
+      <div class="af-veld">
+        <label>Geboortedatum</label>
+        <input type="date" id="mf-geboortedatum" oninput="slaOp()">
+      </div>
+    </div>
+  </div>
+
+  <div class="afsluiting-blok">
+    <h3>Functie en contract</h3>
+    <div class="afsluiting-grid">
+      <div class="af-veld">
+        <label>Functie bij Leef Kind</label>
+        <select id="mf-functie" onchange="slaOp()">
+          <option value="">— kies —</option>
+          <option>Pedagogisch medewerker</option>
+          <option>Groepshulp</option>
+          <option>PM'er in ontwikkeling</option>
+          <option>PM'er in opleiding</option>
+          <option>Kantoor</option>
+        </select>
+      </div>
+      <div class="af-veld">
+        <label>Contracturen per week</label>
+        <input type="text" id="mf-contracturen" placeholder="Bijv. 24" oninput="slaOp()">
+      </div>
+      <div class="af-veld">
+        <label>Reiskostenvergoeding</label>
+        <select id="mf-reiskosten" onchange="slaOp()">
+          <option value="">— kies —</option>
+          <option>Woon-werkverkeer met eigen vervoer</option>
+          <option>Openbaar vervoer</option>
+        </select>
+      </div>
+      <div class="af-veld vol">
+        <label>Doelgroep affiniteit</label>
+        <div class="mf-chk-groep">
+          <div class="mf-chk-item" onclick="toggleMfChk('mf-chk-do')"><div class="chk" id="mf-chk-do"></div><span>Dagopvang (DO)</span></div>
+          <div class="mf-chk-item" onclick="toggleMfChk('mf-chk-pa')"><div class="chk" id="mf-chk-pa"></div><span>Peuteraanbod (PA)</span></div>
+          <div class="mf-chk-item" onclick="toggleMfChk('mf-chk-bso')"><div class="chk" id="mf-chk-bso"></div><span>Buitenschoolse opvang (BSO)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="afsluiting-blok">
+    <h3>Kwalificaties</h3>
+    <table class="mf-table">
+      <tr><th>Kwalificatie</th><th>Behaald</th><th>Geldig tot</th></tr>
+      <tr><td>Pedagogisch medewerker</td><td><input type="date" id="mf-kwal-pm-behaald" onchange="slaOp()"></td><td><input type="date" id="mf-kwal-pm-geldig" onchange="slaOp()"></td></tr>
+      <tr><td>Babycursus</td><td><input type="date" id="mf-kwal-baby-behaald" onchange="slaOp()"></td><td><input type="date" id="mf-kwal-baby-geldig" onchange="slaOp()"></td></tr>
+      <tr><td>3F</td><td><input type="date" id="mf-kwal-3f-behaald" onchange="slaOp()"></td><td><input type="date" id="mf-kwal-3f-geldig" onchange="slaOp()"></td></tr>
+      <tr><td>VVE</td><td><input type="date" id="mf-kwal-vve-behaald" onchange="slaOp()"></td><td><input type="date" id="mf-kwal-vve-geldig" onchange="slaOp()"></td></tr>
+      <tr><td>BHV</td><td><input type="date" id="mf-kwal-bhv-behaald" onchange="slaOp()"></td><td><input type="date" id="mf-kwal-bhv-geldig" onchange="slaOp()"></td></tr>
+      <tr><td>Kinder-EHBO (EHAK)</td><td><input type="date" id="mf-kwal-ehak-behaald" onchange="slaOp()"></td><td><input type="date" id="mf-kwal-ehak-geldig" onchange="slaOp()"></td></tr>
+      <tr><td><input type="text" id="mf-kwal-overig-naam" placeholder="Overige kwalificatie…" oninput="slaOp()"></td><td><input type="date" id="mf-kwal-overig-behaald" onchange="slaOp()"></td><td><input type="date" id="mf-kwal-overig-geldig" onchange="slaOp()"></td></tr>
+    </table>
+  </div>
+
+  <div class="afsluiting-blok">
+    <h3>Rooster</h3>
+    <div class="mf-sub">Spreek per dag af: roosterdag (vast), extra roosterdag of niet-roosterdag — volgens de cao Kinderopvang.</div>
+    <div class="mf-dagen-grid">
+      <div class="mf-dag-veld"><label>Maandag</label><select class="mf-dag-select" id="mf-rooster-ma" onchange="mfDagKleur(this)"><option value="">—</option><option value="Roosterdag">Roosterdag</option><option value="Extra roosterdag">Extra roosterdag</option><option value="Niet-roosterdag">Niet-roosterdag</option></select></div>
+      <div class="mf-dag-veld"><label>Dinsdag</label><select class="mf-dag-select" id="mf-rooster-di" onchange="mfDagKleur(this)"><option value="">—</option><option value="Roosterdag">Roosterdag</option><option value="Extra roosterdag">Extra roosterdag</option><option value="Niet-roosterdag">Niet-roosterdag</option></select></div>
+      <div class="mf-dag-veld"><label>Woensdag</label><select class="mf-dag-select" id="mf-rooster-wo" onchange="mfDagKleur(this)"><option value="">—</option><option value="Roosterdag">Roosterdag</option><option value="Extra roosterdag">Extra roosterdag</option><option value="Niet-roosterdag">Niet-roosterdag</option></select></div>
+      <div class="mf-dag-veld"><label>Donderdag</label><select class="mf-dag-select" id="mf-rooster-do" onchange="mfDagKleur(this)"><option value="">—</option><option value="Roosterdag">Roosterdag</option><option value="Extra roosterdag">Extra roosterdag</option><option value="Niet-roosterdag">Niet-roosterdag</option></select></div>
+      <div class="mf-dag-veld"><label>Vrijdag</label><select class="mf-dag-select" id="mf-rooster-vr" onchange="mfDagKleur(this)"><option value="">—</option><option value="Roosterdag">Roosterdag</option><option value="Extra roosterdag">Extra roosterdag</option><option value="Niet-roosterdag">Niet-roosterdag</option></select></div>
+    </div>
+    <div class="afsluiting-grid">
+      <div class="af-veld">
+        <label>Starttijd dienst</label>
+        <input type="text" id="mf-rooster-start" placeholder="Bijv. 7:15 uur" oninput="slaOp()">
+      </div>
+      <div class="af-veld">
+        <label>Eindtijd dienst</label>
+        <input type="text" id="mf-rooster-eind" placeholder="Bijv. 18:00 uur" oninput="slaOp()">
+      </div>
+      <div class="af-veld vol">
+        <label>Aanvullingen</label>
+        <textarea id="mf-rooster-aanvullingen" placeholder="Eventuele aanvullingen op het rooster…" oninput="slaOp()"></textarea>
+      </div>
+    </div>
+    <div class="wettelijk"><strong>Richttijden per groepstype (ter oriëntatie):</strong> DO en vakantie-BSO: 7:15 of 7:45 uur – 18:15 of 17:45 uur · VSO: 7:15 of 7:30 uur · PA: 8:30 uur (Melick 8:15 uur) · NSO: 14:15/15:00 uur (locatie-afhankelijk) – 18:00 of 18:15 uur.</div>
+  </div>
+
+  <div class="afsluiting-blok">
+    <h3>Opvangdagen eigen kinderen <span style="font-weight:400;color:var(--text-faint);">(indien van toepassing)</span></h3>
+    <div class="mf-opvang-grid">
+      <div class="mf-opvang-item" onclick="toggleMfChk('mf-chk-opvang-ma')"><div class="chk" id="mf-chk-opvang-ma"></div><span>Maandag</span></div>
+      <div class="mf-opvang-item" onclick="toggleMfChk('mf-chk-opvang-di')"><div class="chk" id="mf-chk-opvang-di"></div><span>Dinsdag</span></div>
+      <div class="mf-opvang-item" onclick="toggleMfChk('mf-chk-opvang-wo')"><div class="chk" id="mf-chk-opvang-wo"></div><span>Woensdag</span></div>
+      <div class="mf-opvang-item" onclick="toggleMfChk('mf-chk-opvang-do')"><div class="chk" id="mf-chk-opvang-do"></div><span>Donderdag</span></div>
+      <div class="mf-opvang-item" onclick="toggleMfChk('mf-chk-opvang-vr')"><div class="chk" id="mf-chk-opvang-vr"></div><span>Vrijdag</span></div>
+    </div>
+  </div>
+
+  <div class="afsluiting-blok">
+    <h3>Overige zaken doorgenomen met medewerker</h3>
+    <div class="mf-lijst">
+      <div class="mf-chk-item" onclick="toggleMfChk('mf-chk-overig-1')"><div class="chk" id="mf-chk-overig-1"></div><span>We werken met de cao Kinderopvang.</span></div>
+      <div class="mf-chk-item" onclick="toggleMfChk('mf-chk-overig-2')"><div class="chk" id="mf-chk-overig-2"></div><span>We werken met de JUS (jaarurensystematiek).</span></div>
+      <div class="mf-chk-item" onclick="toggleMfChk('mf-chk-overig-3')"><div class="chk" id="mf-chk-overig-3"></div><span>Het basisrooster is gebaseerd op circa 85% van de contracturen, aangevuld met trainingen, verlof, ziekte en uithelpen.</span></div>
+      <div class="mf-chk-item" onclick="toggleMfChk('mf-chk-overig-4')"><div class="chk" id="mf-chk-overig-4"></div><span>SDB HR doorgenomen (loonstrook, gegevens, declaraties).</span></div>
+      <div class="mf-chk-item" onclick="toggleMfChk('mf-chk-overig-5')"><div class="chk" id="mf-chk-overig-5"></div><span>SDB-planning en de Octopus-app doorgenomen.</span></div>
+      <div class="mf-chk-item" onclick="toggleMfChk('mf-chk-overig-6')"><div class="chk" id="mf-chk-overig-6"></div><span>Medewerker weet dat zij/hij medeverantwoordelijk is voor correcte gegevens in SDB — o.a. VVE-training zelf noteren en de planning aanpassen bij eerder vertrek.</span></div>
+      <div class="mf-chk-item" onclick="toggleMfChk('mf-chk-overig-7')"><div class="chk" id="mf-chk-overig-7"></div><span>Roosterverstoringsapp toegevoegd voor ziekmelding en roosterverstoringen.</span></div>
+      <div class="mf-chk-item" onclick="toggleMfChk('mf-chk-overig-8')"><div class="chk" id="mf-chk-overig-8"></div><span>Ziekmeldingsprocedure doorgenomen (SharePoint, vóór 6.45 uur melden bij de dagverantwoordelijke).</span></div>
+      <div class="mf-chk-item" onclick="toggleMfChk('mf-chk-overig-9')"><div class="chk" id="mf-chk-overig-9"></div><span>Reiskostenregeling toegelicht (zie SharePoint); bij verhuizing zo snel mogelijk doorgeven aan de centrale planner en HR.</span></div>
+    </div>
+  </div>
+
+  <div class="afsluiting-blok">
+    <h3>Uit dienst <span style="font-weight:400;color:var(--text-faint);">(alleen bij uitdiensttreding)</span></h3>
+    <div class="afsluiting-grid">
+      <div class="af-veld">
+        <label>Datum uit dienst</label>
+        <input type="date" id="mf-uit-datum" oninput="slaOp()">
+      </div>
+      <div class="af-veld">
+        <label>Eindafrekening</label>
+        <input type="text" id="mf-uit-eindafrekening" placeholder="…" oninput="slaOp()">
+      </div>
+      <div class="af-veld">
+        <label>Saldo verlofuren</label>
+        <input type="text" id="mf-uit-verlofuren" placeholder="…" oninput="slaOp()">
+      </div>
+      <div class="af-veld">
+        <label>Saldo plus-/minuren</label>
+        <input type="text" id="mf-uit-plusminuuren" placeholder="…" oninput="slaOp()">
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- TAB: VOORTGANG -->
@@ -1343,6 +1528,65 @@ function switchTab(id, btn) {
   if (id === 'voortgang') renderVoortgang();
 }
 
+// ===================== MUTATIEFORMULIER =====================
+const MF_TEXT_IDS = [
+  'mf-adres','mf-telefoon','mf-mail','mf-geboortedatum',
+  'mf-functie','mf-contracturen','mf-reiskosten',
+  'mf-kwal-pm-behaald','mf-kwal-pm-geldig',
+  'mf-kwal-baby-behaald','mf-kwal-baby-geldig',
+  'mf-kwal-3f-behaald','mf-kwal-3f-geldig',
+  'mf-kwal-vve-behaald','mf-kwal-vve-geldig',
+  'mf-kwal-bhv-behaald','mf-kwal-bhv-geldig',
+  'mf-kwal-ehak-behaald','mf-kwal-ehak-geldig',
+  'mf-kwal-overig-naam','mf-kwal-overig-behaald','mf-kwal-overig-geldig',
+  'mf-rooster-ma','mf-rooster-di','mf-rooster-wo','mf-rooster-do','mf-rooster-vr',
+  'mf-rooster-start','mf-rooster-eind','mf-rooster-aanvullingen',
+  'mf-uit-datum','mf-uit-eindafrekening','mf-uit-verlofuren','mf-uit-plusminuuren'
+];
+const MF_CHK_IDS = [
+  'mf-chk-do','mf-chk-pa','mf-chk-bso',
+  'mf-chk-opvang-ma','mf-chk-opvang-di','mf-chk-opvang-wo','mf-chk-opvang-do','mf-chk-opvang-vr',
+  'mf-chk-overig-1','mf-chk-overig-2','mf-chk-overig-3','mf-chk-overig-4','mf-chk-overig-5',
+  'mf-chk-overig-6','mf-chk-overig-7','mf-chk-overig-8','mf-chk-overig-9'
+];
+
+function mfVerzamel() {
+  const obj = {};
+  MF_TEXT_IDS.forEach(id => { const el = document.getElementById(id); if (el) obj[id] = el.value; });
+  MF_CHK_IDS.forEach(id => { const el = document.getElementById(id); if (el) obj[id] = el.classList.contains('checked'); });
+  return obj;
+}
+
+function mfHerstel(obj) {
+  if (!obj) return;
+  MF_TEXT_IDS.forEach(id => {
+    if (obj[id] !== undefined) {
+      const el = document.getElementById(id);
+      if (el) { el.value = obj[id]; if (el.classList.contains('mf-dag-select')) mfDagKleur(el); }
+    }
+  });
+  MF_CHK_IDS.forEach(id => { if (obj[id]) { const el = document.getElementById(id); if (el) el.classList.add('checked'); } });
+}
+
+function mfReset() {
+  MF_TEXT_IDS.forEach(id => { const el = document.getElementById(id); if (el) { el.value = ''; if (el.classList.contains('mf-dag-select')) mfDagKleur(el); } });
+  MF_CHK_IDS.forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('checked'); });
+}
+
+function toggleMfChk(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle('checked');
+  slaOp();
+}
+
+function mfDagKleur(select) {
+  select.classList.remove('groen', 'oranje', 'rood');
+  if (select.value === 'Roosterdag') select.classList.add('groen');
+  else if (select.value === 'Extra roosterdag') select.classList.add('oranje');
+  else if (select.value === 'Niet-roosterdag') select.classList.add('rood');
+  slaOp();
+}
+
 // ===================== OPSLAAN / LADEN =====================
 function slaOp() {
   try {
@@ -1366,7 +1610,8 @@ function slaOp() {
         onduidelijk: document.getElementById('te-onduidelijk').value,
         begeleiding: document.getElementById('te-begeleiding').value,
         afspraken: document.getElementById('te-afspraken').value
-      }
+      },
+      mf: mfVerzamel()
     }));
   } catch(e) {}
 }
@@ -1396,6 +1641,7 @@ function laadOp() {
       if (opgeslagen.te.begeleiding) document.getElementById('te-begeleiding').value = opgeslagen.te.begeleiding;
       if (opgeslagen.te.afspraken) document.getElementById('te-afspraken').value = opgeslagen.te.afspraken;
     }
+    if (opgeslagen.mf) mfHerstel(opgeslagen.mf);
   } catch(e) {}
 }
 
@@ -1407,6 +1653,7 @@ function resetAlles() {
   ['mw-naam','mw-locatie','mw-datum','mw-teamleider','af-teamleider','af-medewerker','af-datum','af-opmerkingen',
    'te-goed','te-onduidelijk','te-begeleiding','te-afspraken']
     .forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  mfReset();
   try { localStorage.removeItem('lk_checklist_mw'); } catch(e) {}
   renderSecties();
   updateKPI();
@@ -1448,6 +1695,7 @@ function verzamelData() {
       begeleiding: document.getElementById('te-begeleiding').value,
       afspraken: document.getElementById('te-afspraken').value
     },
+    mf: mfVerzamel(),
     opgeslagenOp: new Date().toISOString()
   }, null, 2);
 }
@@ -1459,15 +1707,18 @@ function bestandOpslaan() {
     const bestandsnaam = `onboarding_${naam}_${datum}.json`;
 
     const blob = new Blob([verzamelData()], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
+    a.href = url;
     a.download = bestandsnaam;
+    document.body.appendChild(a);
     a.click();
-    URL.revokeObjectURL(a.href);
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
 
-    odStatus(`✓ Bestand "${bestandsnaam}" gedownload — sla het op in OneDrive voor later gebruik`, 'ok');
+    odStatus(`✓ Bestand "${bestandsnaam}" opgeslagen — bewaar het op een vaste plek (bv. OneDrive) voor later gebruik`, 'ok');
   } catch(e) {
-    odStatus(`✗ Opslaan mislukt: ${e.message}`, 'fout');
+    odStatus(`✗ Opslaan mislukt: ${(e && e.message) || e}`, 'fout');
   }
 }
 
@@ -1499,6 +1750,7 @@ function bestandLaden(event) {
         if (opgeslagen.te.begeleiding) document.getElementById('te-begeleiding').value = opgeslagen.te.begeleiding;
         if (opgeslagen.te.afspraken) document.getElementById('te-afspraken').value = opgeslagen.te.afspraken;
       }
+      if (opgeslagen.mf) mfHerstel(opgeslagen.mf);
 
       renderSecties();
       updateKPI();
@@ -1526,5 +1778,8 @@ updateKPI();
 updateTellers();
 if (handtekening) document.getElementById('chk-handtekening').className = 'chk checked';
 </script>
+
+
+
 </body>
 </html>
