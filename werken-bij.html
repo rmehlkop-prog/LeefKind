@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Werken bij Leef Kind Kinderopvang: vacatures voor pedagogisch medewerkers en stageplekken (BBL/BOL) op 9 locaties in Midden-Limburg.">
+<style>html{scroll-behavior:smooth}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Werken bij Leef Kind</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,600;0,700;0,800;1,700&display=swap">
+<style>
+/* Layout: rustige, luchtige wervingspagina — beige hero met teal accent, secties op wit, sollicitatieformulier als afsluiter */
+:root{
+  --teal:#1E8C9A; --teal-ink:#16707C; --teal-soft:#E3F1F2;
+  --green:#33502F; --beige:#F4ECE2; --beige-2:#EADFD1;
+  --coral:#E07A66; --navy:#1F2F44;
+  --bg:#FFFFFF; --fg:#1F2F44; --muted:#5E6B78; --line:#E2E6E8; --card:#FFFFFF; --field:#FFFFFF;
+  --font-display:"Figtree","Azo Sans","Helvetica Neue",Arial,sans-serif;
+  --font-body:"Figtree","Azo Sans","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --teal:#4DB6C3; --teal-ink:#7FCFD9; --teal-soft:#16343A;
+  --green:#9CC29A; --beige:#1D2328; --beige-2:#262E34;
+  --coral:#F0947F; --navy:#E9EEF2;
+  --bg:#12171B; --fg:#E9EEF2; --muted:#A3AFBA; --line:#2C353C; --card:#182024; --field:#0F1417; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --teal:#4DB6C3; --teal-ink:#7FCFD9; --teal-soft:#16343A;
+  --green:#9CC29A; --beige:#1D2328; --beige-2:#262E34;
+  --coral:#F0947F; --navy:#E9EEF2;
+  --bg:#12171B; --fg:#E9EEF2; --muted:#A3AFBA; --line:#2C353C; --card:#182024; --field:#0F1417; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:17px;line-height:1.65;font-weight:400}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:20px}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;line-height:1.15;margin:0}
+h2{font-size:clamp(28px,4vw,38px);font-weight:800;color:var(--teal-ink)}
+h3{font-size:20px;font-weight:700;color:var(--navy)}
+p{margin:0}
+a{color:var(--teal-ink)}
+.eyebrow{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--teal)}
+.lead{font-size:19px;color:var(--teal-ink);max-width:62ch}
+section{padding-block:72px}
+.sec-head{display:grid;gap:12px;margin-bottom:36px}
+
+/* top bar */
+.top{border-bottom:1px solid var(--line);background:var(--bg)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:16px;flex-wrap:wrap}
+.brand{display:flex;flex-direction:column;line-height:1.05;text-decoration:none}
+.brand b{font-size:24px;font-weight:800;color:var(--teal);letter-spacing:-.01em}
+.brand span{font-size:13px;color:var(--muted);letter-spacing:.06em}
+.top nav{display:flex;gap:20px;flex-wrap:wrap;font-weight:600;font-size:15px}
+.top nav a{text-decoration:none;color:var(--fg)}
+.top nav a:hover{color:var(--teal-ink)}
+
+/* hero */
+.hero{background:var(--beige);padding-block:72px 64px;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.25fr .9fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(38px,6vw,64px);font-weight:800;color:var(--navy);letter-spacing:-.02em;margin-top:14px}
+.hero h1 em{font-style:italic;color:var(--teal);font-weight:700}
+.hero p.intro{font-size:19px;margin-top:20px;max-width:52ch;color:var(--fg)}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-weight:700;font-size:16px;border-radius:999px;padding:13px 24px;border:2px solid var(--teal);background:var(--teal);color:#fff;text-decoration:none;cursor:pointer}
+.btn:hover{background:var(--teal-ink);border-color:var(--teal-ink)}
+.btn.ghost{background:transparent;color:var(--teal-ink)}
+.btn.ghost:hover{background:var(--teal-soft)}
+.btn:focus-visible,.top nav a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+.facts{display:grid;gap:14px}
+.fact{background:var(--card);border-radius:18px;padding:18px 22px;display:flex;gap:16px;align-items:baseline}
+.fact strong{font-size:34px;font-weight:800;color:var(--teal);font-variant-numeric:tabular-nums;min-width:2.2ch}
+.fact span{color:var(--fg)}
+.blob{position:absolute;right:-120px;top:-120px;width:340px;height:340px;border-radius:50%;background:var(--beige-2);z-index:0}
+.hero .wrap{position:relative;z-index:1}
+
+/* waarden */
+.values{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.value{display:grid;gap:8px;align-content:start;padding-top:18px;border-top:3px solid var(--teal)}
+.value:nth-child(2){border-color:var(--green)}
+.value:nth-child(3){border-color:var(--coral)}
+.value:nth-child(4){border-color:var(--navy)}
+.value p{color:var(--muted);font-size:16px}
+
+/* locaties */
+.loc-section{background:var(--teal-soft)}
+.loc-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:48px;align-items:start}
+.loc-grid > div{min-width:0}
+.loc-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.loc-list li{background:var(--card);border-radius:12px;padding:12px 14px;display:grid;gap:2px}
+.loc-list li b{font-weight:700;color:var(--navy)}
+.loc-list li span{font-size:14px;color:var(--muted)}
+.note{margin-top:22px;border-left:4px solid var(--teal);padding:4px 0 4px 16px;display:grid;gap:4px}
+.note .eyebrow{font-size:11.5px}
+.note p{font-size:16px}
+.types{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{font-size:14px;font-weight:600;padding:6px 14px;border-radius:999px;background:var(--card);color:var(--teal-ink);border:1px solid var(--line)}
+
+/* vacatures */
+.jobs{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.job{border:1px solid var(--line);border-radius:22px;padding:30px;display:grid;gap:18px;align-content:start;background:var(--card)}
+.job .tag{justify-self:start;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;padding:5px 12px;border-radius:999px;background:var(--teal-soft);color:var(--teal-ink)}
+.job.stage .tag{background:var(--beige);color:var(--green)}
+.job h3{font-size:26px}
+.job h4{margin:0;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);font-weight:700}
+.job ul{margin:6px 0 0;padding-left:20px;display:grid;gap:4px;font-size:16px}
+.job .btn{justify-self:start}
+
+/* stappen */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;counter-reset:s}
+.steps li{counter-increment:s;display:grid;gap:8px;align-content:start}
+.steps li::before{content:counter(s);width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:18px;background:var(--teal);color:#fff}
+.steps li p{color:var(--muted);font-size:16px}
+
+/* formulier */
+.apply{background:var(--beige)}
+.apply-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:start}
+.apply-grid > *{min-width:0}
+form{background:var(--card);border-radius:22px;padding:30px;display:grid;gap:18px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:grid;gap:6px;min-width:0}
+label,.legend{font-weight:600;font-size:15px}
+.hint{font-size:13.5px;color:var(--muted);font-weight:400}
+input,select,textarea{font:inherit;font-size:16px;color:var(--fg);background:var(--field);border:1.5px solid var(--line);border-radius:12px;padding:11px 14px;width:100%}
+textarea{min-height:130px;resize:vertical}
+fieldset{border:0;margin:0;padding:0;display:grid;gap:8px}
+.days{display:flex;flex-wrap:wrap;gap:8px}
+.days label{display:inline-flex;align-items:center;gap:6px;font-weight:500;border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer;background:var(--field)}
+.days input{width:auto;accent-color:var(--teal)}
+.days label:has(input:checked){border-color:var(--teal);background:var(--teal-soft)}
+.err{color:var(--coral);font-size:14px;font-weight:600}
+.contact-box{display:grid;gap:14px;margin-top:26px}
+.contact-line{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.contact-line .label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;min-width:80px}
+.contact-line b{user-select:all;font-weight:700}
+.copy{font:inherit;font-size:13px;font-weight:700;border:1px solid var(--line);background:var(--card);color:var(--teal-ink);border-radius:999px;padding:4px 12px;cursor:pointer}
+
+/* resultaat */
+.result{display:grid;gap:16px;background:var(--card);border-radius:22px;padding:30px}
+.result pre{white-space:pre-wrap;font-family:inherit;font-size:15px;background:var(--beige);border-radius:14px;padding:18px;margin:0;max-height:340px;overflow:auto}
+.result .cta-row{margin-top:0}
+.checklist{margin:0;padding-left:20px;display:grid;gap:6px}
+.small{font-size:14px;color:var(--muted)}
+
+footer{border-top:1px solid var(--line);padding-block:28px;font-size:14px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (max-width:900px){
+  .hero .wrap,.loc-grid,.apply-grid,.jobs{grid-template-columns:1fr}
+  .values,.steps{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  section{padding-block:52px}
+  .values,.steps,.row{grid-template-columns:1fr}
+  .loc-list{grid-template-columns:1fr 1fr}
+  .top nav{display:none}
+  form,.job,.result{padding:22px}
+}
+@media (prefers-reduced-motion:no-preference){.btn{transition:background .15s}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Leef Kind kinderopvang"><b>Leef Kind</b><span>kinderopvang</span></a>
+    <nav aria-label="Pagina">
+      <a href="#waarom">Waarom Leef Kind</a>
+      <a href="#locaties">Locaties</a>
+      <a href="#vacatures">Vacatures</a>
+      <a href="#solliciteren">Solliciteren</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="blob" aria-hidden="true"></div>
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Werken bij Leef Kind</p>
+        <h1>Ruimte voor verwondering. <em>Ook voor jou.</em></h1>
+        <p class="intro">Tussen 0 en 13 jaar leggen kinderen de basis voor de rest van hun leven. Jij helpt ze daarbij: zelfstandig worden, hun gevoel leren kennen en voor zichzelf opkomen. Wij zoeken pedagogisch medewerkers en stagiairs die dat met ons willen doen.</p>
+        <div class="cta-row">
+          <a class="btn" href="#vacatures">Bekijk de vacatures</a>
+          <a class="btn ghost" href="#solliciteren">Direct solliciteren</a>
+        </div>
+      </div>
+      <div class="facts" aria-label="Leef Kind in het kort">
+        <div class="fact"><strong>9</strong><span>locaties in Roermond en omgeving</span></div>
+        <div class="fact"><strong>0–13</strong><span>jaar: dagopvang, peuteropvang en bso</span></div>
+        <div class="fact"><strong>1</strong><span>team dat elkaar helpt, ook over locaties heen</span></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="waarom">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Waarom Leef Kind</p>
+        <h2>Vier waarden die je elke dag terugziet</h2>
+        <p class="lead">Leef Kind is een warme, betrokken organisatie. Geen grote, logge club, maar korte lijnen en mensen die je bij naam kennen.</p>
+      </div>
+      <div class="values">
+        <div class="value"><h3>Vertrouwen</h3><p>We geven je de ruimte om het werk op jouw manier te doen. Ouders vertrouwen ons hun kind toe, en wij vertrouwen op jou.</p></div>
+        <div class="value"><h3>Groei</h3><p>Kinderen groeien, en jij ook. Je leert van collega's, krijgt begeleiding en ontwikkelt je verder in je vak.</p></div>
+        <div class="value"><h3>Verwondering</h3><p>Samen ontdekken, buiten spelen, vragen stellen. Je ziet de wereld elke dag een beetje door de ogen van een kind.</p></div>
+        <div class="value"><h3>Verbinding</h3><p>Met kinderen, met ouders en met elkaar. Je staat er nooit alleen voor; je teamleider en collega's zijn dichtbij.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="locaties" class="loc-section">
+    <div class="wrap loc-grid">
+      <div>
+        <p class="eyebrow">Waar je werkt</p>
+        <h2 style="margin-top:12px">Negen locaties, één team</h2>
+        <p class="lead" style="margin-top:14px">Je werkt op een van onze locaties in Midden-Limburg. Welke dat wordt, bepalen we samen met jou op basis van waar je het hardst nodig bent.</p>
+        <div class="note">
+          <p class="eyebrow">Goed om te weten</p>
+          <p>Bij Leef Kind werk je flexibel. Je hebt geen vast rooster, en je kunt op verschillende locaties worden ingezet. Dat vraagt wendbaarheid, en het geeft je afwisseling, veel collega's en ervaring met verschillende groepen.</p>
+        </div>
+        <div class="types" aria-label="Soorten opvang">
+          <span class="chip">Dagopvang 0–4 jaar</span>
+          <span class="chip">Peuteropvang 2–4 jaar</span>
+          <span class="chip">BSO 4–13 jaar</span>
+        </div>
+      </div>
+      <div>
+        <ul class="loc-list">
+          <li><b>Herkenbosch</b><span>Sportlaan</span></li>
+          <li><b>Horn</b><span>Bergerweg</span></li>
+          <li><b>Leeuwen</b><span>Jan Amentstraat</span></li>
+          <li><b>Melick</b><span>J.F. Kennedysingel</span></li>
+          <li><b>Posterholt</b><span>Vurensteeg</span></li>
+          <li><b>Sint Odiliënberg</b><span>Pastoor Ceijssenstraat</span></li>
+          <li><b>Swalmen</b><span>Gevaren</span></li>
+          <li><b>Swalmen</b><span>Robijnstraat</span></li>
+          <li><b>Vlodrop</b><span>Sportlaan</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="vacatures">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Vacatures</p>
+        <h2>Hier zoeken we je voor</h2>
+      </div>
+      <div class="jobs">
+        <article class="job">
+          <span class="tag">Doorlopende vacature</span>
+          <h3>Pedagogisch medewerker</h3>
+          <p>Je zorgt voor een veilige, warme plek waar kinderen zich kunnen ontwikkelen. Op de dagopvang, de peutergroep of de bso.</p>
+          <div>
+            <h4>Wat ga je doen</h4>
+            <ul>
+              <li>Je begeleidt een groep kinderen en speelt in op wat elk kind nodig heeft</li>
+              <li>Je bedenkt activiteiten die uitdagen en verwonderen, binnen en buiten</li>
+              <li>Je bent het aanspreekpunt voor ouders bij het brengen en halen</li>
+              <li>Je werkt samen met collega's op verschillende locaties</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Wat vragen we</h4>
+            <ul>
+              <li>Een diploma dat voldoet aan de kwalificatie-eisen van de cao Kinderopvang</li>
+              <li>Inschrijving in het Personenregister Kinderopvang</li>
+              <li>Flexibiliteit in dagen en locaties</li>
+              <li>Plezier in werken met kinderen, en een open houding naar ouders en collega's</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Wat bieden we</h4>
+            <ul>
+              <li>Arbeidsvoorwaarden volgens de cao Kinderopvang</li>
+              <li>Afwisselend werk op meerdere locaties en met verschillende leeftijden</li>
+              <li>Een betrokken teamleider en korte lijnen in de organisatie</li>
+              <li>Ruimte om je verder te ontwikkelen</li>
+            </ul>
+          </div>
+          <a class="btn" href="#solliciteren" data-job="Pedagogisch medewerker">Solliciteer als pedagogisch medewerker</a>
+        </article>
+
+        <article class="job stage">
+          <span class="tag">Stage · BBL en BOL</span>
+          <h3>Stagiair pedagogisch werk</h3>
+          <p>Studeer je voor pedagogisch medewerker kinderopvang? Dan leer je bij ons het vak in de praktijk, met een vaste begeleider op de groep.</p>
+          <div>
+            <h4>Wat ga je doen</h4>
+            <ul>
+              <li>Je draait mee op de groep en neemt stap voor stap meer taken over</li>
+              <li>Je voert opdrachten uit je opleiding uit in de praktijk</li>
+              <li>Je bereidt zelf activiteiten voor en voert ze uit</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Wie zoeken we</h4>
+            <ul>
+              <li>BBL: je werkt en leert tegelijk, met een arbeidscontract bij Leef Kind</li>
+              <li>BOL: je loopt stage naast je opleiding op school</li>
+              <li>Je volgt een mbo-opleiding Pedagogisch medewerker kinderopvang</li>
+              <li>Je bent nieuwsgierig en durft vragen te stellen</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Wat bieden we</h4>
+            <ul>
+              <li>Een vaste praktijkbegeleider die tijd voor je maakt</li>
+              <li>Ervaring met verschillende leeftijden en locaties</li>
+              <li>Kans op een baan na je opleiding</li>
+            </ul>
+          </div>
+          <a class="btn" href="#solliciteren" data-job="Stage BBL">Solliciteer voor een stageplek</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="stappen" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Zo werkt het</p>
+        <h2>Van sollicitatie tot eerste werkdag</h2>
+      </div>
+      <ol class="steps">
+        <li><h3>Je reageert</h3><p>Je vult het sollicitatieformulier op onze website in en stuurt je cv mee.</p></li>
+        <li><h3>Kennismaking</h3><p>We nemen binnen een week contact met je op voor een gesprek.</p></li>
+        <li><h3>Meelopen</h3><p>Je loopt een dagdeel mee op een groep, zodat je ziet of het bij je past.</p></li>
+        <li><h3>Aan de slag</h3><p>Je start met een inwerkperiode en een collega die je wegwijs maakt.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="solliciteren" class="apply">
+    <div class="wrap apply-grid">
+      <div>
+        <p class="eyebrow">Solliciteren</p>
+        <h2 style="margin-top:12px">Zin om bij ons te werken?</h2>
+        <p class="lead" style="margin-top:14px">Solliciteren gaat via het formulier op onze website. Je vult je gegevens en motivatie in en uploadt je cv. Dat kost je een paar minuten.</p>
+        <div class="contact-box">
+          <p class="small">Eerst een vraag over de vacature of een stageplek? Bel of app Ebelien.</p>
+          <div class="contact-line"><span class="label">Ebelien</span><b id="phoneNr">06 18 67 57 46</b><button type="button" class="copy" data-copy="phoneNr">Kopieer</button></div>
+          <div class="cta-row" style="margin-top:4px">
+            <a class="btn ghost" href="https://wa.me/31618675746" target="_blank" rel="noopener">Stuur een WhatsApp</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="result">
+        <p class="eyebrow">Handig om klaar te hebben</p>
+        <h3>Wat we van je vragen</h3>
+        <ul class="checklist">
+          <li>Je contactgegevens</li>
+          <li>Voor welke functie je solliciteert: pedagogisch medewerker, of stage BBL of BOL</li>
+          <li>Je diploma, of de opleiding die je nu volgt</li>
+          <li>Een paar zinnen over waarom je bij Leef Kind wilt werken</li>
+          <li>Je cv</li>
+        </ul>
+        <div class="cta-row">
+          <a class="btn" href="https://leefkind.nl/solliciteren/" target="_blank" rel="noopener">Naar het sollicitatieformulier</a>
+        </div>
+        <p class="small">Het formulier opent op leefkind.nl in een nieuw tabblad.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Leef Kind Kinderopvang · Hornerweg 2, Roermond</span>
+    <span><a href="https://leefkind.nl" target="_blank" rel="noopener">leefkind.nl</a></span>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.copy').forEach(function(b){
+  b.addEventListener('click', function(){
+    var el = document.getElementById(b.dataset.copy);
+    function sel(){ var r=document.createRange(); r.selectNodeContents(el); var s=getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent='Geselecteerd'; }
+    try{ navigator.clipboard.writeText(el.textContent.trim()).then(function(){ b.textContent='Gekopieerd'; setTimeout(function(){b.textContent='Kopieer'},1800); }, sel); }catch(e){ sel(); }
+  });
+});
+</script>
+</body>
+</html>
